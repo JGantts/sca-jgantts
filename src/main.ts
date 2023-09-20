@@ -33,8 +33,13 @@ interface Vowel extends Sound {
 
 }
 
+type Syllable {
+	
+	subsequent: Syllable|null
+}
+
 type WordPhrase_Data = {
-  sounds: Sound[]
+  sounds: Syllable
 }
 
 type WordPhrase = {
