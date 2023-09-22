@@ -5,7 +5,6 @@ export type UUID_Feature = string
 export type UUID_FeatureEnumValue = string
 export type UUID_FeatureStop = string
 
-
 export type UUID_Phoneme = string
 
 export type UUID_Language = string
@@ -70,11 +69,6 @@ export type Phoneme = {
 export type Language = {
   id: UUID_Language
   desc: Description
-  /*stops: {
-    [id: UUID_FeatureCategory] : 
-      { [id: number] : FeatureStop; }
-      |{ [id: UUID_FeatureCategory] : FeatureStop; }
-  }*/
   grid: Phoneme[]
 }
 
