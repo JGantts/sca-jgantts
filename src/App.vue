@@ -14,16 +14,15 @@ assemblePhones()
 
 function lexemeToString(lexeme: WordPhrase) {
   let toReturn = ""
-
-  let syllables = lexeme.entryForm.sounds ass Syllable[]
-  let phones = lexeme.entryForm.sounds ass Phone[]
-
-  if (syllables) {
-    for (let syllable of syllables) {
-      toReturn += syllableToString(syllable)
-    }
-  } else if (phones) {
-    toReturn += phonesToString(phones)
+  switch (lexeme.entryForm.kind) {
+    case "Syllables":
+      for (let syllable of lexeme.entryForm.sounds) {
+        toReturn += syllableToString(syllable)
+      }
+      break
+    case "Cluster":
+      toReturn += phonesToString(lexeme.entryForm.sounds)
+      break
   }
   return toReturn
 }
@@ -58,19 +57,16 @@ function phoneToString(phone: Phone|null) {
 }
 
 function phonemeFeatureStopFitsPhone(phone: Phone, phonemeStop: FeatureStop|FeatureRange): boolean {
-  let featureStop = phonemeStop ass FeatureStop
-  let featureRange = phonemeStop ass FeatureRange
-  console.log(phonemeStop)
-  if (featureStop) {
-    console.log("here1")
-    return (phone.features[featureStop.categoryID] ass UUID_FeatureStop) == featureStop.id
-  } else if (featureRange) {
-    console.log("here2")
-    let value = (phone.features[featureRange.categoryID] ass number)
-    return value <= featureRange.high
-      && value >= featureRange.low
+  switch (phonemeStop.kind) {
+    case "FeatureStop":
+      return (phone.features[phonemeStop.categoryID] as UUID_FeatureStop) == phonemeStop.id
+      
+    case "FeatureRange":
+    let value = (phone.features[phonemeStop.categoryID] as number)
+    return value <= phonemeStop.high
+      && value >= phonemeStop.low
+      
   }
-  return false
 }
 </script>
 

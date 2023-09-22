@@ -47,11 +47,13 @@ export type PhoneType = {
 }
 
 export type FeatureStop = {
+  kind: "FeatureStop"
   categoryID: UUID_FeatureCategory
   id: UUID_FeatureStop
 }
 
 export type FeatureRange = {
+  kind: "FeatureRange"
   categoryID: UUID_FeatureCategory
   low: number
   high: number
@@ -90,12 +92,18 @@ export type Syllable = {
 }
 
 export type Syllables = {
-  sounds: Syllable[]|Phone[]
+  kind: "Syllables"
+  sounds: Syllable[]
+}
+
+export type Cluster = {
+  kind: "Cluster"
+  sounds: Phone[]
 }
 
 export type WordPhrase = {
   id: UUID_WordPhrase
-  entryForm: Syllables
+  entryForm: Syllables|Cluster
   entryTreeLimb: UUID_TreeLimb
   entryDate: langDate
 }
