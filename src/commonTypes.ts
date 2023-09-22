@@ -61,6 +61,7 @@ export type FeatureRange = {
 
 export type Phoneme = {
   id: UUID_Phoneme
+  typeID: UUID_PhoneType
   desc: Description
   IPA: IPA
   featureStops: (FeatureStop|FeatureRange)[]

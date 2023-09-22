@@ -49,10 +49,9 @@ function phoneToString(phone: Phone|null) {
     return phonemes.filter(
       phoneme => 
         phoneme.featureStops.every(phonemeFeatureStop =>
-        phonemeFeatureStopFitsPhone(phone, phonemeFeatureStop
+          phonemeFeatureStopFitsPhone(phone, phonemeFeatureStop)
         )
-      )
-    )[0]?.IPA ?? ""
+    )[0]?.IPA ?? "[Error]"
   }
 }
 
@@ -62,10 +61,10 @@ function phonemeFeatureStopFitsPhone(phone: Phone, phonemeStop: FeatureStop|Feat
       return (phone.features[phonemeStop.categoryID] as UUID_FeatureStop) == phonemeStop.id
       
     case "FeatureRange":
-    let value = (phone.features[phonemeStop.categoryID] as number)
-    return value <= phonemeStop.high
-      && value >= phonemeStop.low
-      
+      let value = (phone.features[phonemeStop.categoryID] as number)
+      return value <= phonemeStop.high
+        && value >= phonemeStop.low
+
   }
 }
 </script>

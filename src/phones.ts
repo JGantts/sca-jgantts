@@ -49,6 +49,141 @@ let phoneTypes: PhoneType[] = [
         }
       },
     ],
+  },
+  {
+    id: "JMHNZPRXUPBIYCCPAEHZGLHIZGVNYPXR",
+    desc: "labial",
+    features: [
+      {
+        id: "YUUNFSLQUZZVJGKXNYSNCKZHIPURKVVT",
+        desc: "place",
+        type: {
+          values: [
+            {
+              id: "ZXYFPKHUIGDWXVUPMVVFXMROSBKFKHZR", //bilabilal
+            },
+            {
+              id: "APINNIFZCAKTUWTDYVZUSNFBMDAYYPSG", //labio­dental
+            },
+            {
+              id: "WPYQRFRZZATALISKLYVWSBZGBOLULSML", //linguo­labial
+            },
+          ]
+        }
+      },
+      {
+        id: "KPAZCPLBROAZKNOSUGMXSRMUGQPUVVPA",
+        desc: "manner",
+        type: {
+          values: [
+            {
+              id: "XBYINZTSDFIUTUDDKJYRMTLJJBPARGPZ", //nasal
+            },
+            {
+              id: "NUKVUATOQIFBIQZRZGCFNWBXDMJIPVQZ", //plosive
+            },
+            {
+              id: "FZORKQYULRXZPHBOXZCYXWHVSTZQLVFW", //affricate
+            },
+            {
+              id: "MQNWXFBLUDMYTUYPRJCOQNNVRZHFVUOD", //fricative
+            },
+            {
+              id: "PIUXNGOGMZETMSGHSINESOVYQBEXIPRL", //tap
+            },
+            {
+              id: "XJRRLEDRTNJFLQVGCYWNEDYKKWLBIEBU", //trill
+            },
+          ]
+        }
+      },
+      {
+        id: "CHRJYONQPXKFWAQDENLLHHWYKHJQZFVD",
+        desc: "voicedness",
+        type: {
+          values: [
+            {
+              id: "IFKUDEPWTBULJGCZIYGWDYITMLUEQMVD", //unvoiced
+            },
+            {
+              id: "OFOMPHTROPHZFTWTXDDDUDRKKQDPYWPU", //voiced
+            },
+          ]
+        }
+      },
+    ],
+  },
+  {
+    id: "YKTSWOSRWLGXAFVYISYWAUPVRTDMGPQS",
+    desc: "coronal",
+    features: [
+      {
+        id: "QIJPODHGGTSWXGIDQTPPSVQJXUSZMOLL",
+        desc: "place",
+        type: "number"
+      },
+      {
+        id: "LARXUPVPTZXUGKITQRXCGXTCCDCKDEAT",
+        desc: "manner",
+        type: {
+          values: [
+            {
+              id: "PQPWUKRVGOBQMKWLFTJZCFTJGPASBHSA", //nasal
+            },
+            {
+              id: "VNGWOVCSMCUZGMYDOQHCQPJTMZPQCIRI", //plosive
+            },
+            {
+              id: "PFUKOICTDXSMPOTJXMIYGTUCZMEXAZRL", //silibant affricate
+            },
+            {
+              id: "NSDHPOWAXKBKRYYFPAXCWZKLFPNQJFPE", //non-silibant affricate
+            },
+            {
+              id: "GXIKPDFDIMJJOUEEFTWHNAAZZTZYVZIE", //silibant fricative
+            },
+            {
+              id: "RUPOAGMZWDHRHKSSVJFIYYMYSTIHWWTF", //non-silibant fricative
+            },
+            {
+              id: "GMKLRZGQUBPDOIBLTJPXPVVWESTJOZZE", //approximant
+            },
+            {
+              id: "CQDZRXJZOQOKNUIHALDMHHIIVAGWLBRX", //tap
+            },
+            {
+              id: "VAZDUHUYJIBAFATHZTVIOOVJINSRKDSP", //trill
+            },
+            {
+              id: "IMHJWSHYQPDOKDDBLHEVCPIUWYBALEAQ", //Lateral affricative
+            },
+            {
+              id: "FXMGJZEKIXQMIRCVLPZVBELXNSBHVBXY", //Lateral fricative
+            },
+            {
+              id: "VVYLUMZXQPWSIFYVREPMJAQPXKPYHFCR", //Lateral approximant
+            },
+            {
+              id: "EMMLESLTRVOYOKLACZJFVYRJTYEWZRFY", //Lateral tap
+            },
+          ]
+        }
+      },
+      {
+        id: "CHRJYONQPXKFWAQDENLLHHWYKHJQZFVD",
+        desc: "voicedness",
+        type: {
+          values: [
+            {
+              id: "IFKUDEPWTBULJGCZIYGWDYITMLUEQMVD", //unvoiced
+            },
+            {
+              id: "OFOMPHTROPHZFTWTXDDDUDRKKQDPYWPU", //voiced
+            },
+          ]
+        }
+      },
+    ],
   }
 ]
 
@@ -103,6 +238,7 @@ let languages: Language[] = [
     },*/
     grid: [
       {
+        typeID: "QGDYAEYMDEZDMMPOBXRTCUDHYYPYFBPF",
         id: "DDQDFQREJUTNLIPBMGAOCGLYUYMGOVJG",
         IPA: "i",
         desc: null,
@@ -113,6 +249,7 @@ let languages: Language[] = [
         ]
       },
       {
+        typeID: "QGDYAEYMDEZDMMPOBXRTCUDHYYPYFBPF",
         id: "YCLZGBAVXKMQNDRKIPDZWQDDEBVNFYGX",
         IPA: "a",
         desc: null,
@@ -123,6 +260,7 @@ let languages: Language[] = [
         ]
       },
       {
+        typeID: "QGDYAEYMDEZDMMPOBXRTCUDHYYPYFBPF",
         id: "VQWKWCBRGBOAFHSRCRIBGWPDMQPBYIAW",
         IPA: "u",
         desc: null,
@@ -130,6 +268,28 @@ let languages: Language[] = [
           {kind: "FeatureRange", categoryID: "QCOTLERJNNSYNKCMMSILQBETHSFYNLLC", low: 0.8571, high: 1.0 }, //height
           {kind: "FeatureRange", categoryID: "JGJYSLLKLOVLDIKKLQXPDTBRUXNAMGOJ", low: 0.6, high: 1.0 }, //backness
           {kind: "FeatureStop", categoryID: "CTKXTKTLAUXLERTJKSEVLBTSFVYUXSUP", id: "YVGQZGLHLVPYJOEQZAYZZFNPGBBNHIVG"},
+        ]
+      },
+      {
+        typeID: "JMHNZPRXUPBIYCCPAEHZGLHIZGVNYPXR",
+        id: "WTMSEOODZHEDZXFYWLKONUTWKCPSVQGJ",
+        IPA: "m",
+        desc: null,
+        featureStops: [
+          {kind: "FeatureStop", categoryID: "YUUNFSLQUZZVJGKXNYSNCKZHIPURKVVT", id: "ZXYFPKHUIGDWXVUPMVVFXMROSBKFKHZR"},
+          {kind: "FeatureStop", categoryID: "KPAZCPLBROAZKNOSUGMXSRMUGQPUVVPA", id: "XBYINZTSDFIUTUDDKJYRMTLJJBPARGPZ"},
+          {kind: "FeatureStop", categoryID: "CHRJYONQPXKFWAQDENLLHHWYKHJQZFVD", id: "OFOMPHTROPHZFTWTXDDDUDRKKQDPYWPU"},
+        ]
+      },
+      {
+        typeID: "YKTSWOSRWLGXAFVYISYWAUPVRTDMGPQS",
+        id: "RDZCIIEKMLCMPBUBYHESOKUFKRYOYHLS",
+        IPA: "d",
+        desc: null,
+        featureStops: [
+          {kind: "FeatureRange", categoryID: "QIJPODHGGTSWXGIDQTPPSVQJXUSZMOLL", low: 0.0, high: 0.75 },
+          {kind: "FeatureStop", categoryID: "LARXUPVPTZXUGKITQRXCGXTCCDCKDEAT", id: "VNGWOVCSMCUZGMYDOQHCQPJTMZPQCIRI"},
+          {kind: "FeatureStop", categoryID: "CHRJYONQPXKFWAQDENLLHHWYKHJQZFVD", id: "OFOMPHTROPHZFTWTXDDDUDRKKQDPYWPU"},
         ]
       }
     ]

@@ -8,21 +8,39 @@ let lexicon: {
 } = {
   words: [
     {
-      id: "RPYCHUYKXBSWPTMGCDPWDVGDUYRMVAHN",
-      entryForm: { kind: "Syllables", sounds: [
+      id: "KSKHEQNSTGJBNELVCHCIXBMFAMREOBVK",
+      entryForm: { kind: 'Syllables', sounds: [
         {
-          onset: [],
+          onset: [
+            {
+              type: "JMHNZPRXUPBIYCCPAEHZGLHIZGVNYPXR",
+              features: {
+                "YUUNFSLQUZZVJGKXNYSNCKZHIPURKVVT": "ZXYFPKHUIGDWXVUPMVVFXMROSBKFKHZR", //bilabilal
+                "KPAZCPLBROAZKNOSUGMXSRMUGQPUVVPA": "XBYINZTSDFIUTUDDKJYRMTLJJBPARGPZ", //nasal
+                "CHRJYONQPXKFWAQDENLLHHWYKHJQZFVD": "OFOMPHTROPHZFTWTXDDDUDRKKQDPYWPU", //voiced
+              }
+            }
+          ],
           rhyme: {
             nucleus: {
               type: "QGDYAEYMDEZDMMPOBXRTCUDHYYPYFBPF",
               features: {
                 "QCOTLERJNNSYNKCMMSILQBETHSFYNLLC": 1.0, //height
-                "JGJYSLLKLOVLDIKKLQXPDTBRUXNAMGOJ": 0.0, //backness
-                "CTKXTKTLAUXLERTJKSEVLBTSFVYUXSUP": "NRPMAAJKFSTQCLHHXLWSWKNVSQATESYT",
-                "CPZUOQHMIJEUFICZUNGDNWESBMBNUIID": "NWLMMJEUFUSGDROAYXKEMWWFVCXOBONZ",
+                "JGJYSLLKLOVLDIKKLQXPDTBRUXNAMGOJ": 1.0, //backness
+                "CTKXTKTLAUXLERTJKSEVLBTSFVYUXSUP": "YVGQZGLHLVPYJOEQZAYZZFNPGBBNHIVG", //rounded
+                "CPZUOQHMIJEUFICZUNGDNWESBMBNUIID": "NBNPQDJOBJZDQBLVOZQPTIOCCFXTZJKP", //stressed
               }
             },
-            coda: [],
+            coda: [
+              {
+                type: "JMHNZPRXUPBIYCCPAEHZGLHIZGVNYPXR",
+                features: {
+                "YUUNFSLQUZZVJGKXNYSNCKZHIPURKVVT": "ZXYFPKHUIGDWXVUPMVVFXMROSBKFKHZR", //bilabilal
+                "KPAZCPLBROAZKNOSUGMXSRMUGQPUVVPA": "XBYINZTSDFIUTUDDKJYRMTLJJBPARGPZ", //nasal
+                "CHRJYONQPXKFWAQDENLLHHWYKHJQZFVD": "OFOMPHTROPHZFTWTXDDDUDRKKQDPYWPU", //voiced
+                }
+              }
+            ],
           }
         },
       ]},
@@ -30,36 +48,39 @@ let lexicon: {
       entryTreeLimb: "QKFUWFZLSQOUHHYTDSMIGWJWJEXLTFYJ",
     },
     {
-      id: "GPWQVRUSHHEFXRPYLIHVXFOXKOXXNXZG",
+      id: "PZGRSQQIWVYDRZWVTICODLDPHZDVPZZJ",
       entryForm: { kind: 'Syllables', sounds: [
         {
-          onset: [],
-          rhyme: {
-            nucleus: {
-              type: "QGDYAEYMDEZDMMPOBXRTCUDHYYPYFBPF",
+          onset: [
+            {
+              type: "YKTSWOSRWLGXAFVYISYWAUPVRTDMGPQS",
               features: {
-                "QCOTLERJNNSYNKCMMSILQBETHSFYNLLC": 1.0, //height
-                "JGJYSLLKLOVLDIKKLQXPDTBRUXNAMGOJ": 1.0, //backness
-                "CTKXTKTLAUXLERTJKSEVLBTSFVYUXSUP": "YVGQZGLHLVPYJOEQZAYZZFNPGBBNHIVG",
-                "CPZUOQHMIJEUFICZUNGDNWESBMBNUIID": "NWLMMJEUFUSGDROAYXKEMWWFVCXOBONZ",
+              "QIJPODHGGTSWXGIDQTPPSVQJXUSZMOLL": 0.375, //alveolar
+              "LARXUPVPTZXUGKITQRXCGXTCCDCKDEAT": "VNGWOVCSMCUZGMYDOQHCQPJTMZPQCIRI", //plosive
+              "CHRJYONQPXKFWAQDENLLHHWYKHJQZFVD": "OFOMPHTROPHZFTWTXDDDUDRKKQDPYWPU", //voiced
               }
-            },
-            coda: [],
-          }
-        },
-        {
-          onset: [],
+            }
+          ],
           rhyme: {
             nucleus: {
               type: "QGDYAEYMDEZDMMPOBXRTCUDHYYPYFBPF",
               features: {
-                "QCOTLERJNNSYNKCMMSILQBETHSFYNLLC": 1.0, //height
+                "QCOTLERJNNSYNKCMMSILQBETHSFYNLLC": 0.0, //height
                 "JGJYSLLKLOVLDIKKLQXPDTBRUXNAMGOJ": 0.0, //backness
-                "CTKXTKTLAUXLERTJKSEVLBTSFVYUXSUP": "NRPMAAJKFSTQCLHHXLWSWKNVSQATESYT",
-                "CPZUOQHMIJEUFICZUNGDNWESBMBNUIID": "NWLMMJEUFUSGDROAYXKEMWWFVCXOBONZ",
+                "CTKXTKTLAUXLERTJKSEVLBTSFVYUXSUP": "NRPMAAJKFSTQCLHHXLWSWKNVSQATESYT", //unrounded
+                "CPZUOQHMIJEUFICZUNGDNWESBMBNUIID": "NBNPQDJOBJZDQBLVOZQPTIOCCFXTZJKP", //stressed
               }
             },
-            coda: [],
+            coda: [
+              {
+                type: "YKTSWOSRWLGXAFVYISYWAUPVRTDMGPQS",
+                features: {
+                "QIJPODHGGTSWXGIDQTPPSVQJXUSZMOLL": 0.375, //alveolar
+                "LARXUPVPTZXUGKITQRXCGXTCCDCKDEAT": "VNGWOVCSMCUZGMYDOQHCQPJTMZPQCIRI", //plosive
+                "CHRJYONQPXKFWAQDENLLHHWYKHJQZFVD": "OFOMPHTROPHZFTWTXDDDUDRKKQDPYWPU", //voiced
+                }
+              }
+            ],
           }
         },
       ]},
