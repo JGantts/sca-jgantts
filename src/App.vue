@@ -1,8 +1,9 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, watch } from 'vue';
 import { phonemes, phoneTypes, languages, assemblePhones } from './phones'
 import { lexicon } from './lexicon'
-import type { FeatureRange, FeatureStop, Phone, Syllable, UUID_FeatureStop, WordPhrase } from './commonTypes';
+import type { Cluster, FeatureRange, FeatureStop, Phone, Syllable, Syllables, Syllables_Cluster, UUID_FeatureStop, WordPhrase } from './commonTypes';
+import { stringToWordPhrase } from './stringToWordPhrase'
 
 const languagesRef = ref(languages)
 const lexiconRef = ref(lexicon)
@@ -14,14 +15,14 @@ assemblePhones()
 
 function lexemeToString(lexeme: WordPhrase) {
   let toReturn = ""
-  switch (lexeme.entryForm.kind) {
+  switch (lexeme.entryForm.value.kind) {
     case "Syllables":
-      for (let syllable of lexeme.entryForm.sounds) {
+      for (let syllable of lexeme.entryForm.value.sounds) {
         toReturn += syllableToString(syllable)
       }
       break
     case "Cluster":
-      toReturn += phonesToString(lexeme.entryForm.sounds)
+      toReturn += phonesToString(lexeme.entryForm.value.sounds)
       break
   }
   return toReturn
@@ -67,10 +68,38 @@ function phonemeFeatureStopFitsPhone(phone: Phone, phonemeStop: FeatureStop|Feat
 
   }
 }
+
+const newWordInRef = ref("")
+const newWordObjectRef = ref({})
+
+watch(newWordInRef, () => {
+  newWordObjectRef.value = stringToWordPhrase(newWordInRef.value, languages[0])
+})
+
+let newWord: Syllables_Cluster|null = null
+
+function addWord() {
+  
+}
 </script>
 
 <template>
+  <input
+    v-model="newWordInRef"
+    placeholder="type new word here"
+  ><br/>
+  <p>Word to add: {{ newWord }}</p>
+  <button
+    @click="addWord"
+  >
+    Add to list
+  </button>
+  <br/>
+  <br/>
+  <h2>List of words:</h2>
   <li v-for="lexeme in lexiconRef.words">{{ lexemeToString(lexeme) }}</li>
+
+
 </template>
 
 <style scoped>

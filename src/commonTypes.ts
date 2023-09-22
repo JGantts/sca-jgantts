@@ -96,9 +96,13 @@ export type Cluster = {
   sounds: Phone[]
 }
 
+export type Syllables_Cluster {
+  value: Syllables|Cluster
+}
+
 export type WordPhrase = {
   id: UUID_WordPhrase
-  entryForm: Syllables|Cluster
+  entryForm: Syllables_Cluster
   entryTreeLimb: UUID_TreeLimb
   entryDate: langDate
 }

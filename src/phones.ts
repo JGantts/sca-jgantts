@@ -250,13 +250,46 @@ let languages: Language[] = [
       },
       {
         typeID: "QGDYAEYMDEZDMMPOBXRTCUDHYYPYFBPF",
-        id: "YCLZGBAVXKMQNDRKIPDZWQDDEBVNFYGX",
-        IPA: "a",
+        id: "USKYXZGEZNUVYDZVIKAMTVRHSZVKRXNZ",
+        IPA: "y",
         desc: null,
         featureStops: [
-          {kind: "FeatureRange", categoryID: "QCOTLERJNNSYNKCMMSILQBETHSFYNLLC", low: 0.0, high: 0.1429 }, //height
+          {kind: "FeatureRange", categoryID: "QCOTLERJNNSYNKCMMSILQBETHSFYNLLC", low: 0.8571, high: 1.0 }, //height
           {kind: "FeatureRange", categoryID: "JGJYSLLKLOVLDIKKLQXPDTBRUXNAMGOJ", low: 0, high: 0.3 }, //backness
-          {kind: "FeatureStop", categoryID: "CTKXTKTLAUXLERTJKSEVLBTSFVYUXSUP", id: "NRPMAAJKFSTQCLHHXLWSWKNVSQATESYT"}
+          {kind: "FeatureStop", categoryID: "CTKXTKTLAUXLERTJKSEVLBTSFVYUXSUP", id: "YVGQZGLHLVPYJOEQZAYZZFNPGBBNHIVG"},
+        ]
+      },
+      {
+        typeID: "QGDYAEYMDEZDMMPOBXRTCUDHYYPYFBPF",
+        id: "UCROONCOOOISUEIRBLCCKDHIGXWJGIDB",
+        IPA: "ɨ",
+        desc: null,
+        featureStops: [
+          {kind: "FeatureRange", categoryID: "QCOTLERJNNSYNKCMMSILQBETHSFYNLLC", low: 0.8571, high: 1.0 }, //height
+          {kind: "FeatureRange", categoryID: "JGJYSLLKLOVLDIKKLQXPDTBRUXNAMGOJ", low: 0.3, high: 0.6 }, //backness
+          {kind: "FeatureStop", categoryID: "CTKXTKTLAUXLERTJKSEVLBTSFVYUXSUP", id: "NRPMAAJKFSTQCLHHXLWSWKNVSQATESYT"},
+        ]
+      },
+      {
+        typeID: "QGDYAEYMDEZDMMPOBXRTCUDHYYPYFBPF",
+        id: "LFZFWOZLVRJNWZBMJPLDFFMNEVTYIDUU",
+        IPA: "ʉ",
+        desc: null,
+        featureStops: [
+          {kind: "FeatureRange", categoryID: "QCOTLERJNNSYNKCMMSILQBETHSFYNLLC", low: 0.8571, high: 1.0 }, //height
+          {kind: "FeatureRange", categoryID: "JGJYSLLKLOVLDIKKLQXPDTBRUXNAMGOJ", low: 0.3, high: 0.6 }, //backness
+          {kind: "FeatureStop", categoryID: "CTKXTKTLAUXLERTJKSEVLBTSFVYUXSUP", id: "YVGQZGLHLVPYJOEQZAYZZFNPGBBNHIVG"},
+        ]
+      },
+      {
+        typeID: "QGDYAEYMDEZDMMPOBXRTCUDHYYPYFBPF",
+        id: "AZXDMONRTVBBRCLDXEFVYDAIEJAOQTYQ",
+        IPA: '\u{026f}', //ɯ
+        desc: null,
+        featureStops: [
+          {kind: "FeatureRange", categoryID: "QCOTLERJNNSYNKCMMSILQBETHSFYNLLC", low: 0.8571, high: 1.0 }, //height
+          {kind: "FeatureRange", categoryID: "JGJYSLLKLOVLDIKKLQXPDTBRUXNAMGOJ", low: 0.6, high: 1.0 }, //backness
+          {kind: "FeatureStop", categoryID: "CTKXTKTLAUXLERTJKSEVLBTSFVYUXSUP", id: "NRPMAAJKFSTQCLHHXLWSWKNVSQATESYT"},
         ]
       },
       {
@@ -270,6 +303,19 @@ let languages: Language[] = [
           {kind: "FeatureStop", categoryID: "CTKXTKTLAUXLERTJKSEVLBTSFVYUXSUP", id: "YVGQZGLHLVPYJOEQZAYZZFNPGBBNHIVG"},
         ]
       },
+
+      {
+        typeID: "QGDYAEYMDEZDMMPOBXRTCUDHYYPYFBPF",
+        id: "YCLZGBAVXKMQNDRKIPDZWQDDEBVNFYGX",
+        IPA: "a",
+        desc: null,
+        featureStops: [
+          {kind: "FeatureRange", categoryID: "QCOTLERJNNSYNKCMMSILQBETHSFYNLLC", low: 0.0, high: 0.1429 }, //height
+          {kind: "FeatureRange", categoryID: "JGJYSLLKLOVLDIKKLQXPDTBRUXNAMGOJ", low: 0, high: 0.3 }, //backness
+          {kind: "FeatureStop", categoryID: "CTKXTKTLAUXLERTJKSEVLBTSFVYUXSUP", id: "NRPMAAJKFSTQCLHHXLWSWKNVSQATESYT"}
+        ]
+      },
+
       {
         typeID: "JMHNZPRXUPBIYCCPAEHZGLHIZGVNYPXR",
         id: "WTMSEOODZHEDZXFYWLKONUTWKCPSVQGJ",
@@ -281,6 +327,7 @@ let languages: Language[] = [
           {kind: "FeatureStop", categoryID: "CHRJYONQPXKFWAQDENLLHHWYKHJQZFVD", id: "OFOMPHTROPHZFTWTXDDDUDRKKQDPYWPU"},
         ]
       },
+
       {
         typeID: "YKTSWOSRWLGXAFVYISYWAUPVRTDMGPQS",
         id: "RDZCIIEKMLCMPBUBYHESOKUFKRYOYHLS",

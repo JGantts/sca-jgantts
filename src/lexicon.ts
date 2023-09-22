@@ -9,69 +9,52 @@ let lexicon: {
   words: [
     {
       id: "KSKHEQNSTGJBNELVCHCIXBMFAMREOBVK",
-      entryForm: { kind: 'Syllables', sounds: [
-        {
-          onset: [
-            {
-              type: "JMHNZPRXUPBIYCCPAEHZGLHIZGVNYPXR",
-              features: {
-                "YUUNFSLQUZZVJGKXNYSNCKZHIPURKVVT": "ZXYFPKHUIGDWXVUPMVVFXMROSBKFKHZR", //bilabilal
-                "KPAZCPLBROAZKNOSUGMXSRMUGQPUVVPA": "XBYINZTSDFIUTUDDKJYRMTLJJBPARGPZ", //nasal
-                "CHRJYONQPXKFWAQDENLLHHWYKHJQZFVD": "OFOMPHTROPHZFTWTXDDDUDRKKQDPYWPU", //voiced
-              }
-            }
-          ],
-          rhyme: {
-            nucleus: {
-              type: "QGDYAEYMDEZDMMPOBXRTCUDHYYPYFBPF",
-              features: {
-                "QCOTLERJNNSYNKCMMSILQBETHSFYNLLC": 1.0, //height
-                "JGJYSLLKLOVLDIKKLQXPDTBRUXNAMGOJ": 1.0, //backness
-                "CTKXTKTLAUXLERTJKSEVLBTSFVYUXSUP": "YVGQZGLHLVPYJOEQZAYZZFNPGBBNHIVG", //rounded
-                "CPZUOQHMIJEUFICZUNGDNWESBMBNUIID": "NBNPQDJOBJZDQBLVOZQPTIOCCFXTZJKP", //stressed
-              }
-            },
-            coda: [
+        entryForm: { 
+          value: { kind: 'Syllables', sounds: [
+          {
+            onset: [
               {
                 type: "JMHNZPRXUPBIYCCPAEHZGLHIZGVNYPXR",
                 features: {
-                "YUUNFSLQUZZVJGKXNYSNCKZHIPURKVVT": "ZXYFPKHUIGDWXVUPMVVFXMROSBKFKHZR", //bilabilal
-                "KPAZCPLBROAZKNOSUGMXSRMUGQPUVVPA": "XBYINZTSDFIUTUDDKJYRMTLJJBPARGPZ", //nasal
-                "CHRJYONQPXKFWAQDENLLHHWYKHJQZFVD": "OFOMPHTROPHZFTWTXDDDUDRKKQDPYWPU", //voiced
+                  "YUUNFSLQUZZVJGKXNYSNCKZHIPURKVVT": "ZXYFPKHUIGDWXVUPMVVFXMROSBKFKHZR", //bilabilal
+                  "KPAZCPLBROAZKNOSUGMXSRMUGQPUVVPA": "XBYINZTSDFIUTUDDKJYRMTLJJBPARGPZ", //nasal
+                  "CHRJYONQPXKFWAQDENLLHHWYKHJQZFVD": "OFOMPHTROPHZFTWTXDDDUDRKKQDPYWPU", //voiced
                 }
               }
             ],
-          }
-        },
-      ]},
+            rhyme: {
+              nucleus: {
+                type: "QGDYAEYMDEZDMMPOBXRTCUDHYYPYFBPF",
+                features: {
+                  "QCOTLERJNNSYNKCMMSILQBETHSFYNLLC": 1.0, //height
+                  "JGJYSLLKLOVLDIKKLQXPDTBRUXNAMGOJ": 1.0, //backness
+                  "CTKXTKTLAUXLERTJKSEVLBTSFVYUXSUP": "YVGQZGLHLVPYJOEQZAYZZFNPGBBNHIVG", //rounded
+                  "CPZUOQHMIJEUFICZUNGDNWESBMBNUIID": "NBNPQDJOBJZDQBLVOZQPTIOCCFXTZJKP", //stressed
+                }
+              },
+              coda: [
+                {
+                  type: "JMHNZPRXUPBIYCCPAEHZGLHIZGVNYPXR",
+                  features: {
+                  "YUUNFSLQUZZVJGKXNYSNCKZHIPURKVVT": "ZXYFPKHUIGDWXVUPMVVFXMROSBKFKHZR", //bilabilal
+                  "KPAZCPLBROAZKNOSUGMXSRMUGQPUVVPA": "XBYINZTSDFIUTUDDKJYRMTLJJBPARGPZ", //nasal
+                  "CHRJYONQPXKFWAQDENLLHHWYKHJQZFVD": "OFOMPHTROPHZFTWTXDDDUDRKKQDPYWPU", //voiced
+                  }
+                }
+              ],
+            }
+          },
+        ]}
+      },
       entryDate: 0,
       entryTreeLimb: "QKFUWFZLSQOUHHYTDSMIGWJWJEXLTFYJ",
     },
     {
       id: "PZGRSQQIWVYDRZWVTICODLDPHZDVPZZJ",
-      entryForm: { kind: 'Syllables', sounds: [
-        {
-          onset: [
-            {
-              type: "YKTSWOSRWLGXAFVYISYWAUPVRTDMGPQS",
-              features: {
-              "QIJPODHGGTSWXGIDQTPPSVQJXUSZMOLL": 0.375, //alveolar
-              "LARXUPVPTZXUGKITQRXCGXTCCDCKDEAT": "VNGWOVCSMCUZGMYDOQHCQPJTMZPQCIRI", //plosive
-              "CHRJYONQPXKFWAQDENLLHHWYKHJQZFVD": "OFOMPHTROPHZFTWTXDDDUDRKKQDPYWPU", //voiced
-              }
-            }
-          ],
-          rhyme: {
-            nucleus: {
-              type: "QGDYAEYMDEZDMMPOBXRTCUDHYYPYFBPF",
-              features: {
-                "QCOTLERJNNSYNKCMMSILQBETHSFYNLLC": 0.0, //height
-                "JGJYSLLKLOVLDIKKLQXPDTBRUXNAMGOJ": 0.0, //backness
-                "CTKXTKTLAUXLERTJKSEVLBTSFVYUXSUP": "NRPMAAJKFSTQCLHHXLWSWKNVSQATESYT", //unrounded
-                "CPZUOQHMIJEUFICZUNGDNWESBMBNUIID": "NBNPQDJOBJZDQBLVOZQPTIOCCFXTZJKP", //stressed
-              }
-            },
-            coda: [
+        entryForm: {
+          value: { kind: 'Syllables', sounds: [
+          {
+            onset: [
               {
                 type: "YKTSWOSRWLGXAFVYISYWAUPVRTDMGPQS",
                 features: {
@@ -81,9 +64,30 @@ let lexicon: {
                 }
               }
             ],
-          }
-        },
-      ]},
+            rhyme: {
+              nucleus: {
+                type: "QGDYAEYMDEZDMMPOBXRTCUDHYYPYFBPF",
+                features: {
+                  "QCOTLERJNNSYNKCMMSILQBETHSFYNLLC": 0.0, //height
+                  "JGJYSLLKLOVLDIKKLQXPDTBRUXNAMGOJ": 0.0, //backness
+                  "CTKXTKTLAUXLERTJKSEVLBTSFVYUXSUP": "NRPMAAJKFSTQCLHHXLWSWKNVSQATESYT", //unrounded
+                  "CPZUOQHMIJEUFICZUNGDNWESBMBNUIID": "NBNPQDJOBJZDQBLVOZQPTIOCCFXTZJKP", //stressed
+                }
+              },
+              coda: [
+                {
+                  type: "YKTSWOSRWLGXAFVYISYWAUPVRTDMGPQS",
+                  features: {
+                  "QIJPODHGGTSWXGIDQTPPSVQJXUSZMOLL": 0.375, //alveolar
+                  "LARXUPVPTZXUGKITQRXCGXTCCDCKDEAT": "VNGWOVCSMCUZGMYDOQHCQPJTMZPQCIRI", //plosive
+                  "CHRJYONQPXKFWAQDENLLHHWYKHJQZFVD": "OFOMPHTROPHZFTWTXDDDUDRKKQDPYWPU", //voiced
+                  }
+                }
+              ],
+            }
+          },
+        ]}
+      },
       entryDate: 0,
       entryTreeLimb: "QKFUWFZLSQOUHHYTDSMIGWJWJEXLTFYJ",
     },
