@@ -33,17 +33,7 @@ let lexicon: {
       id: "GPWQVRUSHHEFXRPYLIHVXFOXKOXXNXZG",
       entryForm: { kind: 'Syllables', sounds: [
         {
-          onset: [
-            {
-              type: "QGDYAEYMDEZDMMPOBXRTCUDHYYPYFBPF",
-              features: {
-                "QCOTLERJNNSYNKCMMSILQBETHSFYNLLC": 1.0, //height
-                "JGJYSLLKLOVLDIKKLQXPDTBRUXNAMGOJ": 1.0, //backness
-                "CTKXTKTLAUXLERTJKSEVLBTSFVYUXSUP": "YVGQZGLHLVPYJOEQZAYZZFNPGBBNHIVG",
-                "CPZUOQHMIJEUFICZUNGDNWESBMBNUIID": "NWLMMJEUFUSGDROAYXKEMWWFVCXOBONZ",
-              }
-            }
-          ],
+          onset: [],
           rhyme: {
             nucleus: {
               type: "QGDYAEYMDEZDMMPOBXRTCUDHYYPYFBPF",
@@ -54,17 +44,22 @@ let lexicon: {
                 "CPZUOQHMIJEUFICZUNGDNWESBMBNUIID": "NWLMMJEUFUSGDROAYXKEMWWFVCXOBONZ",
               }
             },
-            coda: [
-              {
-                type: "QGDYAEYMDEZDMMPOBXRTCUDHYYPYFBPF",
-                features: {
-                  "QCOTLERJNNSYNKCMMSILQBETHSFYNLLC": 1.0, //height
-                  "JGJYSLLKLOVLDIKKLQXPDTBRUXNAMGOJ": 1.0, //backness
-                  "CTKXTKTLAUXLERTJKSEVLBTSFVYUXSUP": "YVGQZGLHLVPYJOEQZAYZZFNPGBBNHIVG",
-                  "CPZUOQHMIJEUFICZUNGDNWESBMBNUIID": "NWLMMJEUFUSGDROAYXKEMWWFVCXOBONZ",
-                }
+            coda: [],
+          }
+        },
+        {
+          onset: [],
+          rhyme: {
+            nucleus: {
+              type: "QGDYAEYMDEZDMMPOBXRTCUDHYYPYFBPF",
+              features: {
+                "QCOTLERJNNSYNKCMMSILQBETHSFYNLLC": 1.0, //height
+                "JGJYSLLKLOVLDIKKLQXPDTBRUXNAMGOJ": 0.0, //backness
+                "CTKXTKTLAUXLERTJKSEVLBTSFVYUXSUP": "NRPMAAJKFSTQCLHHXLWSWKNVSQATESYT",
+                "CPZUOQHMIJEUFICZUNGDNWESBMBNUIID": "NWLMMJEUFUSGDROAYXKEMWWFVCXOBONZ",
               }
-            ],
+            },
+            coda: [],
           }
         },
       ]},
