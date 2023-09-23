@@ -330,6 +330,18 @@ let languages: Language[] = [
       {
         typeID: "JMHNZPRXUPBIYCCPAEHZGLHIZGVNYPXR",
         id: "WTMSEOODZHEDZXFYWLKONUTWKCPSVQGJ",
+        IPA: '\u{006D}\u{0325}',  //m̥
+        desc: null,
+        syllabic: "Nonsyllabic",
+        featureStops: [
+          {kind: "FeatureStop", categoryID: "YUUNFSLQUZZVJGKXNYSNCKZHIPURKVVT", id: "ZXYFPKHUIGDWXVUPMVVFXMROSBKFKHZR"},
+          {kind: "FeatureStop", categoryID: "KPAZCPLBROAZKNOSUGMXSRMUGQPUVVPA", id: "XBYINZTSDFIUTUDDKJYRMTLJJBPARGPZ"},
+          {kind: "FeatureStop", categoryID: "CHRJYONQPXKFWAQDENLLHHWYKHJQZFVD", id: "IFKUDEPWTBULJGCZIYGWDYITMLUEQMVD"},
+        ]
+      },
+      {
+        typeID: "JMHNZPRXUPBIYCCPAEHZGLHIZGVNYPXR",
+        id: "WTMSEOODZHEDZXFYWLKONUTWKCPSVQGJ",
         IPA: "m",
         desc: null,
         syllabic: "Nonsyllabic",
@@ -337,6 +349,18 @@ let languages: Language[] = [
           {kind: "FeatureStop", categoryID: "YUUNFSLQUZZVJGKXNYSNCKZHIPURKVVT", id: "ZXYFPKHUIGDWXVUPMVVFXMROSBKFKHZR"},
           {kind: "FeatureStop", categoryID: "KPAZCPLBROAZKNOSUGMXSRMUGQPUVVPA", id: "XBYINZTSDFIUTUDDKJYRMTLJJBPARGPZ"},
           {kind: "FeatureStop", categoryID: "CHRJYONQPXKFWAQDENLLHHWYKHJQZFVD", id: "OFOMPHTROPHZFTWTXDDDUDRKKQDPYWPU"},
+        ]
+      },
+      {
+        typeID: "JMHNZPRXUPBIYCCPAEHZGLHIZGVNYPXR",
+        id: "WTMSEOODZHEDZXFYWLKONUTWKCPSVQGJ",
+        IPA: "m̩",
+        desc: null,
+        syllabic: "Syllabic",
+        featureStops: [
+          {kind: "FeatureStop", categoryID: "YUUNFSLQUZZVJGKXNYSNCKZHIPURKVVT", id: "ZXYFPKHUIGDWXVUPMVVFXMROSBKFKHZR"},
+          {kind: "FeatureStop", categoryID: "KPAZCPLBROAZKNOSUGMXSRMUGQPUVVPA", id: "XBYINZTSDFIUTUDDKJYRMTLJJBPARGPZ"},
+          {kind: "FeatureStop", categoryID: "CHRJYONQPXKFWAQDENLLHHWYKHJQZFVD", id: "IFKUDEPWTBULJGCZIYGWDYITMLUEQMVD"},
         ]
       },
 

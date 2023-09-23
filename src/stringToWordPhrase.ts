@@ -13,14 +13,13 @@ export function stringToWordPhrase(input: string, languageData: LanguageData): S
       switch (phoneme.syllabic) {
         case "Syllabic":
           if (foundSyllabic) {
-            throw new Error()
+            throw new Error("Couldn't parse syllables.")
           }
           foundSyllabic = true
           nucleus.push(phonemeToPhone(phoneme))
           break
 
         case "Nonsyllabic":
-          console.log(languageData.phoneTypes)
           switch (languageData.phoneTypes[phoneme.typeID].type) {
             case "Vowel":
               nucleus.push(phonemeToPhone(phoneme))
@@ -35,6 +34,9 @@ export function stringToWordPhrase(input: string, languageData: LanguageData): S
           }
           break
       }
+    }
+    if (!foundSyllabic) {
+      throw new Error("Couldn't parse syllables.")
     }
     toReturnValueSounds.push({
       onset,

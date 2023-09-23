@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, watch } from 'vue';
+import { ref, watch, type Ref } from 'vue';
 import { phonemes, phoneTypes, languageData, assemblePhones } from './phones'
 import { lexicon } from './lexicon'
 import type { Cluster, FeatureRange, FeatureStop, Phone, Syllable, Syllables, Syllables_Cluster, UUID_FeatureStop, WordPhrase } from './commonTypes';
@@ -72,13 +72,17 @@ function phonemeFeatureStopFitsPhone(phone: Phone, phonemeStop: FeatureStop|Feat
 }
 
 const newWordInRef = ref("")
-const newWordObjectRef = ref({})
+const newWordObjectRef: Ref<Syllables_Cluster|{}> = ref({})
 const newWordText = ref({})
 
 watch(newWordInRef, () => {
-  newWord = stringToWordPhrase(newWordInRef.value, languageData)
-  newWordObjectRef.value = newWord
-  newWordText.value = syllables_clusterToString(newWord)
+  try {
+    newWord = stringToWordPhrase(newWordInRef.value, languageData)
+    newWordObjectRef.value = newWord
+    newWordText.value = syllables_clusterToString(newWord)
+  } catch (err) {
+    
+  }
 })
 
 let newWord: Syllables_Cluster|null = null
@@ -101,7 +105,30 @@ function addWord() {
     placeholder="type new word here"
   ><br/>
   <p>Interpretation: {{ newWordText }}</p>
-  <li v-for="phoneme in newWordObjectRef">{{ phoneme }}</li>
+  <table>
+    <tr>
+      <th>O</th>
+      <th>N</th>
+      <th>C</th>
+    </tr>
+    <tr v-for="sylable in (newWordObjectRef as Syllables_Cluster).value?.sounds">
+      <td>
+        <span v-for="phone in sylable.onset">
+          {{ phoneToString(phone) }}
+        </span>
+      </td>
+      <td>
+        <span v-for="phone in sylable.rhyme.nucleus">
+          {{ phoneToString(phone) }}
+        </span>
+      </td>
+      <td>
+        <span v-for="phone in sylable.rhyme.coda">
+          {{ phoneToString(phone) }}
+        </span>
+      </td>
+    </tr>
+  </table>
   <br/>
   <button
     @click="addWord"
