@@ -3,12 +3,14 @@ import type {
   Phone,
   Language,
   Phoneme,
+  LanguageData,
 } from "./commonTypes"
 
-let phoneTypes: PhoneType[] = [
+let phoneTypesPrivate: PhoneType[] = [
   {
     id: "QGDYAEYMDEZDMMPOBXRTCUDHYYPYFBPF",
     desc: "vowel",
+    type: "Vowel",
     features: [
       {
         id: "QCOTLERJNNSYNKCMMSILQBETHSFYNLLC",
@@ -53,6 +55,7 @@ let phoneTypes: PhoneType[] = [
   {
     id: "JMHNZPRXUPBIYCCPAEHZGLHIZGVNYPXR",
     desc: "labial",
+    type: "Consonant",
     features: [
       {
         id: "YUUNFSLQUZZVJGKXNYSNCKZHIPURKVVT",
@@ -116,6 +119,7 @@ let phoneTypes: PhoneType[] = [
   {
     id: "YKTSWOSRWLGXAFVYISYWAUPVRTDMGPQS",
     desc: "coronal",
+    type: "Consonant",
     features: [
       {
         id: "QIJPODHGGTSWXGIDQTPPSVQJXUSZMOLL",
@@ -242,6 +246,7 @@ let languages: Language[] = [
         id: "DDQDFQREJUTNLIPBMGAOCGLYUYMGOVJG",
         IPA: "i",
         desc: null,
+        syllabic: "Syllabic",
         featureStops: [
           {kind: "FeatureRange", categoryID: "QCOTLERJNNSYNKCMMSILQBETHSFYNLLC", low: 0.8571, high: 1.0 }, //height
           {kind: "FeatureRange", categoryID: "JGJYSLLKLOVLDIKKLQXPDTBRUXNAMGOJ", low: 0, high: 0.3 }, //backness
@@ -253,6 +258,7 @@ let languages: Language[] = [
         id: "USKYXZGEZNUVYDZVIKAMTVRHSZVKRXNZ",
         IPA: "y",
         desc: null,
+        syllabic: "Syllabic",
         featureStops: [
           {kind: "FeatureRange", categoryID: "QCOTLERJNNSYNKCMMSILQBETHSFYNLLC", low: 0.8571, high: 1.0 }, //height
           {kind: "FeatureRange", categoryID: "JGJYSLLKLOVLDIKKLQXPDTBRUXNAMGOJ", low: 0, high: 0.3 }, //backness
@@ -264,6 +270,7 @@ let languages: Language[] = [
         id: "UCROONCOOOISUEIRBLCCKDHIGXWJGIDB",
         IPA: "ɨ",
         desc: null,
+        syllabic: "Syllabic",
         featureStops: [
           {kind: "FeatureRange", categoryID: "QCOTLERJNNSYNKCMMSILQBETHSFYNLLC", low: 0.8571, high: 1.0 }, //height
           {kind: "FeatureRange", categoryID: "JGJYSLLKLOVLDIKKLQXPDTBRUXNAMGOJ", low: 0.3, high: 0.6 }, //backness
@@ -275,6 +282,7 @@ let languages: Language[] = [
         id: "LFZFWOZLVRJNWZBMJPLDFFMNEVTYIDUU",
         IPA: "ʉ",
         desc: null,
+        syllabic: "Syllabic",
         featureStops: [
           {kind: "FeatureRange", categoryID: "QCOTLERJNNSYNKCMMSILQBETHSFYNLLC", low: 0.8571, high: 1.0 }, //height
           {kind: "FeatureRange", categoryID: "JGJYSLLKLOVLDIKKLQXPDTBRUXNAMGOJ", low: 0.3, high: 0.6 }, //backness
@@ -286,6 +294,7 @@ let languages: Language[] = [
         id: "AZXDMONRTVBBRCLDXEFVYDAIEJAOQTYQ",
         IPA: '\u{026f}', //ɯ
         desc: null,
+        syllabic: "Syllabic",
         featureStops: [
           {kind: "FeatureRange", categoryID: "QCOTLERJNNSYNKCMMSILQBETHSFYNLLC", low: 0.8571, high: 1.0 }, //height
           {kind: "FeatureRange", categoryID: "JGJYSLLKLOVLDIKKLQXPDTBRUXNAMGOJ", low: 0.6, high: 1.0 }, //backness
@@ -297,6 +306,7 @@ let languages: Language[] = [
         id: "VQWKWCBRGBOAFHSRCRIBGWPDMQPBYIAW",
         IPA: "u",
         desc: null,
+        syllabic: "Syllabic",
         featureStops: [
           {kind: "FeatureRange", categoryID: "QCOTLERJNNSYNKCMMSILQBETHSFYNLLC", low: 0.8571, high: 1.0 }, //height
           {kind: "FeatureRange", categoryID: "JGJYSLLKLOVLDIKKLQXPDTBRUXNAMGOJ", low: 0.6, high: 1.0 }, //backness
@@ -309,6 +319,7 @@ let languages: Language[] = [
         id: "YCLZGBAVXKMQNDRKIPDZWQDDEBVNFYGX",
         IPA: "a",
         desc: null,
+        syllabic: "Syllabic",
         featureStops: [
           {kind: "FeatureRange", categoryID: "QCOTLERJNNSYNKCMMSILQBETHSFYNLLC", low: 0.0, high: 0.1429 }, //height
           {kind: "FeatureRange", categoryID: "JGJYSLLKLOVLDIKKLQXPDTBRUXNAMGOJ", low: 0, high: 0.3 }, //backness
@@ -321,6 +332,7 @@ let languages: Language[] = [
         id: "WTMSEOODZHEDZXFYWLKONUTWKCPSVQGJ",
         IPA: "m",
         desc: null,
+        syllabic: "Nonsyllabic",
         featureStops: [
           {kind: "FeatureStop", categoryID: "YUUNFSLQUZZVJGKXNYSNCKZHIPURKVVT", id: "ZXYFPKHUIGDWXVUPMVVFXMROSBKFKHZR"},
           {kind: "FeatureStop", categoryID: "KPAZCPLBROAZKNOSUGMXSRMUGQPUVVPA", id: "XBYINZTSDFIUTUDDKJYRMTLJJBPARGPZ"},
@@ -333,6 +345,7 @@ let languages: Language[] = [
         id: "RDZCIIEKMLCMPBUBYHESOKUFKRYOYHLS",
         IPA: "d",
         desc: null,
+        syllabic: "Nonsyllabic",
         featureStops: [
           {kind: "FeatureRange", categoryID: "QIJPODHGGTSWXGIDQTPPSVQJXUSZMOLL", low: 0.0, high: 0.75 },
           {kind: "FeatureStop", categoryID: "LARXUPVPTZXUGKITQRXCGXTCCDCKDEAT", id: "VNGWOVCSMCUZGMYDOQHCQPJTMZPQCIRI"},
@@ -350,13 +363,23 @@ function assemblePhones() {
       phonemes.push(phoneme)
     }
   }
+  for (let phoneType of phoneTypesPrivate) {
+    phoneTypes[phoneType.id] = phoneType
+  }
 }
 
-let phonemes: Phoneme[]
+let phonemes: Phoneme[] = []
+let phoneTypes: { [id: string] : PhoneType } = {}
+
+let languageData: LanguageData = {
+  id: languages[0].id,
+  lang: languages[0],
+  phoneTypes: phoneTypes,
+}
 
 export {
   assemblePhones,
-  languages,
+  languageData,
   phonemes,
   phoneTypes,
 }

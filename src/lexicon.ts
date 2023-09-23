@@ -23,15 +23,17 @@ let lexicon: {
               }
             ],
             rhyme: {
-              nucleus: {
-                type: "QGDYAEYMDEZDMMPOBXRTCUDHYYPYFBPF",
-                features: {
-                  "QCOTLERJNNSYNKCMMSILQBETHSFYNLLC": 1.0, //height
-                  "JGJYSLLKLOVLDIKKLQXPDTBRUXNAMGOJ": 1.0, //backness
-                  "CTKXTKTLAUXLERTJKSEVLBTSFVYUXSUP": "YVGQZGLHLVPYJOEQZAYZZFNPGBBNHIVG", //rounded
-                  "CPZUOQHMIJEUFICZUNGDNWESBMBNUIID": "NBNPQDJOBJZDQBLVOZQPTIOCCFXTZJKP", //stressed
+              nucleus: [
+              {
+                  type: "QGDYAEYMDEZDMMPOBXRTCUDHYYPYFBPF",
+                  features: {
+                    "QCOTLERJNNSYNKCMMSILQBETHSFYNLLC": 1.0, //height
+                    "JGJYSLLKLOVLDIKKLQXPDTBRUXNAMGOJ": 1.0, //backness
+                    "CTKXTKTLAUXLERTJKSEVLBTSFVYUXSUP": "YVGQZGLHLVPYJOEQZAYZZFNPGBBNHIVG", //rounded
+                    "CPZUOQHMIJEUFICZUNGDNWESBMBNUIID": "NBNPQDJOBJZDQBLVOZQPTIOCCFXTZJKP", //stressed
+                  }
                 }
-              },
+            ],
               coda: [
                 {
                   type: "JMHNZPRXUPBIYCCPAEHZGLHIZGVNYPXR",
@@ -65,7 +67,7 @@ let lexicon: {
               }
             ],
             rhyme: {
-              nucleus: {
+              nucleus: [{
                 type: "QGDYAEYMDEZDMMPOBXRTCUDHYYPYFBPF",
                 features: {
                   "QCOTLERJNNSYNKCMMSILQBETHSFYNLLC": 0.0, //height
@@ -73,7 +75,7 @@ let lexicon: {
                   "CTKXTKTLAUXLERTJKSEVLBTSFVYUXSUP": "NRPMAAJKFSTQCLHHXLWSWKNVSQATESYT", //unrounded
                   "CPZUOQHMIJEUFICZUNGDNWESBMBNUIID": "NBNPQDJOBJZDQBLVOZQPTIOCCFXTZJKP", //stressed
                 }
-              },
+              }],
               coda: [
                 {
                   type: "YKTSWOSRWLGXAFVYISYWAUPVRTDMGPQS",

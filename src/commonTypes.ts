@@ -42,6 +42,7 @@ export type FeatureCategory = {
 export type PhoneType = {
   id: UUID_PhoneType
   desc: Description
+  type: "Consonant"|"Vowel"
   features: FeatureCategory[]
 }
 
@@ -62,6 +63,7 @@ export type Phoneme = {
   id: UUID_Phoneme
   typeID: UUID_PhoneType
   desc: Description
+  syllabic: "Syllabic"|"Nonsyllabic"
   IPA: IPA
   featureStops: (FeatureStop|FeatureRange)[]
 }
@@ -72,6 +74,11 @@ export type Language = {
   grid: Phoneme[]
 }
 
+export type LanguageData = {
+  id: UUID_Language
+  lang: Language
+  phoneTypes: { [id: string] : PhoneType }
+}
 
 export type Phone = {
   type: UUID_PhoneType
@@ -81,7 +88,7 @@ export type Phone = {
 export type Syllable = {
 	onset: Phone[]
   rhyme: {
-    nucleus: Phone
+    nucleus: Phone[]
     coda: Phone[]
   }
 }
@@ -96,7 +103,7 @@ export type Cluster = {
   sounds: Phone[]
 }
 
-export type Syllables_Cluster {
+export type Syllables_Cluster = {
   value: Syllables|Cluster
 }
 

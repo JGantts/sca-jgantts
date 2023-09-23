@@ -1,15 +1,46 @@
-import type { FeatureRange, FeatureStop, Language, Phone, Phoneme, Syllable, Syllables_Cluster, UUID_FeatureCategory, UUID_FeatureStop } from "./commonTypes";
+import type { FeatureRange, FeatureStop, Language, LanguageData, Phone, Phoneme, Syllable, Syllables_Cluster, UUID_FeatureCategory, UUID_FeatureStop } from "./commonTypes";
 
-export function stringToWordPhrase(input: string, language: Language): Syllables_Cluster {
+export function stringToWordPhrase(input: string, languageData: LanguageData): Syllables_Cluster {
   let toReturnValueSounds: Syllable[] = []
 
   for (let syllable of input.split('.')) {
-    const phonemes = stringToPhonemes(input, language)
+    const phonemes = stringToPhonemes(syllable, languageData)
+    let onset: Phone[] = []
+    let nucleus: Phone[] = []
+    let coda: Phone[] = []
+    let foundSyllabic = false
+    for (let phoneme of phonemes) {
+      switch (phoneme.syllabic) {
+        case "Syllabic":
+          if (foundSyllabic) {
+            throw new Error()
+          }
+          foundSyllabic = true
+          nucleus.push(phonemeToPhone(phoneme))
+          break
+
+        case "Nonsyllabic":
+          console.log(languageData.phoneTypes)
+          switch (languageData.phoneTypes[phoneme.typeID].type) {
+            case "Vowel":
+              nucleus.push(phonemeToPhone(phoneme))
+              break
+            case "Consonant":
+              if (!foundSyllabic) {
+                onset.push(phonemeToPhone(phoneme))
+              } else {
+                coda.push(phonemeToPhone(phoneme))
+              }
+              break
+          }
+          break
+      }
+    }
     toReturnValueSounds.push({
-      onset: [phonemeToPhone(phonemes[0])],
+      onset,
       rhyme: {
-        nucleus: phonemeToPhone(phonemes[1]),
-        coda: [phonemeToPhone(phonemes[2])]
+        nucleus,
+        coda,
       }
     })
   }
@@ -21,13 +52,13 @@ export function stringToWordPhrase(input: string, language: Language): Syllables
   }
 }
 
-function stringToPhonemes(input: string, language: Language): Phoneme[] {
+function stringToPhonemes(input: string, languageData: LanguageData): Phoneme[] {
   const phonemes: Phoneme[] = []
   let done = false
   let currCharIndex = 0
   let currPhonemeIndex = 0
   while(!done) {
-    let currPhoneme = language.grid[currPhonemeIndex]
+    let currPhoneme = languageData.lang.grid[currPhonemeIndex]
     if (!currPhoneme) {
       done = true
       break
@@ -41,7 +72,7 @@ function stringToPhonemes(input: string, language: Language): Phoneme[] {
       currPhonemeIndex = 0
     } else {
       currPhonemeIndex += 1
-      if (currPhonemeIndex >= language.grid.length) {
+      if (currPhonemeIndex >= languageData.lang.grid.length) {
         currPhonemeIndex = 0
         currCharIndex += 1
         if (currCharIndex >= input.length) {
@@ -50,7 +81,6 @@ function stringToPhonemes(input: string, language: Language): Phoneme[] {
       }
     }
   }
-  console.log(phonemes)
   return phonemes
 }
 
