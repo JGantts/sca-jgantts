@@ -27,6 +27,7 @@ export type IPA = string
 
 export type FeatureEnumValue = {
   id: UUID_FeatureEnumValue
+  desc: Description
 }
 
 export type FeatureEnum = {
@@ -35,7 +36,7 @@ export type FeatureEnum = {
 
 export type FeatureCategory = {
   id: UUID_FeatureCategory
-  type: "number"|FeatureEnum
+  type: FeatureEnum
   desc: Description
 }
 
@@ -52,7 +53,7 @@ export type FeatureStop = {
   id: UUID_FeatureStop
 }
 
-export type FeatureRange = {
+export type FeatureRange_DELETE = {
   kind: "FeatureRange"
   categoryID: UUID_FeatureCategory
   low: number
@@ -65,7 +66,7 @@ export type Phoneme = {
   desc: Description
   syllabic: "Syllabic"|"Nonsyllabic"
   IPA: IPA
-  featureStops: (FeatureStop|FeatureRange)[]
+  featureStops: FeatureStop[]
 }
 
 export type Language = {
@@ -82,7 +83,7 @@ export type LanguageData = {
 
 export type Phone = {
   type: UUID_PhoneType
-  features: { [id: UUID_FeatureCategory] : UUID_FeatureStop|number; }
+  features: { [id: UUID_FeatureCategory] : UUID_FeatureStop; }
 }
 
 export type Syllable = {

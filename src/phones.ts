@@ -15,12 +15,58 @@ let phoneTypesPrivate: PhoneType[] = [
       {
         id: "QCOTLERJNNSYNKCMMSILQBETHSFYNLLC",
         desc: "height",
-        type: "number"
+        type: {
+          values: [
+            {
+              id: "BFEXVLSDEZENWZKHHCJLAOGSLFOTKHSJ",
+              desc: "open",
+            },
+            {
+              id: "ITXNMDIJIXIOXVFYPAETYXLLPLGINNXG",
+              desc: "near-open",
+            },
+            {
+              id: "YWQMANONVLHZAZFHSYQHHDFXCFWAJFWV",
+              desc: "open-mid",
+            },
+            {
+              id: "CUCHRTPAZJQDGBZJRHCELPPYIXLCTTKB",
+              desc: "mid",
+            },
+            {
+              id: "LEOXQKQBEINZXHVKNQABHIJVYRBSEOJJ",
+              desc: "close-mid",
+            },
+            {
+              id: "KONWQVVVUWWOUHVMDAADQWRIWMQKZTMP",
+              desc: "near-close",
+            },
+            {
+              id: "UGDNUKMWNLUNIGAUZJKMUALBDPWTKBJI",
+              desc: "close",
+            }
+          ]
+        },
       },
       {
         id: "JGJYSLLKLOVLDIKKLQXPDTBRUXNAMGOJ",
         desc: "backness",
-        type: "number"
+        type: {
+            values: [
+              {
+                id: "NWAIGDSPCAAFGOGYLFPGWWVKBREZPWBD",
+                desc: "front",
+              },
+              {
+                id: "YEWERSFOMXLUOLOBMATLTTQKUATLZTZI",
+                desc: "central",
+              },
+              {
+                id: "TNTXXUTXNIJQEJCVBNRAJSDBJCHXVCJN",
+                desc: "back",
+              },
+          ]
+        }
       },
       {
         id: "CTKXTKTLAUXLERTJKSEVLBTSFVYUXSUP",
@@ -29,27 +75,31 @@ let phoneTypesPrivate: PhoneType[] = [
           values: [
             {
               id: "NRPMAAJKFSTQCLHHXLWSWKNVSQATESYT", //unrounded
+              desc: "unrounded",
             },
             {
               id: "YVGQZGLHLVPYJOEQZAYZZFNPGBBNHIVG", //rounded
+              desc: "rounded",
             },
           ]
         }
       },
-      {
+      /*{
         id: "CPZUOQHMIJEUFICZUNGDNWESBMBNUIID",
         desc: "stress",
         type: {
           values: [
             {
               id: "NWLMMJEUFUSGDROAYXKEMWWFVCXOBONZ", //unstressed
+              desc: "unstressed",
             },
             {
               id: "NBNPQDJOBJZDQBLVOZQPTIOCCFXTZJKP", //stressed
+              desc: "stressed",
             },
           ]
         }
-      },
+      },*/
     ],
   },
   {
@@ -64,12 +114,51 @@ let phoneTypesPrivate: PhoneType[] = [
           values: [
             {
               id: "ZXYFPKHUIGDWXVUPMVVFXMROSBKFKHZR", //bilabilal
+              desc: "bilabilal",
             },
             {
               id: "APINNIFZCAKTUWTDYVZUSNFBMDAYYPSG", //labio­dental
+              desc: "labiodental",
             },
             {
               id: "WPYQRFRZZATALISKLYVWSBZGBOLULSML", //linguo­labial
+              desc: "linguolabial",
+            },
+            {
+              id: "BXNFTBKXZVSWGWMXLFXNZSSVXNKNJSGB",
+              desc: "dental",
+            },
+            {
+              id: "ZBKMZTESQRTSRXPZMNHQCDUVYEWNBUQL",
+              desc: "alveolar",
+            },
+            {
+              id: "QQPEJMVYETQWAMDRFLFVYJETUUQQMUVH",
+              desc: "postalveolar",
+            },
+            {
+              id: "DLBLEDTMBQMFFTNJJVMJNZDBDGBJDEHK",
+              desc: "retroflex",
+            },
+            {
+              id: "ZCXOAFYEWIOKFMMCORBSEQUFJFNYQRSH",
+              desc: "palatal",
+            },
+            {
+              id: "YHHQNKELEXGKPVQXGBVWYXFHVLKFRPMY",
+              desc: "velar",
+            },
+            {
+              id: "OFHIVUCPJCWBQSHZVLTEWIPGXDUOMNAZ",
+              desc: "uvular",
+            },
+            {
+              id: "WBZVYCLCEJOKZMQOKGWQFBHAFJDTYRSW",
+              desc: "pharyngeal/epiglottal",
+            },
+            {
+              id: "KPQROYYZCDMACXZEXGZYBOCBHSAJJRHI",
+              desc: "glottal",
             },
           ]
         }
@@ -80,95 +169,56 @@ let phoneTypesPrivate: PhoneType[] = [
         type: {
           values: [
             {
-              id: "XBYINZTSDFIUTUDDKJYRMTLJJBPARGPZ", //nasal
-            },
-            {
-              id: "NUKVUATOQIFBIQZRZGCFNWBXDMJIPVQZ", //plosive
-            },
-            {
-              id: "FZORKQYULRXZPHBOXZCYXWHVSTZQLVFW", //affricate
-            },
-            {
-              id: "MQNWXFBLUDMYTUYPRJCOQNNVRZHFVUOD", //fricative
-            },
-            {
-              id: "PIUXNGOGMZETMSGHSINESOVYQBEXIPRL", //tap
-            },
-            {
-              id: "XJRRLEDRTNJFLQVGCYWNEDYKKWLBIEBU", //trill
-            },
-          ]
-        }
-      },
-      {
-        id: "CHRJYONQPXKFWAQDENLLHHWYKHJQZFVD",
-        desc: "voicedness",
-        type: {
-          values: [
-            {
-              id: "IFKUDEPWTBULJGCZIYGWDYITMLUEQMVD", //unvoiced
-            },
-            {
-              id: "OFOMPHTROPHZFTWTXDDDUDRKKQDPYWPU", //voiced
-            },
-          ]
-        }
-      },
-    ],
-  },
-  {
-    id: "YKTSWOSRWLGXAFVYISYWAUPVRTDMGPQS",
-    desc: "coronal",
-    type: "Consonant",
-    features: [
-      {
-        id: "QIJPODHGGTSWXGIDQTPPSVQJXUSZMOLL",
-        desc: "place",
-        type: "number"
-      },
-      {
-        id: "LARXUPVPTZXUGKITQRXCGXTCCDCKDEAT",
-        desc: "manner",
-        type: {
-          values: [
-            {
               id: "PQPWUKRVGOBQMKWLFTJZCFTJGPASBHSA", //nasal
+              desc: "nasal"
             },
             {
               id: "VNGWOVCSMCUZGMYDOQHCQPJTMZPQCIRI", //plosive
+              desc: "plosive"
             },
             {
               id: "PFUKOICTDXSMPOTJXMIYGTUCZMEXAZRL", //silibant affricate
+              desc: "silibant affricate"
             },
             {
               id: "NSDHPOWAXKBKRYYFPAXCWZKLFPNQJFPE", //non-silibant affricate
+              desc: "non-silibant affricate"
             },
             {
               id: "GXIKPDFDIMJJOUEEFTWHNAAZZTZYVZIE", //silibant fricative
+              desc: "silibant fricative"
             },
             {
               id: "RUPOAGMZWDHRHKSSVJFIYYMYSTIHWWTF", //non-silibant fricative
+              desc: "non-silibant fricative"
             },
             {
               id: "GMKLRZGQUBPDOIBLTJPXPVVWESTJOZZE", //approximant
+              desc: "approximant"
             },
             {
               id: "CQDZRXJZOQOKNUIHALDMHHIIVAGWLBRX", //tap
+              desc: "tap"
             },
             {
               id: "VAZDUHUYJIBAFATHZTVIOOVJINSRKDSP", //trill
+              desc: "trill"
             },
             {
               id: "IMHJWSHYQPDOKDDBLHEVCPIUWYBALEAQ", //Lateral affricative
+              desc: "lateral affricative"
             },
             {
               id: "FXMGJZEKIXQMIRCVLPZVBELXNSBHVBXY", //Lateral fricative
+              desc: "lateral fricative"
             },
             {
               id: "VVYLUMZXQPWSIFYVREPMJAQPXKPYHFCR", //Lateral approximant
+              desc: "lateral approximant"
             },
             {
               id: "EMMLESLTRVOYOKLACZJFVYRJTYEWZRFY", //Lateral tap
+              desc: "lateral tap"
             },
           ]
         }
@@ -180,9 +230,11 @@ let phoneTypesPrivate: PhoneType[] = [
           values: [
             {
               id: "IFKUDEPWTBULJGCZIYGWDYITMLUEQMVD", //unvoiced
+              desc: "unvoiced",
             },
             {
               id: "OFOMPHTROPHZFTWTXDDDUDRKKQDPYWPU", //voiced
+              desc: "voiced",
             },
           ]
         }
@@ -248,8 +300,8 @@ let languages: Language[] = [
         desc: null,
         syllabic: "Syllabic",
         featureStops: [
-          {kind: "FeatureRange", categoryID: "QCOTLERJNNSYNKCMMSILQBETHSFYNLLC", low: 0.8571, high: 1.0 }, //height
-          {kind: "FeatureRange", categoryID: "JGJYSLLKLOVLDIKKLQXPDTBRUXNAMGOJ", low: 0, high: 0.3 }, //backness
+          {kind: "FeatureStop", categoryID: "QCOTLERJNNSYNKCMMSILQBETHSFYNLLC", id: "UGDNUKMWNLUNIGAUZJKMUALBDPWTKBJI"}, //height: close
+          {kind: "FeatureStop", categoryID: "JGJYSLLKLOVLDIKKLQXPDTBRUXNAMGOJ", id: "NWAIGDSPCAAFGOGYLFPGWWVKBREZPWBD"}, //backness: front
           {kind: "FeatureStop", categoryID: "CTKXTKTLAUXLERTJKSEVLBTSFVYUXSUP", id: "NRPMAAJKFSTQCLHHXLWSWKNVSQATESYT"},
         ]
       },
@@ -260,8 +312,8 @@ let languages: Language[] = [
         desc: null,
         syllabic: "Syllabic",
         featureStops: [
-          {kind: "FeatureRange", categoryID: "QCOTLERJNNSYNKCMMSILQBETHSFYNLLC", low: 0.8571, high: 1.0 }, //height
-          {kind: "FeatureRange", categoryID: "JGJYSLLKLOVLDIKKLQXPDTBRUXNAMGOJ", low: 0, high: 0.3 }, //backness
+          {kind: "FeatureStop", categoryID: "QCOTLERJNNSYNKCMMSILQBETHSFYNLLC", id: "UGDNUKMWNLUNIGAUZJKMUALBDPWTKBJI"}, //height: close
+          {kind: "FeatureStop", categoryID: "JGJYSLLKLOVLDIKKLQXPDTBRUXNAMGOJ", id: "NWAIGDSPCAAFGOGYLFPGWWVKBREZPWBD"}, //backness: front
           {kind: "FeatureStop", categoryID: "CTKXTKTLAUXLERTJKSEVLBTSFVYUXSUP", id: "YVGQZGLHLVPYJOEQZAYZZFNPGBBNHIVG"},
         ]
       },
@@ -272,8 +324,8 @@ let languages: Language[] = [
         desc: null,
         syllabic: "Syllabic",
         featureStops: [
-          {kind: "FeatureRange", categoryID: "QCOTLERJNNSYNKCMMSILQBETHSFYNLLC", low: 0.8571, high: 1.0 }, //height
-          {kind: "FeatureRange", categoryID: "JGJYSLLKLOVLDIKKLQXPDTBRUXNAMGOJ", low: 0.3, high: 0.6 }, //backness
+          {kind: "FeatureStop", categoryID: "QCOTLERJNNSYNKCMMSILQBETHSFYNLLC", id: "UGDNUKMWNLUNIGAUZJKMUALBDPWTKBJI"}, //height: close
+          {kind: "FeatureStop", categoryID: "JGJYSLLKLOVLDIKKLQXPDTBRUXNAMGOJ", id: "YEWERSFOMXLUOLOBMATLTTQKUATLZTZI"}, //backness: central
           {kind: "FeatureStop", categoryID: "CTKXTKTLAUXLERTJKSEVLBTSFVYUXSUP", id: "NRPMAAJKFSTQCLHHXLWSWKNVSQATESYT"},
         ]
       },
@@ -284,8 +336,8 @@ let languages: Language[] = [
         desc: null,
         syllabic: "Syllabic",
         featureStops: [
-          {kind: "FeatureRange", categoryID: "QCOTLERJNNSYNKCMMSILQBETHSFYNLLC", low: 0.8571, high: 1.0 }, //height
-          {kind: "FeatureRange", categoryID: "JGJYSLLKLOVLDIKKLQXPDTBRUXNAMGOJ", low: 0.3, high: 0.6 }, //backness
+          {kind: "FeatureStop", categoryID: "QCOTLERJNNSYNKCMMSILQBETHSFYNLLC", id: "UGDNUKMWNLUNIGAUZJKMUALBDPWTKBJI"}, //height: close
+          {kind: "FeatureStop", categoryID: "JGJYSLLKLOVLDIKKLQXPDTBRUXNAMGOJ", id: "YEWERSFOMXLUOLOBMATLTTQKUATLZTZI"}, //backness: central
           {kind: "FeatureStop", categoryID: "CTKXTKTLAUXLERTJKSEVLBTSFVYUXSUP", id: "YVGQZGLHLVPYJOEQZAYZZFNPGBBNHIVG"},
         ]
       },
@@ -296,8 +348,8 @@ let languages: Language[] = [
         desc: null,
         syllabic: "Syllabic",
         featureStops: [
-          {kind: "FeatureRange", categoryID: "QCOTLERJNNSYNKCMMSILQBETHSFYNLLC", low: 0.8571, high: 1.0 }, //height
-          {kind: "FeatureRange", categoryID: "JGJYSLLKLOVLDIKKLQXPDTBRUXNAMGOJ", low: 0.6, high: 1.0 }, //backness
+          {kind: "FeatureStop", categoryID: "QCOTLERJNNSYNKCMMSILQBETHSFYNLLC", id: "UGDNUKMWNLUNIGAUZJKMUALBDPWTKBJI"}, //height: close
+          {kind: "FeatureStop", categoryID: "JGJYSLLKLOVLDIKKLQXPDTBRUXNAMGOJ", id: "TNTXXUTXNIJQEJCVBNRAJSDBJCHXVCJN"}, //backness: back
           {kind: "FeatureStop", categoryID: "CTKXTKTLAUXLERTJKSEVLBTSFVYUXSUP", id: "NRPMAAJKFSTQCLHHXLWSWKNVSQATESYT"},
         ]
       },
@@ -308,8 +360,8 @@ let languages: Language[] = [
         desc: null,
         syllabic: "Syllabic",
         featureStops: [
-          {kind: "FeatureRange", categoryID: "QCOTLERJNNSYNKCMMSILQBETHSFYNLLC", low: 0.8571, high: 1.0 }, //height
-          {kind: "FeatureRange", categoryID: "JGJYSLLKLOVLDIKKLQXPDTBRUXNAMGOJ", low: 0.6, high: 1.0 }, //backness
+          {kind: "FeatureStop", categoryID: "QCOTLERJNNSYNKCMMSILQBETHSFYNLLC", id: "UGDNUKMWNLUNIGAUZJKMUALBDPWTKBJI"}, //height: close
+          {kind: "FeatureStop", categoryID: "JGJYSLLKLOVLDIKKLQXPDTBRUXNAMGOJ", id: "TNTXXUTXNIJQEJCVBNRAJSDBJCHXVCJN"}, //backness: back
           {kind: "FeatureStop", categoryID: "CTKXTKTLAUXLERTJKSEVLBTSFVYUXSUP", id: "YVGQZGLHLVPYJOEQZAYZZFNPGBBNHIVG"},
         ]
       },
@@ -321,8 +373,8 @@ let languages: Language[] = [
         desc: null,
         syllabic: "Syllabic",
         featureStops: [
-          {kind: "FeatureRange", categoryID: "QCOTLERJNNSYNKCMMSILQBETHSFYNLLC", low: 0.0, high: 0.1429 }, //height
-          {kind: "FeatureRange", categoryID: "JGJYSLLKLOVLDIKKLQXPDTBRUXNAMGOJ", low: 0, high: 0.3 }, //backness
+          {kind: "FeatureStop", categoryID: "QCOTLERJNNSYNKCMMSILQBETHSFYNLLC", id: "BFEXVLSDEZENWZKHHCJLAOGSLFOTKHSJ"}, //height: open
+          {kind: "FeatureStop", categoryID: "JGJYSLLKLOVLDIKKLQXPDTBRUXNAMGOJ", id: "NWAIGDSPCAAFGOGYLFPGWWVKBREZPWBD"}, //backness: front
           {kind: "FeatureStop", categoryID: "CTKXTKTLAUXLERTJKSEVLBTSFVYUXSUP", id: "NRPMAAJKFSTQCLHHXLWSWKNVSQATESYT"}
         ]
       },
@@ -363,7 +415,6 @@ let languages: Language[] = [
           {kind: "FeatureStop", categoryID: "CHRJYONQPXKFWAQDENLLHHWYKHJQZFVD", id: "IFKUDEPWTBULJGCZIYGWDYITMLUEQMVD"},
         ]
       },
-
       {
         typeID: "YKTSWOSRWLGXAFVYISYWAUPVRTDMGPQS",
         id: "RDZCIIEKMLCMPBUBYHESOKUFKRYOYHLS",
@@ -371,7 +422,7 @@ let languages: Language[] = [
         desc: null,
         syllabic: "Nonsyllabic",
         featureStops: [
-          {kind: "FeatureRange", categoryID: "QIJPODHGGTSWXGIDQTPPSVQJXUSZMOLL", low: 0.0, high: 0.75 },
+          {kind: "FeatureStop", categoryID: "YUUNFSLQUZZVJGKXNYSNCKZHIPURKVVT", id: "ZBKMZTESQRTSRXPZMNHQCDUVYEWNBUQL"},
           {kind: "FeatureStop", categoryID: "LARXUPVPTZXUGKITQRXCGXTCCDCKDEAT", id: "VNGWOVCSMCUZGMYDOQHCQPJTMZPQCIRI"},
           {kind: "FeatureStop", categoryID: "CHRJYONQPXKFWAQDENLLHHWYKHJQZFVD", id: "OFOMPHTROPHZFTWTXDDDUDRKKQDPYWPU"},
         ]

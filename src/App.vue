@@ -2,7 +2,7 @@
 import { ref, watch, type Ref } from 'vue';
 import { phonemes, phoneTypes, languageData, assemblePhones } from './phones'
 import { lexicon } from './lexicon'
-import type { Cluster, FeatureRange, FeatureStop, Phone, Syllable, Syllables, Syllables_Cluster, UUID_FeatureStop, WordPhrase } from './commonTypes';
+import type { Cluster, FeatureStop, Phone, Syllable, Syllables, Syllables_Cluster, UUID_FeatureStop, WordPhrase } from './commonTypes';
 import { stringToWordPhrase } from './stringToWordPhrase'
 
 const lexiconRef = ref(lexicon)
@@ -58,16 +58,10 @@ function phoneToString(phone: Phone|null) {
   }
 }
 
-function phonemeFeatureStopFitsPhone(phone: Phone, phonemeStop: FeatureStop|FeatureRange): boolean {
+function phonemeFeatureStopFitsPhone(phone: Phone, phonemeStop: FeatureStop): boolean {
   switch (phonemeStop.kind) {
     case "FeatureStop":
       return (phone.features[phonemeStop.categoryID] as UUID_FeatureStop) == phonemeStop.id
-      
-    case "FeatureRange":
-      let value = (phone.features[phonemeStop.categoryID] as number)
-      return value <= phonemeStop.high
-        && value >= phonemeStop.low
-
   }
 }
 
@@ -81,7 +75,7 @@ watch(newWordInRef, () => {
     newWordObjectRef.value = newWord
     newWordText.value = syllables_clusterToString(newWord)
   } catch (err) {
-    
+
   }
 })
 
@@ -105,13 +99,14 @@ function addWord() {
     placeholder="type new word here"
   ><br/>
   <p>Interpretation: {{ newWordText }}</p>
+  <div v-if="(newWordObjectRef as Syllables_Cluster)?.value?.kind == 'Syllables'">
   <table>
     <tr>
       <th>O</th>
       <th>N</th>
       <th>C</th>
     </tr>
-    <tr v-for="sylable in (newWordObjectRef as Syllables_Cluster).value?.sounds">
+      <tr v-for="sylable in ((newWordObjectRef as Syllables_Cluster).value as Syllables).sounds">
       <td>
         <span v-for="phone in sylable.onset">
           {{ phoneToString(phone) }}
@@ -128,7 +123,14 @@ function addWord() {
         </span>
       </td>
     </tr>
-  </table>
+
+    </table>
+  </div>
+  <div v-if="(newWordObjectRef as Syllables_Cluster)?.value?.kind == 'Cluster'">
+    <span v-for="phone in ((newWordObjectRef as Syllables_Cluster).value as Cluster).sounds">
+        {{ phoneToString(phone) }}
+    </span> 
+  </div>
   <br/>
   <button
     @click="addWord"

@@ -1,4 +1,4 @@
-import type { FeatureRange, FeatureStop, Language, LanguageData, Phone, Phoneme, Syllable, Syllables_Cluster, UUID_FeatureCategory, UUID_FeatureStop } from "./commonTypes";
+import type { FeatureStop, Language, LanguageData, Phone, Phoneme, Syllable, Syllables_Cluster, UUID_FeatureCategory, UUID_FeatureStop } from "./commonTypes";
 
 export function stringToWordPhrase(input: string, languageData: LanguageData): Syllables_Cluster {
   let toReturnValueSounds: Syllable[] = []
@@ -93,15 +93,11 @@ function phonemeToPhone(phoneme: Phoneme|null): Phone {
       features: {}
     }
   }
-  let features: { [id: UUID_FeatureCategory] : UUID_FeatureStop|number; } = {}
+  let features: { [id: UUID_FeatureCategory] : UUID_FeatureStop; } = {}
   for (let feature of phoneme.featureStops) {
       switch(feature.kind) {
         case "FeatureStop":
           features[feature.categoryID] = feature.id
-          break
-
-        case "FeatureRange":
-          features[feature.categoryID] = (feature.high+feature.low)/2
           break
       }
   }
