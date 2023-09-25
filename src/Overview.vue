@@ -1,11 +1,10 @@
 <script setup lang="ts">
 import { ref, watch, type Ref } from 'vue';
-import { phonemes, phoneTypes, languageData, assemblePhones } from './phones'
-import { lexicon } from './lexicon'
 import type { Cluster, FeatureStop, Phone, Syllable, Syllables, Syllables_Cluster, UUID_FeatureStop, WordPhrase } from './commonTypes';
 import { stringToWordPhrase } from './stringToWordPhrase'
+import { languages } from './phones';
 
-const lexiconRef = ref(lexicon)
+const lexiconRef = ref(languages?.lexicon)
 
 
 
@@ -45,10 +44,10 @@ function phonesToString(phones: Phone[]) {
 }
 
 function phoneToString(phone: Phone|null) {
-  if (phone==null) {
+  if (phone==null || languages==null) {
     return ""
   } else {
-    return phonemes.filter(
+    return Object.values(languages.phonemes).filter(
       phoneme => 
         phoneme.featureStops.every(phonemeFeatureStop =>
           phonemeFeatureStopFitsPhone(phone, phonemeFeatureStop)
@@ -69,8 +68,9 @@ const newWordObjectRef: Ref<Syllables_Cluster|{}> = ref({})
 const newWordText = ref({})
 
 watch(newWordInRef, () => {
+  if (!languages) return
   try {
-    newWord = stringToWordPhrase(newWordInRef.value, languageData)
+    newWord = stringToWordPhrase(newWordInRef.value, languages)
     newWordObjectRef.value = newWord
     newWordText.value = syllables_clusterToString(newWord)
   } catch (err) {
@@ -81,14 +81,14 @@ watch(newWordInRef, () => {
 let newWord: Syllables_Cluster|null = null
 
 function addWord() {
-  if (newWord){
-    lexiconRef.value.words.push({
-      id: "",
-      entryForm: newWord,
-      entryTreeLimb: "",
-      entryDate: 0,
-    })
-  }
+  if (!newWord) return
+  if (!lexiconRef.value) return
+  lexiconRef.value.words.push({
+    id: "",
+    entryForm: newWord,
+    entryTreeLimb: "",
+    entryDate: 0,
+  })
 }
 </script>
 
@@ -148,7 +148,7 @@ function addWord() {
   <br/>
   <br/>
   <h2>List of words:</h2>
-  <li v-for="lexeme in lexiconRef.words">{{ syllables_clusterToString(lexeme.entryForm) }}</li>
+  <li v-for="lexeme in lexiconRef?.words">{{ syllables_clusterToString(lexeme.entryForm) }}</li>
 
 
 </template>

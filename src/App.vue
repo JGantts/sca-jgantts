@@ -2,7 +2,6 @@
 <script setup lang="ts">
 import Overview from './Overview.vue';
 import SaveLoad from './SaveLoad.vue'
-import { phonemes, phoneTypes, languageData, assemblePhones } from './phones'
 
 </script>
 

@@ -145,3 +145,15 @@ export type SaveFile = {
     treeLimbs: TreeLimb[],
   }
 }
+
+export type WorkingFile = {
+  phoneTypes: { [id: UUID_PhoneType] : PhoneType; }
+  languages: { [id: UUID_Language] : Language; }
+  phonemes: { [id: UUID_PhonemeType] : Phoneme; }
+  lexicon: {
+    words: WordPhrase[],
+    rules: RuleGroup[],
+    treeTrunks: UUID_TreeLimb[],
+    treeLimbs: TreeLimb[],
+  }
+}

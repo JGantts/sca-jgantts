@@ -2,9 +2,8 @@
 import { ref, type Ref } from 'vue';
 import Overview from './Overview.vue';
 import SaveLoad from './SaveLoad.vue'
-import type { SaveFile } from './commonTypes';
-import { lexicon } from './lexicon';
-import { phonemes, phoneTypes, languageData, assemblePhones, phoneTypesPrivate, languages } from './phones'
+import type { SaveFile, WorkingFile } from './commonTypes';
+import { languages, loadSaveFile } from './phones'
 
 //assemblePhones()
 
@@ -22,7 +21,7 @@ function loadTemplate(templateName: templateName) {
   }
 }
 
-function loadFromFile() {
+function newFileSelected(e: Event) {
   let input = document.getElementById("fileToLoad") as HTMLInputElement
   if (!input) return
   let files = input.files
@@ -33,6 +32,7 @@ function loadFromFile() {
 function loadFromFiles(files: FileList) {
   const selectedFile = files[0]
   if (!selectedFile) return
+  if (selectedFile.type !== "application/json") return
   const reader = new FileReader()
   reader.onload = (e) => {
     let result = e.target?.result
@@ -41,23 +41,35 @@ function loadFromFiles(files: FileList) {
     load(result)
   }
   reader.readAsText(selectedFile)
+  fileSelected.value = true
 }
 
 function saveToFile() {
-  let toSave = save()
+  if (!languages) return
+  let toSave = save(languages)
   download("mylang.json", toSave)
 }
 
 
 function load(language: string) {
-  console.log(language)
+  let selectedFile = document.getElementById('selectedFileOverlay')
+  if (!selectedFile) return
+  selectedFile.innerText = language
+  fileContents = language
 }
 
-function save(): string {
+function loadFromFile() {
+  let save: SaveFile = JSON.parse(fileContents)
+  if (!save) return
+  loadSaveFile(save)
+}
+
+function save(langs: WorkingFile): string {
+  
   let toSave: SaveFile = {
-    phoneTypes: phoneTypesPrivate,
-    languages,
-    lexicon,
+    phoneTypes: Object.values(langs.phoneTypes),
+    languages: Object.values(langs.languages),
+    lexicon: langs.lexicon,
   }
   return JSON.stringify(toSave)
 }
@@ -76,26 +88,25 @@ function download(filename: string, text: string) {
 }
 
 let isDragging = ref(false)
+let fileSelected = ref(false)
+
+let fileContents = ""
 
 function dragover(e: DragEvent) {
-  e.stopImmediatePropagation();
-  e.preventDefault();
+  e.stopImmediatePropagation()
+  e.preventDefault()
   isDragging.value = true
-  console.log("over")
-  document.body.style.cursor = "default"
 }
 
 function dragleave(e: DragEvent) {
-  e.stopImmediatePropagation();
-  e.preventDefault();
-  console.log(`leave: '${(e.target as HTMLElement).innerHTML}'`)
+  e.stopImmediatePropagation()
+  e.preventDefault()
   isDragging.value = false
-  document.body.style.cursor = "default"
 }
 
 function drop(e: DragEvent) {
-  e.stopImmediatePropagation();
-  e.preventDefault();
+  e.stopImmediatePropagation()
+  e.preventDefault()
   isDragging.value = false
 
   const dt = e.dataTransfer;
@@ -134,21 +145,30 @@ function drop(e: DragEvent) {
           type="file"
           id="fileToLoad"
           accept=".json"
+          @change="newFileSelected"
         />
-      </div>
-      <div>
-        <button @click="loadFromFile()">
-          Load from chosen .json file
-        </button>
       </div>
     </div>
     <div
-    class="draggingOverlay"
-    :class="{ isDraggingOverlay: isDragging }"
+    class="overlay draggingOverlay"
+    :class="{ makeVisible: isDragging }"
     id="drag-container3"
     >
       Drop Project File Here
     </div>
+    <div
+    id="selectedFileOverlay"
+    class="overlay selectedFileOverlay"
+    :class="{ makeVisible: fileSelected }"
+    >
+    <div id="selectedFileOverlayTitle" />
+    <div id="selectedFileOverlayBody" />
+    </div>
+  </div>
+  <div>
+    <button @click="loadFromFile()">
+      Load chosen .json file
+    </button>
   </div>
   <br />
   <div class="container">
@@ -171,7 +191,7 @@ function drop(e: DragEvent) {
 .container {
   padding: 0.5rem;
   border: 0.1rem;
-  border-color: green;
+  border-color: var(--color-text);
   border-style: solid;
   border-radius: 1rem;
 }
@@ -180,10 +200,15 @@ function drop(e: DragEvent) {
   padding-bottom: 0.75rem;
 }
 
-.draggingOverlay {
+.overlay {
   position: absolute;
+  display: flex;
   top:0;
-  left:0; 
+  left:0;
+  opacity: 0;
+}
+
+.draggingOverlay {
   justify-content: center;
   align-items: center;
   height: 100%;
@@ -191,10 +216,26 @@ function drop(e: DragEvent) {
   background: radial-gradient(rgba(0,0,0,0.75), rgba(0,0,0,0.25));
   border-radius: 1rem;
   color: white;
-  display: none;
+  pointer-events: none;
 }
 
-.isDraggingOverlay {
-  display: flex;
+.selectedFileOverlay {
+  justify-content: center;
+  align-items: center;
+  margin: 0.1rem;
+  height: calc(100% - 2*0.1rem);
+  width: calc(100% - 2*0.1rem);
+  background: radial-gradient(closest-side, white, black);
+  color: black;
+  border-radius: calc(1rem - 0.1rem);
+  pointer-events: none;
+  overflow-y: hidden;
+  overflow-x:scroll;
+
+  font-size: x-small;
+}
+
+.makeVisible {
+  opacity: 100;
 }
 </style>
