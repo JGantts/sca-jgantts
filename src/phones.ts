@@ -104,7 +104,7 @@ let phoneTypesPrivate: PhoneType[] = [
   },
   {
     id: "JMHNZPRXUPBIYCCPAEHZGLHIZGVNYPXR",
-    desc: "labial",
+    desc: "consonant",
     type: "Consonant",
     features: [
       {
@@ -416,7 +416,7 @@ let languages: Language[] = [
         ]
       },
       {
-        typeID: "YKTSWOSRWLGXAFVYISYWAUPVRTDMGPQS",
+        typeID: "JMHNZPRXUPBIYCCPAEHZGLHIZGVNYPXR",
         id: "RDZCIIEKMLCMPBUBYHESOKUFKRYOYHLS",
         IPA: "d",
         desc: null,

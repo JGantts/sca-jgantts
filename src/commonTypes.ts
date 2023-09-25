@@ -53,13 +53,6 @@ export type FeatureStop = {
   id: UUID_FeatureStop
 }
 
-export type FeatureRange_DELETE = {
-  kind: "FeatureRange"
-  categoryID: UUID_FeatureCategory
-  low: number
-  high: number
-}
-
 export type Phoneme = {
   id: UUID_Phoneme
   typeID: UUID_PhoneType

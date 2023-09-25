@@ -1,8 +1,10 @@
 import type { FeatureStop, Language, LanguageData, Phone, Phoneme, Syllable, Syllables_Cluster, UUID_FeatureCategory, UUID_FeatureStop } from "./commonTypes";
 
 export function stringToWordPhrase(input: string, languageData: LanguageData): Syllables_Cluster {
-  let toReturnValueSounds: Syllable[] = []
+  let toReturnValueSyllables: Syllable[] = []
+  let toReturnValuePhones: Phone[] = []
 
+  let foundAnySyllabic = false
   for (let syllable of input.split('.')) {
     const phonemes = stringToPhonemes(syllable, languageData)
     let onset: Phone[] = []
@@ -20,6 +22,7 @@ export function stringToWordPhrase(input: string, languageData: LanguageData): S
           break
 
         case "Nonsyllabic":
+          toReturnValuePhones.push(phonemeToPhone(phoneme))
           switch (languageData.phoneTypes[phoneme.typeID].type) {
             case "Vowel":
               nucleus.push(phonemeToPhone(phoneme))
@@ -35,10 +38,9 @@ export function stringToWordPhrase(input: string, languageData: LanguageData): S
           break
       }
     }
-    if (!foundSyllabic) {
-      throw new Error("Couldn't parse syllables.")
-    }
-    toReturnValueSounds.push({
+    foundAnySyllabic = foundAnySyllabic||foundSyllabic
+    console.log(foundSyllabic)
+    toReturnValueSyllables.push({
       onset,
       rhyme: {
         nucleus,
@@ -46,10 +48,18 @@ export function stringToWordPhrase(input: string, languageData: LanguageData): S
       }
     })
   }
+  if (!foundAnySyllabic) {
+    return {
+      value: {
+        kind: "Cluster",
+        sounds: toReturnValuePhones
+      }
+    }
+  }
   return {
     value: {
       kind: "Syllables",
-      sounds: toReturnValueSounds
+      sounds: toReturnValueSyllables
     }
   }
 }
