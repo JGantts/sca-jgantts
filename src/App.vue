@@ -8,7 +8,7 @@ assemblePhones()
 </script>
 
 <template>
-<tabs>
+<tabs :options="{ useUrlFragment: false }">
   <tab name="Save/Load">
     <SaveLoad />
   </tab>
