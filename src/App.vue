@@ -4,12 +4,11 @@ import Overview from './Overview.vue';
 import SaveLoad from './SaveLoad.vue'
 import { phonemes, phoneTypes, languageData, assemblePhones } from './phones'
 
-assemblePhones()
 </script>
 
 <template>
 <tabs :options="{ useUrlFragment: false }">
-  <tab name="Save/Load">
+  <tab name="Load/Save">
     <SaveLoad />
   </tab>
   <tab name="Overview">
