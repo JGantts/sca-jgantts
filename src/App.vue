@@ -1,6 +1,7 @@
 
 <script setup lang="ts">
 import Overview from './Overview.vue';
+import SaveLoad from './SaveLoad.vue'
 import { phonemes, phoneTypes, languageData, assemblePhones } from './phones'
 
 assemblePhones()
@@ -13,6 +14,9 @@ assemblePhones()
   </tab>
   <tab name="Other tab">
     Other content
+  </tab>
+  <tab name="Save/Load">
+    <SaveLoad />
   </tab>
 </tabs>
 </template>
@@ -41,5 +45,8 @@ assemblePhones()
 }
 .tabs-component-panels {
   margin: 1rem;
+}
+.is-active {
+  color: greenyellow;
 }
 </style>
