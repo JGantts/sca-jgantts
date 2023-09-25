@@ -134,3 +134,14 @@ export type TreeLimb = {
     children: UUID_TreeLimb[]
   }
 }
+
+export type SaveFile = {
+  phoneTypes: PhoneType[]
+  languages: Language[]
+  lexicon: {
+    words: WordPhrase[],
+    rules: RuleGroup[],
+    treeTrunks: UUID_TreeLimb[],
+    treeLimbs: TreeLimb[],
+  }
+}

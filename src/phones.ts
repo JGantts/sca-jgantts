@@ -457,4 +457,6 @@ export {
   languageData,
   phonemes,
   phoneTypes,
+  phoneTypesPrivate,
+  languages
 }

@@ -46,6 +46,12 @@ import { phonemes, phoneTypes, languageData, assemblePhones } from './phones'
   margin: 1rem;
 }
 .is-active {
-  color: greenyellow;
+  color: darkgreen;
 }
+@media (prefers-color-scheme: dark) {
+  .is-active {
+    color: greenyellow;
+  }
+}
+
 </style>
