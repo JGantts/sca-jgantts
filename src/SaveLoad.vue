@@ -1,9 +1,8 @@
-
 <script setup lang="ts">
 
 </script>
 
-<template lang="html">
+<template>
 <div>Save/load</div>
 </template>
 

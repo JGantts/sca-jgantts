@@ -7,16 +7,16 @@ import { phonemes, phoneTypes, languageData, assemblePhones } from './phones'
 assemblePhones()
 </script>
 
-<template lang="html">
+<template>
 <tabs>
+  <tab name="Save/Load">
+    <SaveLoad />
+  </tab>
   <tab name="Overview">
     <Overview />
   </tab>
   <tab name="Other tab">
     Other content
-  </tab>
-  <tab name="Save/Load">
-    <SaveLoad />
   </tab>
 </tabs>
 </template>
