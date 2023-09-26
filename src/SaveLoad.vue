@@ -22,9 +22,8 @@ function loadTemplate(templateName: templateName) {
 }
 
 function newFileSelected(e: Event) {
-  let input = document.getElementById("fileToLoad") as HTMLInputElement
-  if (!input) return
-  let files = input.files
+  if (!e) return
+  let files = (e?.target as HTMLInputElement)?.files
   if (!files) return
   loadFromFiles(files)
 }
