@@ -189,7 +189,7 @@ function closeSelectedFile() {
     </div>
   </div>
   <div>
-    <button @click="loadFromFile()">
+    <button @click="loadFromFile()" class="selectedFileLoadButton" :class="{ makeVisible: fileSelected }">
       Load chosen .json file
     </button>
   </div>
@@ -340,6 +340,10 @@ function closeSelectedFile() {
   width: 100%;
   height: 100%;
   background: gray;
+}
+
+.selectedFileLoadButton {
+  opacity: 0;
 }
 
 .makeVisible {
