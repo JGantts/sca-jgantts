@@ -12,11 +12,11 @@ type templateName = "ipa"|"blank"
 function loadTemplate(templateName: templateName) {
   switch (templateName) {
     case "ipa":
-      load("")
+      load("", "")
     break
 
     case "blank":
-      load("")
+      load("", "")
     break
   }
 }
@@ -38,10 +38,9 @@ function loadFromFiles(files: FileList) {
     let result = e.target?.result
     if (!result) return
     if (result instanceof ArrayBuffer) return
-    load(result)
+    load(selectedFile.name, result)
   }
   reader.readAsText(selectedFile)
-  fileSelected.value = true
 }
 
 function saveToFile() {
@@ -51,11 +50,26 @@ function saveToFile() {
 }
 
 
-function load(language: string) {
-  let selectedFile = document.getElementById('selectedFileOverlay')
-  if (!selectedFile) return
-  selectedFile.innerText = language
+function load(filename: string, language: string) {
   fileContents = language
+  fileSelected.value = true
+  let selectedFileTitle = document.getElementById('selectedFileOverlayTitle')
+  if (!selectedFileTitle) return
+  selectedFileTitle.innerText = filename
+  let selectedFileBody = document.getElementById('selectedFileOverlayBody')
+  if (!selectedFileBody) return
+  selectedFileBody.innerText = language
+}
+
+function unload() {
+  fileContents = ""
+  fileSelected.value = false
+  let selectedFileTitle = document.getElementById('selectedFileOverlayTitle')
+  if (!selectedFileTitle) return
+  selectedFileTitle.innerText = ""
+  let selectedFileBody = document.getElementById('selectedFileOverlayBody')
+  if (!selectedFileBody) return
+  selectedFileBody.innerText = ""
 }
 
 function loadFromFile() {
@@ -115,6 +129,10 @@ function drop(e: DragEvent) {
     loadFromFiles(files);
   }
 }
+
+function closeSelectedFile() {
+  unload()
+}
 </script>
 
 <template>
@@ -159,10 +177,16 @@ function drop(e: DragEvent) {
     <div
     id="selectedFileOverlay"
     class="overlay selectedFileOverlay"
-    :class="{ makeVisible: fileSelected }"
+    :class="{ makeVisible: fileSelected, makeClickable: fileSelected }"
     >
-    <div id="selectedFileOverlayTitle" />
-    <div id="selectedFileOverlayBody" />
+      <div id="selectedFileOverlayTitleBar">
+        <div id="selectedFileOverlayTitle" />
+        <button id="selectedFileOverlayClose" @click="closeSelectedFile" />
+      </div>
+      <div id="selectedFileOverlayBodyContainer">
+        <div id="selectedFileOverlayBackground" />
+        <div id="selectedFileOverlayBody" />
+      </div>
     </div>
   </div>
   <div>
@@ -220,22 +244,110 @@ function drop(e: DragEvent) {
 }
 
 .selectedFileOverlay {
+  user-select: none;
+  pointer-events: none;
   justify-content: center;
   align-items: center;
+  position: absolute;
+  left: 0;
+  top: 0;
   margin: 0.1rem;
   height: calc(100% - 2*0.1rem);
   width: calc(100% - 2*0.1rem);
-  background: radial-gradient(closest-side, white, black);
   color: black;
   border-radius: calc(1rem - 0.1rem);
-  pointer-events: none;
   overflow-y: hidden;
-  overflow-x:scroll;
+  overflow-x: scroll;
 
   font-size: x-small;
+  display: flex;
+  flex-direction: column;
+}
+
+#selectedFileOverlayTitleBar {
+  left: 0;
+  top: 0;
+  right: 0;
+  width: 100%;
+  flex-basis: 1.5rem;
+  background-color: white;
+  display: flex;
+  flex-grow: 1;
+  font-size: small;
+}
+
+#selectedFileOverlayTitle {
+  flex-grow: 1;
+  background-color: white;
+  padding-left: calc((1rem - 0.1rem)/2);
+}
+
+#selectedFileOverlayClose {
+  pointer-events: auto;
+  border-radius: 100%;
+  margin-right: calc((1rem - 0.1rem)/4);
+  margin-top: calc((1rem - 0.1rem)/8);
+  margin-bottom: calc((1rem - 0.1rem)/8);
+  border-color: red;
+}
+
+
+#selectedFileOverlayClose {
+    position: relative;
+    height: 1rem; /* this can be anything */
+    width: 1rem;  /* ...but maintain 1:1 aspect ratio */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+#selectedFileOverlayClose::before,
+#selectedFileOverlayClose::after {
+    position: absolute;
+    content: '';
+    width: 70%;
+    height: 2px; /* cross thickness */
+    background-color: red;
+}
+
+#selectedFileOverlayClose::before {
+    transform: rotate(45deg);
+    left: 15%;
+}
+
+#selectedFileOverlayClose::after {
+    transform: rotate(-45deg);
+    left: 15%;
+}
+
+
+#selectedFileOverlayBodyContainer {
+  flex-shrink: 1;
+  flex-basis: 100%;
+  width: 100%;
+}
+
+#selectedFileOverlayBody {
+  position: absolute;
+  top: 1.5rem;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow: hidden;
+}
+
+#selectedFileOverlayBackground {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: gray;
 }
 
 .makeVisible {
   opacity: 100;
+}
+
+.makeClickable {
+  pointer-events: auto;
 }
 </style>
