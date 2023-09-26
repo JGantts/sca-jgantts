@@ -11,6 +11,7 @@ import type {
   UUID_Phoneme,
 } from "./commonTypes"
 
+import { reactive } from 'vue'
 
 function assemblePhonemes(saveFile: SaveFile) {
   let phonemes: { [id: UUID_Phoneme] : Phoneme; } = {}
@@ -39,18 +40,25 @@ function assembleLanguagues(saveFile: SaveFile) {
 }
 
 function loadSaveFile(saveFile: SaveFile) {
-  console.log("here")
-  languages = {
-    phoneTypes: assemblePhoneTypes(saveFile),
-    languages: assembleLanguagues(saveFile),
-    phonemes: assemblePhonemes(saveFile),
-    lexicon: saveFile.lexicon,
+  languages.phoneTypes = assemblePhoneTypes(saveFile)
+  languages.languages = assembleLanguagues(saveFile)
+  languages.phonemes = assemblePhonemes(saveFile)
+  languages.lexicon = saveFile.lexicon
+}
+
+let languages: WorkingFile = {
+  phoneTypes: {},
+  languages: {},
+  phonemes: {},
+  lexicon: {
+    words: [],
+    rules: [],
+    treeTrunks: [],
+    treeLimbs: [],
   }
 }
 
-let languages: WorkingFile|null = null
-
-export {
-  loadSaveFile,
+export const langs = reactive({
   languages,
-}
+  loadSaveFile,
+})

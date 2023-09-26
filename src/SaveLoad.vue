@@ -3,7 +3,7 @@ import { ref, type Ref } from 'vue';
 import Overview from './Overview.vue';
 import SaveLoad from './SaveLoad.vue'
 import type { SaveFile, WorkingFile } from './commonTypes';
-import { languages, loadSaveFile } from './phones'
+import { langs } from './phones'
 
 //assemblePhones()
 
@@ -43,8 +43,8 @@ function loadFromFiles(files: FileList) {
 }
 
 function saveToFile() {
-  if (!languages) return
-  let toSave = save(languages)
+  if (!langs.languages) return
+  let toSave = save(langs.languages)
   download("mylang.json", toSave)
 }
 
@@ -74,7 +74,7 @@ function unload() {
 function loadFromFile() {
   let save: SaveFile = JSON.parse(fileContents)
   if (!save) return
-  loadSaveFile(save)
+  langs.loadSaveFile(save)
 }
 
 function save(langs: WorkingFile): string {

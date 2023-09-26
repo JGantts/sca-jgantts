@@ -2,9 +2,7 @@
 import { ref, watch, type Ref } from 'vue';
 import type { Cluster, FeatureStop, Phone, Syllable, Syllables, Syllables_Cluster, UUID_FeatureStop, WordPhrase } from './commonTypes';
 import { stringToWordPhrase } from './stringToWordPhrase'
-import { languages } from './phones';
-
-const lexiconRef = ref(languages?.lexicon)
+import { langs } from './phones';
 
 
 
@@ -44,10 +42,10 @@ function phonesToString(phones: Phone[]) {
 }
 
 function phoneToString(phone: Phone|null) {
-  if (phone==null || languages==null) {
+  if (phone==null || langs.languages==null) {
     return ""
   } else {
-    return Object.values(languages.phonemes).filter(
+    return Object.values(langs.languages.phonemes).filter(
       phoneme => 
         phoneme.featureStops.every(phonemeFeatureStop =>
           phonemeFeatureStopFitsPhone(phone, phonemeFeatureStop)
@@ -68,9 +66,9 @@ const newWordObjectRef: Ref<Syllables_Cluster|{}> = ref({})
 const newWordText = ref({})
 
 watch(newWordInRef, () => {
-  if (!languages) return
+  if (!langs.languages) return
   try {
-    newWord = stringToWordPhrase(newWordInRef.value, languages)
+    newWord = stringToWordPhrase(newWordInRef.value, langs.languages)
     newWordObjectRef.value = newWord
     newWordText.value = syllables_clusterToString(newWord)
   } catch (err) {
@@ -82,8 +80,8 @@ let newWord: Syllables_Cluster|null = null
 
 function addWord() {
   if (!newWord) return
-  if (!lexiconRef.value) return
-  lexiconRef.value.words.push({
+  if (!langs.languages.lexicon) return
+  langs.languages.lexicon.words.push({
     id: "",
     entryForm: newWord,
     entryTreeLimb: "",
@@ -148,7 +146,7 @@ function addWord() {
   <br/>
   <br/>
   <h2>List of words:</h2>
-  <li v-for="lexeme in lexiconRef?.words">{{ syllables_clusterToString(lexeme.entryForm) }}</li>
+  <li v-for="lexeme in langs.languages.lexicon?.words">{{ syllables_clusterToString(lexeme.entryForm) }}</li>
 
 
 </template>

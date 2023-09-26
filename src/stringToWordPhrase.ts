@@ -40,7 +40,6 @@ export function stringToWordPhrase(input: string, languages: WorkingFile): Sylla
       }
     }
     foundAnySyllabic = foundAnySyllabic||foundSyllabic
-    console.log(foundSyllabic)
     toReturnValueSyllables.push({
       onset,
       rhyme: {
