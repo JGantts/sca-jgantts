@@ -3,9 +3,16 @@ import { ref, type Ref } from 'vue';
 import Overview from './Overview.vue';
 import SaveLoad from './SaveLoad.vue'
 import type { SaveFile, WorkingFile } from './commonTypes';
-import { langs } from './phones'
+import { useLangueageStore } from './store'
+
+// access the `store` variable anywhere in the component ✨
+const store = useLangueageStore()
 
 //assemblePhones()
+
+const myProps = defineProps<{
+  changeTab: (tab: string) => void,
+}>()
 
 type templateName = "ipa"|"blank"
 
@@ -43,8 +50,8 @@ function loadFromFiles(files: FileList) {
 }
 
 function saveToFile() {
-  if (!langs.languages) return
-  let toSave = save(langs.languages)
+  if (!store.languages) return
+  let toSave = save(store.languages)
   download("mylang.json", toSave)
 }
 
@@ -74,7 +81,9 @@ function unload() {
 function loadFromFile() {
   let save: SaveFile = JSON.parse(fileContents)
   if (!save) return
-  langs.loadSaveFile(save)
+  store.loadSaveFile(save)
+  myProps.changeTab("#overview");
+  unload()
 }
 
 function save(langs: WorkingFile): string {
@@ -185,13 +194,14 @@ function closeSelectedFile() {
       <div id="selectedFileOverlayBodyContainer">
         <div id="selectedFileOverlayBackground" />
         <div id="selectedFileOverlayBody" />
+        <button
+          id="selectedFileOverlayOverlay"
+          @click="loadFromFile()"
+        >
+          Select this file
+        </button>
       </div>
     </div>
-  </div>
-  <div>
-    <button @click="loadFromFile()" class="selectedFileLoadButton" :class="{ makeVisible: fileSelected }">
-      Load chosen .json file
-    </button>
   </div>
   <br />
   <div class="container">
@@ -340,6 +350,29 @@ function closeSelectedFile() {
   width: 100%;
   height: 100%;
   background: gray;
+}
+
+#selectedFileOverlayOverlay {
+  position: absolute;
+  top: 1.5rem;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  opacity: 0;
+
+  justify-content: center;
+  align-items: center;
+  background: radial-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.125));
+  border-radius: 1rem;
+  color: white;
+
+  font-size:large;
+  cursor: pointer;
+}
+
+#selectedFileOverlayOverlay:hover {
+  opacity: 100;
 }
 
 .selectedFileLoadButton {

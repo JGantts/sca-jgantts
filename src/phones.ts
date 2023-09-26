@@ -39,26 +39,14 @@ function assembleLanguagues(saveFile: SaveFile) {
   return langs
 }
 
-function loadSaveFile(saveFile: SaveFile) {
-  languages.phoneTypes = assemblePhoneTypes(saveFile)
-  languages.languages = assembleLanguagues(saveFile)
-  languages.phonemes = assemblePhonemes(saveFile)
-  languages.lexicon = saveFile.lexicon
-}
-
-let languages: WorkingFile = {
-  phoneTypes: {},
-  languages: {},
-  phonemes: {},
-  lexicon: {
-    words: [],
-    rules: [],
-    treeTrunks: [],
-    treeLimbs: [],
+export function loadSaveFile(saveFile: SaveFile): WorkingFile {
+  let toReturn = {
+    phoneTypes: assemblePhoneTypes(saveFile),
+    languages: assembleLanguagues(saveFile),
+    phonemes: assemblePhonemes(saveFile),
+    lexicon: saveFile.lexicon,
   }
+  return toReturn
 }
 
-export const langs = reactive({
-  languages,
-  loadSaveFile,
-})
+

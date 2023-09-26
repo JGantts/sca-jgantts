@@ -1,9 +1,11 @@
 <script setup lang="ts">
-import { ref, watch, type Ref } from 'vue';
+import { ref, watch, type Ref, reactive } from 'vue';
 import type { Cluster, FeatureStop, Phone, Syllable, Syllables, Syllables_Cluster, UUID_FeatureStop, WordPhrase } from './commonTypes';
 import { stringToWordPhrase } from './stringToWordPhrase'
-import { langs } from './phones';
+import { useLangueageStore } from './store'
 
+// access the `store` variable anywhere in the component ✨
+const store = useLangueageStore()
 
 
 
@@ -42,10 +44,10 @@ function phonesToString(phones: Phone[]) {
 }
 
 function phoneToString(phone: Phone|null) {
-  if (phone==null || langs.languages==null) {
+  if (phone==null || store.languages==null) {
     return ""
   } else {
-    return Object.values(langs.languages.phonemes).filter(
+    return Object.values(store.languages.phonemes).filter(
       phoneme => 
         phoneme.featureStops.every(phonemeFeatureStop =>
           phonemeFeatureStopFitsPhone(phone, phonemeFeatureStop)
@@ -66,9 +68,9 @@ const newWordObjectRef: Ref<Syllables_Cluster|{}> = ref({})
 const newWordText = ref({})
 
 watch(newWordInRef, () => {
-  if (!langs.languages) return
+  if (!store.languages) return
   try {
-    newWord = stringToWordPhrase(newWordInRef.value, langs.languages)
+    newWord = stringToWordPhrase(newWordInRef.value, store.languages)
     newWordObjectRef.value = newWord
     newWordText.value = syllables_clusterToString(newWord)
   } catch (err) {
@@ -80,14 +82,15 @@ let newWord: Syllables_Cluster|null = null
 
 function addWord() {
   if (!newWord) return
-  if (!langs.languages.lexicon) return
-  langs.languages.lexicon.words.push({
+  if (!store.languages.lexicon) return
+  store.languages.lexicon.words.push({
     id: "",
     entryForm: newWord,
     entryTreeLimb: "",
     entryDate: 0,
   })
 }
+
 </script>
 
 <template>
@@ -146,7 +149,7 @@ function addWord() {
   <br/>
   <br/>
   <h2>List of words:</h2>
-  <li v-for="lexeme in langs.languages.lexicon?.words">{{ syllables_clusterToString(lexeme.entryForm) }}</li>
+  <li v-for="lexeme in store.languages.lexicon?.words">{{ syllables_clusterToString(lexeme.entryForm) }}</li>
 
 
 </template>

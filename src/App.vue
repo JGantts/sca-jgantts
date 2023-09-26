@@ -1,17 +1,26 @@
 
 <script setup lang="ts">
+import { ref, type Ref } from 'vue';
 import Overview from './Overview.vue';
 import SaveLoad from './SaveLoad.vue'
+import {Tabs, Tab} from 'vue3-tabs-component';
 
+const tabsHolder: Ref<Tabs|null> = ref(null)
+
+function changeTab(tabId: string) {
+  if (!tabsHolder.value) return
+  tabsHolder.value.selectTab(tabId)
+
+}
 </script>
 
 <template>
-<tabs :options="{ useUrlFragment: false }">
+<tabs ref="tabsHolder" :options="{ useUrlFragment: false }">
   <tab name="Load/Save">
-    <SaveLoad />
+    <SaveLoad v-bind:changeTab="changeTab"/>
   </tab>
   <tab name="Overview">
-    <Overview />
+    <Overview/>
   </tab>
   <tab name="Other tab">
     Other content
