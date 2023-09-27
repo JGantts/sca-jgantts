@@ -3,6 +3,7 @@
 import { ref, type Ref } from 'vue';
 import Overview from './Overview.vue';
 import SaveLoad from './SaveLoad.vue'
+import Phones from './Phones.vue'
 //@ts-expect-error
 import {Tabs, Tab} from 'vue3-tabs-component';
 
@@ -21,10 +22,10 @@ function changeTab(tabId: string) {
     <SaveLoad v-bind:changeTab="changeTab"/>
   </tab>
   <tab name="Overview">
-    <Overview/>
+    <Overview />
   </tab>
   <tab name="Phones">
-    Phones
+    <Phones />
   </tab>
   <tab name="Other tab">
     Other content
@@ -34,8 +35,12 @@ function changeTab(tabId: string) {
 
 <style>
 #app {
-  height: 100vh;
+  height: 100%;
   padding: 0;
+}
+
+.tabs-component-tabs {
+  height: 100%;
 }
 
 .tabs-component {
@@ -49,13 +54,14 @@ function changeTab(tabId: string) {
   width: 20%;
   padding: 1rem;
   height: 100%;
-  border-right-color: green;
-  border-right-width: 0.125rem;
-  border-right-style: solid;
   list-style: none;
 }
 .tabs-component-panels {
-  margin: 1rem;
+  min-height: 100vh;
+  padding: 1rem;
+  border-left-color: green;
+  border-left-width: 0.125rem;
+  border-left-style: solid;
 }
 .is-active {
   color: darkgreen;
