@@ -11,8 +11,6 @@ import type {
   UUID_Phoneme,
 } from "./commonTypes"
 
-import { reactive } from 'vue'
-
 function assemblePhonemes(saveFile: SaveFile) {
   let phonemes: { [id: UUID_Phoneme] : Phoneme; } = {}
   for (let language of saveFile.languages) {

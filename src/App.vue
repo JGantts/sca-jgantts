@@ -3,6 +3,7 @@
 import { ref, type Ref } from 'vue';
 import Overview from './Overview.vue';
 import SaveLoad from './SaveLoad.vue'
+//@ts-expect-error
 import {Tabs, Tab} from 'vue3-tabs-component';
 
 const tabsHolder: Ref<Tabs|null> = ref(null)
