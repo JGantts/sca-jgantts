@@ -15,6 +15,9 @@ function changeTab(tabId: string) {
   tabsHolder.value.selectTab(tabId)
 
 }
+
+const versionNumber = "0.1"
+const softwareTitle = `'SCA JGantts - v${versionNumber}'`;
 </script>
 
 <template>
@@ -41,8 +44,19 @@ function changeTab(tabId: string) {
   padding: 0;
 }
 
+
+
 .tabs-component-tabs {
   height: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.tabs-component-tabs::after {
+  margin-top: auto;
+  font-size: x-small;
+  content: v-bind('softwareTitle');
 }
 
 .tabs-component {
