@@ -37,6 +37,7 @@ function changeTab(tabId: string) {
 <style>
 #app {
   height: 100%;
+  width: 100%;
   padding: 0;
 }
 
@@ -47,6 +48,7 @@ function changeTab(tabId: string) {
 .tabs-component {
   display: flex;
   height: 100%;
+  width: 100%;
 }
 
 .tabs-component-tabs {
@@ -59,6 +61,7 @@ function changeTab(tabId: string) {
 }
 .tabs-component-panels {
   min-height: 100vh;
+  width: 100%;
   padding: 1rem;
   border-left-color: green;
   border-left-width: 0.125rem;
