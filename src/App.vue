@@ -23,6 +23,9 @@ function changeTab(tabId: string) {
   <tab name="Overview">
     <Overview/>
   </tab>
+  <tab name="Phones">
+    Phones
+  </tab>
   <tab name="Other tab">
     Other content
   </tab>
