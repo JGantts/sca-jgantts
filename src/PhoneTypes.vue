@@ -13,7 +13,7 @@ function capitalizeFirstLetter(string: string|null): string {
 <template>
   <h1>Phoneme Types</h1>
   <div class="phoneTypeConainer">
-    <div v-for="phoneType in store.languages?.phoneTypes">
+    <div v-for="phoneType in store.languages?.data.phoneTypes">
       <h2>{{ phoneType.desc }}</h2>
       <table>
         <tr>
