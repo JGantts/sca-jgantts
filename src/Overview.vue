@@ -3,6 +3,7 @@ import { ref, watch, type Ref, reactive } from 'vue';
 import type { Cluster, FeatureStop, Phone, Syllable, Syllables, Syllables_Cluster, UUID_FeatureStop, WordPhrase } from './commonTypes';
 import { stringToWordPhrase } from './stringToWordPhrase'
 import { useLangueageStore } from './store'
+import { randomUUID } from 'crypto';
 
 const store = useLangueageStore()
 
@@ -80,7 +81,7 @@ function addWord() {
   if (!newWord) return
   if (!store.languages?.lexicon) return
   store.languages.lexicon.words.push({
-    id: "",
+    id: crypto.randomUUID(),
     entryForm: newWord,
     entryTreeLimb: "",
     entryDate: 0,
