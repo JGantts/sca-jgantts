@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 import { loadSaveFile } from './phones';
-import type { SaveFile, WorkingFile } from './commonTypes';
+import type { SaveFile, WorkingFile } from './file/FileTypes';
 
 export const useLangueageStore = defineStore('languages', {
   state: () => {

@@ -89,6 +89,12 @@ body {
   font-family: 'Inter';
 }
 
-.roman {
+.roman-small {
   font-family: 'Junicode';
+  font-size: medium;
+}
+
+.roman-medium {
+  font-family: 'Junicode';
+  font-size: larger;
 }

@@ -2,10 +2,11 @@
 import { ref, type Ref } from 'vue';
 import Overview from './Overview.vue';
 import SaveLoad from './SaveLoad.vue'
-import type { SaveFile, WorkingFile } from './commonTypes';
 import { useLangueageStore } from './store'
 
 import ipa from "./templates/ipa.json"
+import type { SaveFile, WorkingFile } from './file/FileTypes';
+import { getSaveFile } from './phones';
 
 // access the `store` variable anywhere in the component ✨
 const store = useLangueageStore()
@@ -91,13 +92,8 @@ function loadFromFile() {
   unload()
 }
 
-function save(langs: WorkingFile): string {
-  
-  let toSave: SaveFile = {
-    phoneTypes: Object.values(langs.phoneTypes),
-    languages: Object.values(langs.languages),
-    lexicon: langs.lexicon,
-  }
+function save(workingFile: WorkingFile): string {
+  let toSave = getSaveFile(workingFile)
   return JSON.stringify(toSave)
 }
 

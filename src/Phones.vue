@@ -20,7 +20,7 @@ function featureStopValueDesc(phoneme: Phoneme, featureCategory: FeatureCategory
 
 
 <template>
-  <div v-for="phoneType in store.languages?.phoneTypes">
+  <div v-for="phoneType in store.languages?.data.phoneTypes">
     <h1>{{ capitalizeFirstLetter(phoneType.desc) }}</h1>
     <table>
       <tr>
@@ -32,7 +32,7 @@ function featureStopValueDesc(phoneme: Phoneme, featureCategory: FeatureCategory
         </th>
       </tr>
       <!-- @vue-expect-error -->
-      <tr v-for="phoneme in Object.values(store.languages?.phonemes).filter(x => x.typeID === phoneType.id)">
+      <tr v-for="phoneme in Object.values(store.languages?.data.phonemes).filter(x => x.typeID === phoneType.id)">
         <td>
         {{ phoneme.IPA }}
         </td>

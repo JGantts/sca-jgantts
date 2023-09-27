@@ -3,7 +3,6 @@ import { ref, watch, type Ref, reactive } from 'vue';
 import type { Cluster, FeatureStop, Phone, Syllable, Syllables, Syllables_Cluster, UUID_FeatureStop, WordPhrase } from './commonTypes';
 import { stringToWordPhrase } from './stringToWordPhrase'
 import { useLangueageStore } from './store'
-import { randomUUID } from 'crypto';
 
 const store = useLangueageStore()
 
@@ -47,7 +46,7 @@ function phoneToString(phone: Phone|null) {
   if (phone==null || store.languages==null) {
     return ""
   } else {
-    return Object.values(store.languages.phonemes).filter(
+    return Object.values(store.languages.data.phonemes).filter(
       phoneme => 
         phoneme.featureStops.every(phonemeFeatureStop =>
           phonemeFeatureStopFitsPhone(phone, phonemeFeatureStop)
@@ -79,8 +78,8 @@ let newWord: Syllables_Cluster|null = null
 
 function addWord() {
   if (!newWord) return
-  if (!store.languages?.lexicon) return
-  store.languages.lexicon.words.push({
+  if (!store.languages?.data.lexicon) return
+  store.languages.data.lexicon.words.push({
     id: crypto.randomUUID(),
     entryForm: newWord,
     entryTreeLimb: "",
@@ -146,7 +145,7 @@ function addWord() {
   <br/>
   <br/>
   <h2>List of words:</h2>
-  <li v-for="lexeme in store.languages?.lexicon?.words" class="roman">{{ syllables_clusterToString(lexeme.entryForm) }}</li>
+  <li v-for="lexeme in store.languages?.data.lexicon?.words" class="roman-medium">{{ syllables_clusterToString(lexeme.entryForm) }}</li>
 
 
 </template>
