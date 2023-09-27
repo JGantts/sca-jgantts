@@ -25,7 +25,7 @@ function changeTab(tabId: string) {
   <tab name="Overview">
     <Overview />
   </tab>
-  <tab name="PhoneTypes">
+  <tab name="Phone Types">
     <PhoneTypes />
   </tab>
   <tab name="Phones">

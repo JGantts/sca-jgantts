@@ -53,4 +53,10 @@ tr:last-child { border-bottom: none; }
   display: flex;
   gap: 2rem;
 }
+th { 
+  border-right: solid thin;
+  padding-left: 0.2rem;
+  padding-right: 0.2rem;
+}
+th:last-child { border-right: none; }
 </style>

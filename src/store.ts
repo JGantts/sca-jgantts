@@ -12,7 +12,10 @@ export const useLangueageStore = defineStore('languages', {
   // state: () => ({ count: 0 })
   actions: {
     loadSaveFile(saveFile: SaveFile) {
-      this.languages = loadSaveFile(saveFile)
+      if (saveFile)
+        this.languages = loadSaveFile(saveFile)
+      else
+        this.languages = null
     },
   },
 })

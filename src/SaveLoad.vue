@@ -5,6 +5,8 @@ import SaveLoad from './SaveLoad.vue'
 import type { SaveFile, WorkingFile } from './commonTypes';
 import { useLangueageStore } from './store'
 
+import ipa from "./templates/ipa.json"
+
 // access the `store` variable anywhere in the component ✨
 const store = useLangueageStore()
 
@@ -19,11 +21,11 @@ type templateName = "ipa"|"blank"
 function loadTemplate(templateName: templateName) {
   switch (templateName) {
     case "ipa":
-      load("", "")
+      load("ipa", JSON.stringify(ipa))
     break
 
     case "blank":
-      load("", "")
+      load("blank", "")
     break
   }
 }
@@ -79,9 +81,12 @@ function unload() {
 }
 
 function loadFromFile() {
-  let save: SaveFile = JSON.parse(fileContents)
-  if (!save) return
-  store.loadSaveFile(save)
+  let file
+  try {
+    file = JSON.parse(fileContents)
+  } catch (err) {}
+  let save: SaveFile = file
+  store.loadSaveFile(save ?? null)
   myProps.changeTab("#overview");
   unload()
 }
