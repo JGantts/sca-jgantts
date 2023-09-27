@@ -198,7 +198,13 @@ function closeSelectedFile() {
           id="selectedFileOverlayOverlay"
           @click="loadFromFile()"
         >
-          Select this file
+          <div v-if="store.languages!==null" class="unsaved-changes-warning">
+            Unsaved changes will be lost!
+          </div>
+          Load this file
+          <div v-if="store.languages!==null" class="unsaved-changes-warning">
+            Unsaved changes will be lost!
+          </div>
         </button>
       </div>
     </div>
@@ -364,8 +370,11 @@ function closeSelectedFile() {
   justify-content: center;
   align-items: center;
   background: radial-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.125));
-  border-radius: 1rem;
+  border-bottom-left-radius: 1rem;
+  border-bottom-right-radius: 1rem;
+  border: none;
   color: white;
+  display: block;
 
   font-size:large;
   cursor: pointer;
@@ -377,6 +386,10 @@ function closeSelectedFile() {
 
 .selectedFileLoadButton {
   opacity: 0;
+}
+
+.unsaved-changes-warning {
+  color: rgb(250, 50, 50);
 }
 
 .makeVisible {

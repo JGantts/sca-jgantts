@@ -82,7 +82,7 @@ let newWord: Syllables_Cluster|null = null
 
 function addWord() {
   if (!newWord) return
-  if (!store.languages.lexicon) return
+  if (!store.languages?.lexicon) return
   store.languages.lexicon.words.push({
     id: "",
     entryForm: newWord,
@@ -149,7 +149,7 @@ function addWord() {
   <br/>
   <br/>
   <h2>List of words:</h2>
-  <li v-for="lexeme in store.languages.lexicon?.words">{{ syllables_clusterToString(lexeme.entryForm) }}</li>
+  <li v-for="lexeme in store.languages?.lexicon?.words">{{ syllables_clusterToString(lexeme.entryForm) }}</li>
 
 
 </template>
