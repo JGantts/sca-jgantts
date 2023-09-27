@@ -31,9 +31,6 @@ function changeTab(tabId: string) {
   <tab name="Phones">
     <Phones />
   </tab>
-  <tab name="Other tab">
-    Other content
-  </tab>
 </tabs>
 </template>
 
