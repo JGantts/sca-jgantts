@@ -4,6 +4,7 @@ import { ref, type Ref } from 'vue';
 import Overview from './Overview.vue';
 import SaveLoad from './SaveLoad.vue'
 import Phones from './Phones.vue'
+import PhoneTypes from './PhoneTypes.vue'
 //@ts-expect-error
 import {Tabs, Tab} from 'vue3-tabs-component';
 
@@ -23,6 +24,9 @@ function changeTab(tabId: string) {
   </tab>
   <tab name="Overview">
     <Overview />
+  </tab>
+  <tab name="PhoneTypes">
+    <PhoneTypes />
   </tab>
   <tab name="Phones">
     <Phones />

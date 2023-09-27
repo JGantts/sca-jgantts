@@ -149,7 +149,7 @@ export type SaveFile = {
 export type WorkingFile = {
   phoneTypes: { [id: UUID_PhoneType] : PhoneType; }
   languages: { [id: UUID_Language] : Language; }
-  phonemes: { [id: UUID_PhonemeType] : Phoneme; }
+  phonemes: { [id: UUID_Phoneme] : Phoneme; }
   lexicon: {
     words: WordPhrase[],
     rules: RuleGroup[],

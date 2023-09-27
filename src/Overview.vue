@@ -4,7 +4,6 @@ import type { Cluster, FeatureStop, Phone, Syllable, Syllables, Syllables_Cluste
 import { stringToWordPhrase } from './stringToWordPhrase'
 import { useLangueageStore } from './store'
 
-// access the `store` variable anywhere in the component ✨
 const store = useLangueageStore()
 
 
@@ -57,10 +56,7 @@ function phoneToString(phone: Phone|null) {
 }
 
 function phonemeFeatureStopFitsPhone(phone: Phone, phonemeStop: FeatureStop): boolean {
-  switch (phonemeStop.kind) {
-    case "FeatureStop":
-      return (phone.features[phonemeStop.categoryID] as UUID_FeatureStop) == phonemeStop.id
-  }
+    return (phone.features[phonemeStop.categoryID] as UUID_FeatureStop) == phonemeStop.id
 }
 
 const newWordInRef = ref("")
