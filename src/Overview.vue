@@ -129,7 +129,7 @@ function addWord() {
         <th>Nonsyllabic</th>
       </tr>
       <tr>
-        <td>
+        <td class="ipa">
           <span v-for="phone in ((newWordObjectRef as Syllables_Cluster).value as Cluster).sounds">
             {{ phoneToString(phone) }}
           </span> 
@@ -146,7 +146,7 @@ function addWord() {
   <br/>
   <br/>
   <h2>List of words:</h2>
-  <li v-for="lexeme in store.languages?.lexicon?.words">{{ syllables_clusterToString(lexeme.entryForm) }}</li>
+  <li v-for="lexeme in store.languages?.lexicon?.words" class="roman">{{ syllables_clusterToString(lexeme.entryForm) }}</li>
 
 
 </template>

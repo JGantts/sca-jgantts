@@ -84,3 +84,11 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
+.ipa {
+  font-family: 'Inter';
+}
+
+.roman {
+  font-family: 'Junicode';
+}
