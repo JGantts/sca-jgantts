@@ -12,6 +12,7 @@ const store = useLangueageStore()
 //assemblePhones()
 
 window.ondragenter = (e) => {
+  if (store.currentTab != "loadsave") return
   e.stopImmediatePropagation()
   e.preventDefault()
   isDragging.value = true
@@ -22,7 +23,7 @@ const myProps = defineProps<{
   changeTab: (tab: string) => void,
   loadFromFiles: {
     loadFromFiles: ((file: FileList) => void)|null
-  }
+  },
 }>()
 
 type templateName = "ipa"|"blank"

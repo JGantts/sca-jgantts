@@ -134,3 +134,5 @@ export type TreeLimb = {
     children: UUID_TreeLimb[]
   }
 }
+
+export type TabHash = "loadsave"|"overview"|"phonetypes"|"phones"|"familygraph"

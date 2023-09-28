@@ -18,6 +18,8 @@ import PhoneTypes from './PhoneTypes.vue'
 import FamilyGraph from './graph/FamilyGraph.vue'
 //@ts-expect-error
 import {Tabs, Tab} from 'vue3-tabs-component';
+import type { TabHash } from './commonTypes';
+import { useLangueageStore } from './store'
 
 const tabsHolder: Ref<Tabs|null> = ref(null)
 
@@ -44,6 +46,12 @@ const loadFromFiles: {
 } = {
   loadFromFiles: null
 }
+
+function tabChanged(param: any) {
+  store.currentTab = param.tab.computedId as TabHash
+}
+
+const store = useLangueageStore()
 </script>
 
 <template>
@@ -53,7 +61,11 @@ const loadFromFiles: {
     v-bind:load-from-files="loadFromFiles"
   />
   <div id="tabs-container">
-    <tabs ref="tabsHolder" :options="{ useUrlFragment: false }" >
+    <tabs
+      ref="tabsHolder"
+      :options="{ useUrlFragment: false }"
+      @changed="tabChanged"
+    >
       <tab id="loadsave" name="Load/Save">
         <SaveLoad
           v-bind:changeTab="changeTab"
