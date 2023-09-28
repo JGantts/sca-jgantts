@@ -12,6 +12,7 @@ const buildVersion: string = "4"
 import { ref, type Ref } from 'vue';
 import Overview from './Overview.vue';
 import SaveLoad from './SaveLoad.vue'
+import AppOverlay from './app overlay/AppOverlay.vue'
 import Phones from './Phones.vue'
 import PhoneTypes from './PhoneTypes.vue'
 import FamilyGraph from './graph/FamilyGraph.vue'
@@ -37,26 +38,43 @@ if (minorVersion != "0") {
 }
 
 const softwareTitle = `'SCA JGantts - v${versionNumber}'`;
+
+const loadFromFiles: {
+  loadFromFiles: ((file: FileList) => void)|null
+} = {
+  loadFromFiles: null
+}
 </script>
 
 <template>
-<tabs ref="tabsHolder" :options="{ useUrlFragment: false }">
-  <tab name="Load/Save">
-    <SaveLoad v-bind:changeTab="changeTab"/>
-  </tab>
-  <tab name="Overview">
-    <Overview />
-  </tab>
-  <tab name="Phone Types">
-    <PhoneTypes />
-  </tab>
-  <tab name="Phones">
-    <Phones />
-  </tab>
-  <tab name="Family Graph">
-    <FamilyGraph />
-  </tab>
-</tabs>
+<div id="app-container">
+  <AppOverlay
+    v-bind:changeTab="changeTab"
+    v-bind:load-from-files="loadFromFiles"
+  />
+  <div id="tabs-container">
+    <tabs ref="tabsHolder" :options="{ useUrlFragment: false }" >
+      <tab name="Load/Save">
+        <SaveLoad
+          v-bind:changeTab="changeTab"
+          v-bind:load-from-files="loadFromFiles"
+        />
+      </tab>
+      <tab name="Overview">
+        <Overview />
+      </tab>
+      <tab name="Phone Types">
+        <PhoneTypes />
+      </tab>
+      <tab name="Phones">
+        <Phones />
+      </tab>
+      <tab name="Family Graph">
+        <FamilyGraph />
+      </tab>
+    </tabs>
+  </div>
+</div>
 </template>
 
 <style>
@@ -65,7 +83,6 @@ const softwareTitle = `'SCA JGantts - v${versionNumber}'`;
   width: 100%;
   padding: 0;
 }
-
 
 .tabs-component-tabs {
   height: 100%;

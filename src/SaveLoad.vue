@@ -15,7 +15,12 @@ const store = useLangueageStore()
 
 const myProps = defineProps<{
   changeTab: (tab: string) => void,
+  loadFromFiles: {
+    loadFromFiles: ((file: FileList) => void)|null
+  }
 }>()
+
+myProps.loadFromFiles.loadFromFiles = loadFromFiles
 
 type templateName = "ipa"|"blank"
 

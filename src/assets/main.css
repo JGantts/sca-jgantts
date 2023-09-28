@@ -45,3 +45,17 @@ a {
   font-family: 'Junicode';
   font-size: larger;
 }
+
+button {
+  background-color: var(--jg-c-solid-background);
+  border-color: var(--jg-c-border);
+  border-radius: 0.4rem;
+  font-size: 1.3rem;
+}
+
+input[type=file]::file-selector-button { 
+  background-color: var(--jg-c-solid-background);
+  border-color: var(--jg-c-border);
+  border-radius: 0.4rem;
+  font-size: 1.3rem;
+}
