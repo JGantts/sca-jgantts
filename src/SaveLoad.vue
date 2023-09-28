@@ -231,7 +231,7 @@ function closeSelectedFile() {
 .container {
   padding: 0.5rem;
   border: 0.1rem;
-  border-color: var(--color-text);
+  border-color: var(--jg-c-border);
   border-style: solid;
   border-radius: 1rem;
 }
@@ -255,7 +255,7 @@ function closeSelectedFile() {
   width: 100%;
   background: radial-gradient(rgba(0,0,0,0.75), rgba(0,0,0,0.25));
   border-radius: 1rem;
-  color: white;
+  color: var(--jg-c-text-highlight);
   pointer-events: none;
 }
 
@@ -270,7 +270,7 @@ function closeSelectedFile() {
   margin: 0.1rem;
   height: calc(100% - 2*0.1rem);
   width: calc(100% - 2*0.1rem);
-  color: black;
+  color: var(--jg-c-low-contrast-text);
   border-radius: calc(1rem - 0.1rem);
   overflow-y: hidden;
   overflow-x: scroll;
@@ -286,7 +286,7 @@ function closeSelectedFile() {
   right: 0;
   width: 100%;
   flex-basis: 1.5rem;
-  background-color: white;
+  background-color: var(--jg-c-element-background);
   display: flex;
   flex-grow: 1;
   font-size: small;
@@ -294,7 +294,8 @@ function closeSelectedFile() {
 
 #selectedFileOverlayTitle {
   flex-grow: 1;
-  background-color: white;
+  background-color: var(--jg-c-element-background);
+  color: var(--jg-c-text-highlight);
   padding-left: calc((1rem - 0.1rem)/2);
 }
 
@@ -304,7 +305,6 @@ function closeSelectedFile() {
   margin-right: calc((1rem - 0.1rem)/4);
   margin-top: calc((1rem - 0.1rem)/8);
   margin-bottom: calc((1rem - 0.1rem)/8);
-  border-color: red;
 }
 
 
@@ -315,6 +315,8 @@ function closeSelectedFile() {
     display: flex;
     flex-direction: column;
     justify-content: center;
+    background-color: var(--jg-c-critical-app-background);
+    cursor: pointer;
 }
 
 #selectedFileOverlayClose::before,
@@ -323,7 +325,7 @@ function closeSelectedFile() {
     content: '';
     width: 70%;
     height: 2px; /* cross thickness */
-    background-color: red;
+    background-color: var(--jg-c-critical-text-highlight)
 }
 
 #selectedFileOverlayClose::before {
@@ -356,7 +358,7 @@ function closeSelectedFile() {
   position: relative;
   width: 100%;
   height: 100%;
-  background: gray;
+  background: var(--jg-c-subtle-background);
 }
 
 #selectedFileOverlayOverlay {
@@ -370,11 +372,11 @@ function closeSelectedFile() {
 
   justify-content: center;
   align-items: center;
-  background: radial-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.125));
+  background: radial-gradient(rgba(0,0,0,0.75), rgba(0,0,0,0.75), rgba(0,0,0,0.125));
   border-bottom-left-radius: 1rem;
   border-bottom-right-radius: 1rem;
   border: none;
-  color: white;
+  color: var(--jg-c-text-highlight);
   display: block;
 
   font-size:large;
@@ -390,7 +392,7 @@ function closeSelectedFile() {
 }
 
 .unsaved-changes-warning {
-  color: rgb(250, 50, 50);
+  color: var(--jg-c-critical-text-highlight)
 }
 
 .makeVisible {

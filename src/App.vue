@@ -13,7 +13,6 @@ const tabsHolder: Ref<Tabs|null> = ref(null)
 function changeTab(tabId: string) {
   if (!tabsHolder.value) return
   tabsHolder.value.selectTab(tabId)
-
 }
 
 const versionNumber = "0.1"
@@ -45,7 +44,6 @@ const softwareTitle = `'SCA JGantts - v${versionNumber}'`;
 }
 
 
-
 .tabs-component-tabs {
   height: 100%;
   min-height: 100vh;
@@ -56,6 +54,7 @@ const softwareTitle = `'SCA JGantts - v${versionNumber}'`;
 .tabs-component-tabs::after {
   margin-top: auto;
   font-size: x-small;
+  color: var(--jg-c-text-highlight);
   content: v-bind('softwareTitle');
 }
 
@@ -77,17 +76,20 @@ const softwareTitle = `'SCA JGantts - v${versionNumber}'`;
   min-height: 100vh;
   width: 100%;
   padding: 1rem;
-  border-left-color: green;
+  border-left-color: var(--jg-c-border);
   border-left-width: 0.125rem;
   border-left-style: solid;
 }
-.is-active {
-  color: darkgreen;
+
+a {
+  color: var(--jg-c-text);
 }
-@media (prefers-color-scheme: dark) {
-  .is-active {
-    color: greenyellow;
-  }
+a:hover {
+  color: var(--jg-c-low-contrast-text-highlight);
+}
+.is-active,
+.is-active a:hover {
+  color: var(--jg-c-text-highlight);
 }
 
 </style>

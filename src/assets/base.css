@@ -1,52 +1,80 @@
-/* color palette from <https://github.com/vuejs/theme> */
-:root {
-  --vt-c-white: #ffffff;
-  --vt-c-white-soft: #f8f8f8;
-  --vt-c-white-mute: #f2f2f2;
+@import './normalize.css';
+@import './colors.css';
 
-  --vt-c-black: #181818;
-  --vt-c-black-soft: #222222;
-  --vt-c-black-mute: #282828;
-
-  --vt-c-indigo: #2c3e50;
-
-  --vt-c-divider-light-1: rgba(60, 60, 60, 0.29);
-  --vt-c-divider-light-2: rgba(60, 60, 60, 0.12);
-  --vt-c-divider-dark-1: rgba(84, 84, 84, 0.65);
-  --vt-c-divider-dark-2: rgba(84, 84, 84, 0.48);
-
-  --vt-c-text-light-1: var(--vt-c-indigo);
-  --vt-c-text-light-2: rgba(60, 60, 60, 0.66);
-  --vt-c-text-dark-1: var(--vt-c-white);
-  --vt-c-text-dark-2: rgba(235, 235, 235, 0.64);
+button {
+  border: none;
 }
+
 
 /* semantic color variables for this project */
 :root {
-  --color-background: var(--vt-c-white);
-  --color-background-soft: var(--vt-c-white-soft);
-  --color-background-mute: var(--vt-c-white-mute);
+  --jg-c-app-background: var(--grass-1);
+  --jg-c-subtle-background: var(--grass-2);
+  --jg-c-element-background: var(--grass-3);
+  --jg-c-hovered-element-background: var(--grass-4);
+  --jg-c-active-element-background: var(--grass-5);
+  --jg-c-subtle-border: var(--grass-6);
+  --jg-c-border: var(--grass-7);
+  --jg-c-hovered-border: var(--grass-8);
+  --jg-c-solid-background: var(--grass-9);
+  --jg-c-hovered-solid-background: var(--grass-10);
+  --jg-c-low-contrast-text: var(--olive-11);
+  --jg-c-text: var(--olive-12);
 
-  --color-border: var(--vt-c-divider-light-2);
-  --color-border-hover: var(--vt-c-divider-light-1);
+  --jg-c-low-contrast-text-highlight: var(--grass-12);
+  --jg-c-text-highlight: var(--grass-11);
 
-  --color-heading: var(--vt-c-text-light-1);
-  --color-text: var(--vt-c-text-light-1);
 
-  --section-gap: 160px;
+  --jg-c-critical-app-background: var(--red-1);
+  --jg-c-critical-subtle-background: var(--red-2);
+  --jg-c-critical-element-background: var(--red-3);
+  --jg-c-critical-hovered-element-background: var(--red-4);
+  --jg-c-critical-active-element-background: var(--red-5);
+  --jg-c-critical-subtle-border: var(--red-6);
+  --jg-c-critical-border: var(--red-7);
+  --jg-c-critical-hovered-border: var(--red-8);
+  --jg-c-critical-solid-background: var(--red-9);
+  --jg-c-critical-hovered-solid-background: var(--red-10);
+  --jg-c-critical-low-contrast-text: var(--mauve-11);
+  --jg-c-critical-text: var(--mauve-12);
+
+  --jg-c-critical-low-contrast-text-highlight: var(--red-12);
+  --jg-c-critical-text-highlight: var(--red-11);
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --color-background: var(--vt-c-black);
-    --color-background-soft: var(--vt-c-black-soft);
-    --color-background-mute: var(--vt-c-black-mute);
+    --jg-c-app-background: var(--dark-grass-1);
+    --jg-c-subtle-background: var(--dark-grass-2);
+    --jg-c-element-background: var(--dark-grass-3);
+    --jg-c-hovered-element-background: var(--dark-grass-4);
+    --jg-c-active-element-background: var(--dark-grass-5);
+    --jg-c-subtle-border: var(--dark-grass-6);
+    --jg-c-border: var(--dark-grass-7);
+    --jg-c-hovered-border: var(--dark-grass-8);
+    --jg-c-solid-background: var(--dark-grass-9);
+    --jg-c-hovered-solid-background: var(--dark-grass-10);
+    --jg-c-low-contrast-text: var(--dark-olive-11);
+    --jg-c-text: var(--dark-olive-12);
 
-    --color-border: var(--vt-c-divider-dark-2);
-    --color-border-hover: var(--vt-c-divider-dark-1);
+    --jg-c-low-contrast-text-highlight: var(--dark-grass-12);
+    --jg-c-text-highlight: var(--dark-grass-11);
 
-    --color-heading: var(--vt-c-text-dark-1);
-    --color-text: var(--vt-c-text-dark-2);
+    --jg-c-critical-app-background: var(--dark-red-1);
+    --jg-c-critical-subtle-background: var(--dark-red-2);
+    --jg-c-critical-element-background: var(--dark-red-3);
+    --jg-c-critical-hovered-element-background: var(--dark-red-4);
+    --jg-c-critical-active-element-background: var(--dark-red-5);
+    --jg-c-critical-subtle-border: var(--dark-red-6);
+    --jg-c-critical-border: var(--dark-red-7);
+    --jg-c-critical-hovered-border: var(--dark-red-8);
+    --jg-c-critical-solid-background: var(--dark-red-9);
+    --jg-c-critical-hovered-solid-background: var(--dark-red-10);
+    --jg-c-critical-low-contrast-text: var(--dark-mauve-11);
+    --jg-c-critical-text: var(--dark-mauve-12);
+
+    --jg-c-critical-low-contrast-text-highlight: var(--dark-red-12);
+    --jg-c-critical-text-highlight: var(--dark-red-11);
   }
 }
 
@@ -60,8 +88,8 @@
 
 body {
   min-height: 100vh;
-  color: var(--color-text);
-  background: var(--color-background);
+  color: var(--jg-c-text);
+  background-color: var(--jg-c-app-background);
   transition:
     color 0.5s,
     background-color 0.5s;
@@ -83,18 +111,4 @@ body {
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-}
-
-.ipa {
-  font-family: 'Inter';
-}
-
-.roman-small {
-  font-family: 'Junicode';
-  font-size: medium;
-}
-
-.roman-medium {
-  font-family: 'Junicode';
-  font-size: larger;
 }
