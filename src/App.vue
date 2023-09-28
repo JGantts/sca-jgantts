@@ -16,7 +16,7 @@ function changeTab(tabId: string) {
   tabsHolder.value.selectTab(tabId)
 }
 //[major].[minor].[beta ].[build]
-const versionNumber = "0.1.1.1"
+const versionNumber = "0.1.1.2"
 const softwareTitle = `'SCA JGantts - v${versionNumber}'`;
 </script>
 
