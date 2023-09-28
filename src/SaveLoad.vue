@@ -392,6 +392,12 @@ function closeSelectedFile() {
   opacity: 100;
 }
 
+@media (hover: none) {
+  #selectedFileOverlayOverlay {
+    opacity: 100;
+  }
+}
+
 #selectedFileOverlayOverlay:hover {
   opacity: 100;
 }
