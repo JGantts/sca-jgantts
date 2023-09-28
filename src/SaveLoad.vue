@@ -251,6 +251,7 @@ function closeSelectedFile() {
   top:0;
   left:0;
   opacity: 0;
+  transition: opacity 0.3s;
 }
 
 .draggingOverlay {
@@ -386,6 +387,8 @@ function closeSelectedFile() {
 
   font-size:large;
   cursor: pointer;
+
+  transition: opacity 0.5s;
 }
 
 .selectedFileOverlayOverlay_initialStart {
