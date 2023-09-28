@@ -81,6 +81,9 @@ function load(filename: string, language: string) {
 }
 
 function unload() {
+  let fileToLoad = document.getElementById('fileToLoad') as HTMLInputElement
+  if (!fileToLoad) return
+  fileToLoad.value = ""
   fileContents = ""
   fileSelected.value = false
   let selectedFileTitle = document.getElementById('selectedFileOverlayTitle')
@@ -187,13 +190,6 @@ function closeSelectedFile() {
       </div>
     </div>
     <div
-    class="overlay draggingOverlay"
-    :class="{ makeVisible: isDragging }"
-    id="drag-container3"
-    >
-      Drop Project File Here
-    </div>
-    <div
     id="selectedFileOverlay"
     class="overlay selectedFileOverlay"
     :class="{ makeVisible: fileSelected, makeClickable: fileSelected }"
@@ -220,6 +216,8 @@ function closeSelectedFile() {
       </div>
     </div>
   </div>
+  <br />
+  {{ fileSelected }}
   <br />
   <div class="container">
     <h3>Save</h3>

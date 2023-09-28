@@ -12,7 +12,6 @@ const store = useLangueageStore()
 //assemblePhones()
 
 window.ondragenter = (e) => {
-  console.log("hi1")
   e.stopImmediatePropagation()
   e.preventDefault()
   isDragging.value = true
@@ -31,14 +30,12 @@ type templateName = "ipa"|"blank"
 let isDragging = ref(false)
 
 function dragleave(e: DragEvent) {
-  console.log("leave")
   e.stopImmediatePropagation()
   e.preventDefault()
   isDragging.value = false
 }
 
 function drop(e: DragEvent) {
-  console.log("drop")
   e.stopImmediatePropagation()
   e.preventDefault()
   isDragging.value = false
@@ -46,8 +43,10 @@ function drop(e: DragEvent) {
   const dt = e.dataTransfer;
   const files = dt?.files;
   if (files) {
-    if (myProps.loadFromFiles.loadFromFiles)
-    myProps.loadFromFiles.loadFromFiles(files);
+    if (myProps.loadFromFiles.loadFromFiles) {
+      myProps.loadFromFiles.loadFromFiles(files)
+      myProps.changeTab("#loadsave")
+    }
   }
 }
 </script>
@@ -73,6 +72,13 @@ function drop(e: DragEvent) {
   opacity: 0;
   visibility: hidden;
   transition: opacity 0.5s, visibility 0.5s;
+
+  justify-content: center;
+  align-items: center;
+  background: radial-gradient(rgba(0,0,0,0.75), rgba(0,0,0,0.6), rgba(0,0,0,0.25));
+  color: var(--jg-c-text-highlight-onDark);
+  font-size: xx-large;
+  display: flex;
 }
 
 .makeVisible {
@@ -90,13 +96,9 @@ function drop(e: DragEvent) {
 }
 
 .draggingOverlay {
-  justify-content: center;
-  align-items: center;
   height: 100%;
   width: 100%;
-  background: radial-gradient(rgba(0,0,0,0.75), rgba(0,0,0,0.25));
   border-radius: 1rem;
-  color: var(--jg-c-text-highlight);
   pointer-events: none;
 }
 </style>

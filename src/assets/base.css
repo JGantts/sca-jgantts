@@ -21,9 +21,20 @@ button {
   --jg-c-low-contrast-text: var(--olive-11);
   --jg-c-text: var(--olive-12);
 
+
   --jg-c-low-contrast-text-highlight: var(--grass-12);
   --jg-c-text-highlight: var(--grass-11);
 
+
+  --jg-c-low-contrast-text-onDark: var(--dark-olive-11);
+  --jg-c-text-onDark: var(--dark-olive-12);
+  --jg-c-low-contrast-text-highlight-onDark: var(--dark-grass-11);
+  --jg-c-text-highlight-onDark: var(--dark-grass-12);
+
+  --jg-c-low-contrast-text-invert: var(--dark-olive-11);
+  --jg-c-text-invert: var(--dark-olive-12);
+  --jg-c-low-contrast-text-highlight-invert: var(--dark-grass-11);
+  --jg-c-text-highlight-invert: var(--dark-grass-12);
 
   --jg-c-critical-app-background: var(--red-1);
   --jg-c-critical-subtle-background: var(--red-2);
@@ -59,6 +70,11 @@ button {
 
     --jg-c-low-contrast-text-highlight: var(--dark-grass-12);
     --jg-c-text-highlight: var(--dark-grass-11);
+
+    --jg-c-low-contrast-text-invert: var(--olive-11);
+    --jg-c-text-invert: var(--olive-12);
+    --jg-c-low-contrast-text-highlight-invert: var(--grass-11);
+    --jg-c-text-highlight-invert: var(--grass-12);
 
     --jg-c-critical-app-background: var(--dark-red-1);
     --jg-c-critical-subtle-background: var(--dark-red-2);

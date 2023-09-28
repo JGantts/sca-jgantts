@@ -46,16 +46,11 @@ a {
   font-size: larger;
 }
 
-button {
+button,
+input[type=file]::file-selector-button {
   background-color: var(--jg-c-solid-background);
   border-color: var(--jg-c-border);
-  border-radius: 0.4rem;
-  font-size: 1.3rem;
-}
-
-input[type=file]::file-selector-button { 
-  background-color: var(--jg-c-solid-background);
-  border-color: var(--jg-c-border);
+  color: var(--jg-c-text-invert);
   border-radius: 0.4rem;
   font-size: 1.3rem;
 }

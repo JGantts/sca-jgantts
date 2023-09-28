@@ -54,22 +54,22 @@ const loadFromFiles: {
   />
   <div id="tabs-container">
     <tabs ref="tabsHolder" :options="{ useUrlFragment: false }" >
-      <tab name="Load/Save">
+      <tab id="loadsave" name="Load/Save">
         <SaveLoad
           v-bind:changeTab="changeTab"
           v-bind:load-from-files="loadFromFiles"
         />
       </tab>
-      <tab name="Overview">
+      <tab id="overview" name="Overview">
         <Overview />
       </tab>
-      <tab name="Phone Types">
+      <tab id="phonetypes" name="Phone Types">
         <PhoneTypes />
       </tab>
-      <tab name="Phones">
+      <tab id="phones" name="Phones">
         <Phones />
       </tab>
-      <tab name="Family Graph">
+      <tab id="familygraph" name="Family Graph">
         <FamilyGraph />
       </tab>
     </tabs>
