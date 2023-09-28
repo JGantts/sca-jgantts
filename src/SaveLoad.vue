@@ -62,6 +62,11 @@ function saveToFile() {
 function load(filename: string, language: string) {
   fileContents = language
   fileSelected.value = true
+  let overlay = document.getElementById('selectedFileOverlayOverlay')
+  if (overlay) {
+    overlay.classList.add('selectedFileOverlayOverlay_initialStart')
+    overlay.classList.remove('selectedFileOverlayOverlay_initialStart')
+  }
   let selectedFileTitle = document.getElementById('selectedFileOverlayTitle')
   if (!selectedFileTitle) return
   selectedFileTitle.innerText = filename
@@ -381,6 +386,10 @@ function closeSelectedFile() {
 
   font-size:large;
   cursor: pointer;
+}
+
+.selectedFileOverlayOverlay_initialStart {
+  opacity: 100;
 }
 
 #selectedFileOverlayOverlay:hover {
