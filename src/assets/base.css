@@ -87,7 +87,7 @@ button {
 }
 
 body {
-  min-height: 100vh;
+  min-height: 100dvh;
   color: var(--jg-c-text);
   background-color: var(--jg-c-app-background);
   transition:

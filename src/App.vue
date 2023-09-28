@@ -50,7 +50,7 @@ const softwareTitle = `'SCA JGantts - v${versionNumber}'`;
 
 .tabs-component-tabs {
   height: 100%;
-  min-height: 100vh;
+  min-height: 100dvh;
   display: flex;
   flex-direction: column;
 }
@@ -77,7 +77,7 @@ const softwareTitle = `'SCA JGantts - v${versionNumber}'`;
   list-style: none;
 }
 .tabs-component-panels {
-  min-height: 100vh;
+  min-height: 100dvh;
   width: 100%;
   padding: 1rem;
   border-left-color: var(--jg-c-border);
