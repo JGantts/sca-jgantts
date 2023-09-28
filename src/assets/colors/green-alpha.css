@@ -1,4 +1,4 @@
-:root, .light, .light-theme {
+:root {
   --green-a1: #00c04004;
   --green-a2: #00a32f0b;
   --green-a3: #00a43319;
@@ -15,7 +15,7 @@
 
 @supports (color: color(display-p3 1 1 1)) {
   @media (color-gamut: p3) {
-    :root, .light, .light-theme {
+    :root {
       --green-a1: color(display-p3 0.0235 0.6745 0.0235 / 0.012);
       --green-a2: color(display-p3 0.0235 0.5647 0.1294 / 0.036);
       --green-a3: color(display-p3 0.0118 0.5961 0.1451 / 0.087);

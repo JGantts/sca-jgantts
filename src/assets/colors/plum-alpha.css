@@ -1,4 +1,4 @@
-:root, .light, .light-theme {
+:root {
   --plum-a1: #aa00ff03;
   --plum-a2: #c000c008;
   --plum-a3: #cc00cc14;
@@ -15,7 +15,7 @@
 
 @supports (color: color(display-p3 1 1 1)) {
   @media (color-gamut: p3) {
-    :root, .light, .light-theme {
+    :root {
       --plum-a1: color(display-p3 0.6745 0.0235 1 / 0.012);
       --plum-a2: color(display-p3 0.5804 0.0235 0.5804 / 0.028);
       --plum-a3: color(display-p3 0.6549 0.0078 0.7529 / 0.079);

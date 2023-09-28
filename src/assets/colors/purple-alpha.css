@@ -1,4 +1,4 @@
-:root, .light, .light-theme {
+:root {
   --purple-a1: #aa00aa03;
   --purple-a2: #8000e008;
   --purple-a3: #8e00f112;
@@ -15,7 +15,7 @@
 
 @supports (color: color(display-p3 1 1 1)) {
   @media (color-gamut: p3) {
-    :root, .light, .light-theme {
+    :root {
       --purple-a1: color(display-p3 0.6745 0.0235 0.6745 / 0.012);
       --purple-a2: color(display-p3 0.4431 0.0235 0.7216 / 0.028);
       --purple-a3: color(display-p3 0.451 0.0078 0.8353 / 0.071);

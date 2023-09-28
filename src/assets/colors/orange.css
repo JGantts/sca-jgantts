@@ -1,4 +1,4 @@
-:root, .light, .light-theme {
+:root {
   --orange-1: #fefcfb;
   --orange-2: #fff7ed;
   --orange-3: #ffefd6;
@@ -15,7 +15,7 @@
 
 @supports (color: color(display-p3 1 1 1)) {
   @media (color-gamut: p3) {
-    :root, .light, .light-theme {
+    :root {
       --orange-1: color(display-p3 0.9947 0.9885 0.9848);
       --orange-2: color(display-p3 0.9943 0.9684 0.934);
       --orange-3: color(display-p3 0.989 0.9382 0.8505);

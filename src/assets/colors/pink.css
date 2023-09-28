@@ -1,4 +1,4 @@
-:root, .light, .light-theme {
+:root {
   --pink-1: #fffcfe;
   --pink-2: #fef7fb;
   --pink-3: #fee9f5;
@@ -15,7 +15,7 @@
 
 @supports (color: color(display-p3 1 1 1)) {
   @media (color-gamut: p3) {
-    :root, .light, .light-theme {
+    :root {
       --pink-1: color(display-p3 0.9979 0.9886 0.9956);
       --pink-2: color(display-p3 0.9924 0.9695 0.9848);
       --pink-3: color(display-p3 0.9807 0.9168 0.9598);

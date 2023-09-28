@@ -1,4 +1,4 @@
-:root, .light, .light-theme {
+:root {
   --gold-a1: #55550003;
   --gold-a2: #9d8a000d;
   --gold-a3: #75600018;
@@ -15,7 +15,7 @@
 
 @supports (color: color(display-p3 1 1 1)) {
   @media (color-gamut: p3) {
-    :root, .light, .light-theme {
+    :root {
       --gold-a1: color(display-p3 0.349 0.349 0.0235 / 0.012);
       --gold-a2: color(display-p3 0.5922 0.5137 0.0235 / 0.048);
       --gold-a3: color(display-p3 0.4 0.3569 0.0118 / 0.091);

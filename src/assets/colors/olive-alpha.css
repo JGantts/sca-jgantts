@@ -1,4 +1,4 @@
-:root, .light, .light-theme {
+:root {
   --olive-a1: #00550003;
   --olive-a2: #00490007;
   --olive-a3: #00200010;
@@ -15,7 +15,7 @@
 
 @supports (color: color(display-p3 1 1 1)) {
   @media (color-gamut: p3) {
-    :root, .light, .light-theme {
+    :root {
       --olive-a1: color(display-p3 0.0235 0.349 0.0235 / 0.012);
       --olive-a2: color(display-p3 0.0235 0.302 0.0235 / 0.028);
       --olive-a3: color(display-p3 0.0078 0.1294 0.0078 / 0.063);

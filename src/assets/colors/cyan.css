@@ -1,4 +1,4 @@
-:root, .light, .light-theme {
+:root {
   --cyan-1: #fafdfe;
   --cyan-2: #f2fafb;
   --cyan-3: #def7f9;
@@ -15,7 +15,7 @@
 
 @supports (color: color(display-p3 1 1 1)) {
   @media (color-gamut: p3) {
-    :root, .light, .light-theme {
+    :root {
       --cyan-1: color(display-p3 0.9825 0.9918 0.9955);
       --cyan-2: color(display-p3 0.9548 0.9809 0.9842);
       --cyan-3: color(display-p3 0.8881 0.9647 0.9754);

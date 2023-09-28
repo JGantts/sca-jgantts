@@ -1,4 +1,4 @@
-:root, .light, .light-theme {
+:root {
   --mauve-a1: #55005503;
   --mauve-a2: #2b005506;
   --mauve-a3: #30004010;
@@ -15,7 +15,7 @@
 
 @supports (color: color(display-p3 1 1 1)) {
   @media (color-gamut: p3) {
-    :root, .light, .light-theme {
+    :root {
       --mauve-a1: color(display-p3 0.349 0.0235 0.349 / 0.012);
       --mauve-a2: color(display-p3 0.1843 0.0235 0.349 / 0.024);
       --mauve-a3: color(display-p3 0.1294 0.0078 0.2549 / 0.063);

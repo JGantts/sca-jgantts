@@ -1,4 +1,4 @@
-:root, .light, .light-theme {
+:root {
   --teal-1: #fafefd;
   --teal-2: #f3fbf9;
   --teal-3: #e0f8f3;
@@ -15,7 +15,7 @@
 
 @supports (color: color(display-p3 1 1 1)) {
   @media (color-gamut: p3) {
-    :root, .light, .light-theme {
+    :root {
       --teal-1: color(display-p3 0.9832 0.9956 0.9922);
       --teal-2: color(display-p3 0.958 0.9831 0.9763);
       --teal-3: color(display-p3 0.8953 0.9714 0.9517);

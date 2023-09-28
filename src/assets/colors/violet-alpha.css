@@ -1,4 +1,4 @@
-:root, .light, .light-theme {
+:root {
   --violet-a1: #5500aa03;
   --violet-a2: #4900ff07;
   --violet-a3: #4400ee0f;
@@ -15,7 +15,7 @@
 
 @supports (color: color(display-p3 1 1 1)) {
   @media (color-gamut: p3) {
-    :root, .light, .light-theme {
+    :root {
       --violet-a1: color(display-p3 0.349 0.0235 0.6745 / 0.012);
       --violet-a2: color(display-p3 0.1608 0.0235 0.8627 / 0.028);
       --violet-a3: color(display-p3 0.1451 0.0039 0.8588 / 0.055);

@@ -1,4 +1,4 @@
-:root, .light, .light-theme {
+:root {
   --grass-1: #fbfefb;
   --grass-2: #f5fbf5;
   --grass-3: #e9f6e9;
@@ -15,7 +15,7 @@
 
 @supports (color: color(display-p3 1 1 1)) {
   @media (color-gamut: p3) {
-    :root, .light, .light-theme {
+    :root {
       --grass-1: color(display-p3 0.9864 0.9957 0.9852);
       --grass-2: color(display-p3 0.9662 0.9827 0.964);
       --grass-3: color(display-p3 0.9227 0.9647 0.9174);

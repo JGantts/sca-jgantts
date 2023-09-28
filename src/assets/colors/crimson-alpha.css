@@ -1,4 +1,4 @@
-:root, .light, .light-theme {
+:root {
   --crimson-a1: #ff005503;
   --crimson-a2: #e0004008;
   --crimson-a3: #ff005216;
@@ -15,7 +15,7 @@
 
 @supports (color: color(display-p3 1 1 1)) {
   @media (color-gamut: p3) {
-    :root, .light, .light-theme {
+    :root {
       --crimson-a1: color(display-p3 0.6745 0.0235 0.349 / 0.012);
       --crimson-a2: color(display-p3 0.7569 0.0196 0.2667 / 0.032);
       --crimson-a3: color(display-p3 0.8588 0.0078 0.2941 / 0.083);

@@ -1,4 +1,4 @@
-:root, .light, .light-theme {
+:root {
   --tomato-1: #fffcfc;
   --tomato-2: #fff8f7;
   --tomato-3: #feebe7;
@@ -15,7 +15,7 @@
 
 @supports (color: color(display-p3 1 1 1)) {
   @media (color-gamut: p3) {
-    :root, .light, .light-theme {
+    :root {
       --tomato-1: color(display-p3 0.9979 0.9886 0.9884);
       --tomato-2: color(display-p3 0.9938 0.9737 0.9686);
       --tomato-3: color(display-p3 0.9847 0.9243 0.9092);

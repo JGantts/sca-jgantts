@@ -1,4 +1,4 @@
-:root, .light, .light-theme {
+:root {
   --jade-1: #fbfefd;
   --jade-2: #f4fbf7;
   --jade-3: #e6f7ed;
@@ -15,7 +15,7 @@
 
 @supports (color: color(display-p3 1 1 1)) {
   @media (color-gamut: p3) {
-    :root, .light, .light-theme {
+    :root {
       --jade-1: color(display-p3 0.9864 0.9957 0.9923);
       --jade-2: color(display-p3 0.9617 0.9831 0.9692);
       --jade-3: color(display-p3 0.9124 0.9646 0.9324);

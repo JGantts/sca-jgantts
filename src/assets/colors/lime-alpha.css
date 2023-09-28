@@ -1,4 +1,4 @@
-:root, .light, .light-theme {
+:root {
   --lime-a1: #66990005;
   --lime-a2: #6b95000c;
   --lime-a3: #96c80029;
@@ -15,7 +15,7 @@
 
 @supports (color: color(display-p3 1 1 1)) {
   @media (color-gamut: p3) {
-    :root, .light, .light-theme {
+    :root {
       --lime-a1: color(display-p3 0.4118 0.6078 0.0196 / 0.02);
       --lime-a2: color(display-p3 0.5137 0.5922 0.0235 / 0.048);
       --lime-a3: color(display-p3 0.5843 0.7647 0.0078 / 0.15);

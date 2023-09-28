@@ -1,4 +1,4 @@
-:root, .light, .light-theme {
+:root {
   --ruby-1: #fffcfd;
   --ruby-2: #fff7f8;
   --ruby-3: #feeaed;
@@ -15,7 +15,7 @@
 
 @supports (color: color(display-p3 1 1 1)) {
   @media (color-gamut: p3) {
-    :root, .light, .light-theme {
+    :root {
       --ruby-1: color(display-p3 0.9979 0.9886 0.992);
       --ruby-2: color(display-p3 0.9948 0.971 0.9737);
       --ruby-3: color(display-p3 0.9831 0.9202 0.9285);

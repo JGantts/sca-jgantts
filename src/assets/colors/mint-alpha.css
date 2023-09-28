@@ -1,4 +1,4 @@
-:root, .light, .light-theme {
+:root {
   --mint-a1: #00d5aa06;
   --mint-a2: #00b18a0d;
   --mint-a3: #00d29e22;
@@ -15,7 +15,7 @@
 
 @supports (color: color(display-p3 1 1 1)) {
   @media (color-gamut: p3) {
-    :root, .light, .light-theme {
+    :root {
       --mint-a1: color(display-p3 0.0196 0.8039 0.6078 / 0.02);
       --mint-a2: color(display-p3 0.0196 0.6471 0.4667 / 0.044);
       --mint-a3: color(display-p3 0.0039 0.7608 0.5529 / 0.114);

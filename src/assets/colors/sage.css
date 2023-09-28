@@ -1,4 +1,4 @@
-:root, .light, .light-theme {
+:root {
   --sage-1: #fbfdfc;
   --sage-2: #f7f9f8;
   --sage-3: #eef1f0;
@@ -15,7 +15,7 @@
 
 @supports (color: color(display-p3 1 1 1)) {
   @media (color-gamut: p3) {
-    :root, .light, .light-theme {
+    :root {
       --sage-1: color(display-p3 0.9857 0.9919 0.9885);
       --sage-2: color(display-p3 0.97 0.9773 0.974);
       --sage-3: color(display-p3 0.9355 0.9435 0.9398);
