@@ -5,6 +5,7 @@ import Overview from './Overview.vue';
 import SaveLoad from './SaveLoad.vue'
 import Phones from './Phones.vue'
 import PhoneTypes from './PhoneTypes.vue'
+import FamilyGraph from './graph/FamilyGraph.vue'
 //@ts-expect-error
 import {Tabs, Tab} from 'vue3-tabs-component';
 
@@ -32,6 +33,9 @@ const softwareTitle = `'SCA JGantts - v${versionNumber}'`;
   </tab>
   <tab name="Phones">
     <Phones />
+  </tab>
+  <tab name="Family Graph">
+    <FamilyGraph />
   </tab>
 </tabs>
 </template>
