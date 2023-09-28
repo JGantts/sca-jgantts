@@ -6,7 +6,7 @@
 const majorVersion: string = "0"
 const minorVersion: string = "1"
 const betaVersion: string = "1"
-const buildVersion: string = "3"
+const buildVersion: string = "4"
 
 
 import { ref, type Ref } from 'vue';
