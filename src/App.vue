@@ -1,5 +1,14 @@
-
 <script setup lang="ts">
+
+///////////////
+//VERSIONING///
+///////////////
+const majorVersion: string = "0"
+const minorVersion: string = "1"
+const betaVersion: string = "1"
+const buildVersion: string = "2"
+
+
 import { ref, type Ref } from 'vue';
 import Overview from './Overview.vue';
 import SaveLoad from './SaveLoad.vue'
@@ -16,7 +25,17 @@ function changeTab(tabId: string) {
   tabsHolder.value.selectTab(tabId)
 }
 //[major].[minor].[beta ].[build]
-const versionNumber = "0.1.1.2"
+let versionNumber = majorVersion
+if (minorVersion != "0") {
+  versionNumber += "." + minorVersion
+  if (betaVersion != "0") {
+    versionNumber += "." + betaVersion
+    if (buildVersion != "0") {
+      versionNumber += "." + buildVersion
+    }
+  }
+}
+
 const softwareTitle = `'SCA JGantts - v${versionNumber}'`;
 </script>
 
