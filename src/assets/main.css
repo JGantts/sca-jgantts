@@ -48,9 +48,17 @@ a {
 
 button,
 input[type=file]::file-selector-button {
+  border-style: solid;
+  border-width: 0.08rem;
   background-color: var(--jg-c-solid-background);
   border-color: var(--jg-c-border);
   color: var(--jg-c-text-invert);
   border-radius: 0.4rem;
   font-size: 1.3rem;
+  cursor: pointer;
+}
+
+button:disabled,
+button[disabled]{
+  cursor: default;
 }

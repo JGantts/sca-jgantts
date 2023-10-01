@@ -136,3 +136,24 @@ export type TreeLimb = {
 }
 
 export type TabHash = "loadsave"|"overview"|"phonetypes"|"phones"|"familygraph"
+
+export type WorkingFileData = {
+  phoneTypes: { [id: UUID_PhoneType] : PhoneType; }
+  languages: { [id: UUID_Language] : Language; }
+  phonemes: { [id: UUID_Phoneme] : Phoneme; }
+  lexicon: {
+    words: WordPhrase[],
+    rules: RuleGroup[],
+    treeTrunks: UUID_TreeLimb[],
+    treeLimbs: TreeLimb[],
+  }
+}
+
+export type WorkingFileMetaData = {
+  projectName: string
+}
+
+export type WorkingFile = {
+  metadata: WorkingFileMetaData
+  data: WorkingFileData
+}

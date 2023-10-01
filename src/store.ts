@@ -1,7 +1,6 @@
 import { defineStore } from 'pinia'
-import { loadSaveFile } from './phones';
-import type { SaveFile, WorkingFile } from './file/FileTypes';
-import type { TabHash } from './commonTypes';
+import type { SaveFile, } from './file/FileTypes';
+import type { TabHash, WorkingFile } from './commonTypes';
 
 export const useLangueageStore = defineStore('languages', {
   state: () => {
@@ -18,9 +17,9 @@ export const useLangueageStore = defineStore('languages', {
   // could also be defined as
   // state: () => ({ count: 0 })
   actions: {
-    loadSaveFile(saveFile: SaveFile) {
+    loadSaveFile(saveFile: WorkingFile) {
       if (saveFile)
-        this.languages = loadSaveFile(saveFile)
+        this.languages = saveFile
       else
         this.languages = null
     },

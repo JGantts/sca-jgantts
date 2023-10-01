@@ -5,8 +5,21 @@ import SaveLoad from './SaveLoad.vue'
 import { useLangueageStore } from './store'
 
 import ipa from "./templates/ipa.json"
-import type { SaveFile, WorkingFile } from './file/FileTypes';
-import { getSaveFile } from './phones';
+import { 
+  schemaValidate_SaveFile,
+  type SaveFile,
+  type SaveFileMetaData,
+type Metadata,
+} from './file/FileTypes';
+import { getSaveFile, loadSaveFile } from './phones';
+
+import fileIcon from "./assets/icons/file-solid.svg"
+import fileQuestionIcon from "./assets/icons/file-circle-question-solid.svg"
+import fileCheckIcon from "./assets/icons/file-circle-check-solid.svg"
+import fileExclamationIcon from "./assets/icons/file-circle-exclamation-solid.svg"
+import type { WorkingFile } from './commonTypes';
+
+//import Ajv from "ajv"
 
 // access the `store` variable anywhere in the component ✨
 const store = useLangueageStore()
@@ -20,19 +33,41 @@ const myProps = defineProps<{
   }
 }>()
 
+let selectedFileMetadata: Ref<Metadata|null> = ref(null)
+let jsonIcon = ref(fileIcon)
+
+let fileObject: SaveFile|null = null
+
 myProps.loadFromFiles.loadFromFiles = loadFromFiles
 
 type templateName = "ipa"|"blank"
 
+
+type fileParseStateValue = 
+  "noFile"
+  |"parsingForMetadata"
+  |"metadataParseError"
+  |"parsingForData"
+  |"dataParseError"
+  |"validForLoad"
+let fileParseState: Ref<fileParseStateValue> = ref("noFile")
+let fileParseError: Ref<string|null> = ref(null)
+
+/*console.log(validate({
+  name: "John Doe",
+  age: 43,
+  phones: ["+44 1234567", "+44 2345678"],
+}))*/
+
 function loadTemplate(templateName: templateName) {
   switch (templateName) {
     case "ipa":
-      load("ipa", JSON.stringify(ipa))
-    break
+      parse(JSON.stringify(ipa))
+      break
 
     case "blank":
-      load("blank", "")
-    break
+      parse("{}")
+      break
   }
 }
 
@@ -52,9 +87,43 @@ function loadFromFiles(files: FileList) {
     let result = e.target?.result
     if (!result) return
     if (result instanceof ArrayBuffer) return
-    load(selectedFile.name, result)
+    parse(result)
   }
   reader.readAsText(selectedFile)
+}
+
+function parse(savefileString: string) {
+  unload()
+  jsonIcon.value = fileIcon
+  fileParseState.value = "parsingForMetadata"
+
+  let savefileObj = JSON.parse(savefileString)
+
+  if (!schemaValidate_SaveFile(savefileObj)) {
+    fileParseState.value = "metadataParseError"
+    fileParseError.value = "Error parsing file. Check console for messages."
+    console.log(savefileString.substring(0, 100))
+    console.log(savefileObj)
+    console.log(schemaValidate_SaveFile.errors)
+    jsonIcon.value = fileExclamationIcon
+    return
+  }
+  const savefile = savefileObj as SaveFile
+  selectedFileMetadata.value = savefile.metadata
+  fileParseState.value = "parsingForData"
+  jsonIcon.value = fileQuestionIcon
+  
+  try {
+    fileObject = loadSaveFile(savefile)
+  } catch (err) {
+    fileParseState.value = "dataParseError"
+    fileParseError.value = JSON.stringify(err) ?? ""
+    jsonIcon.value = fileExclamationIcon
+    return
+  }
+
+  fileParseState.value = "validForLoad"
+  jsonIcon.value = fileCheckIcon
 }
 
 function saveToFile() {
@@ -63,44 +132,18 @@ function saveToFile() {
   download("mylang.json", toSave)
 }
 
-
-function load(filename: string, language: string) {
-  fileContents = language
-  fileSelected.value = true
-  let overlay = document.getElementById('selectedFileOverlayOverlay')
-  if (overlay) {
-    overlay.classList.add('selectedFileOverlayOverlay_initialStart')
-    overlay.classList.remove('selectedFileOverlayOverlay_initialStart')
-  }
-  let selectedFileTitle = document.getElementById('selectedFileOverlayTitle')
-  if (!selectedFileTitle) return
-  selectedFileTitle.innerText = filename
-  let selectedFileBody = document.getElementById('selectedFileOverlayBody')
-  if (!selectedFileBody) return
-  selectedFileBody.innerText = language
-}
-
 function unload() {
   let fileToLoad = document.getElementById('fileToLoad') as HTMLInputElement
   if (!fileToLoad) return
   fileToLoad.value = ""
-  fileContents = ""
-  fileSelected.value = false
-  let selectedFileTitle = document.getElementById('selectedFileOverlayTitle')
-  if (!selectedFileTitle) return
-  selectedFileTitle.innerText = ""
-  let selectedFileBody = document.getElementById('selectedFileOverlayBody')
-  if (!selectedFileBody) return
-  selectedFileBody.innerText = ""
+  fileObject = null
+  selectedFileMetadata.value = null
+  fileParseState.value = "noFile"
 }
 
 function loadFromFile() {
-  let file
-  try {
-    file = JSON.parse(fileContents)
-  } catch (err) {}
-  let save: SaveFile = file
-  store.loadSaveFile(save ?? null)
+  if (!fileObject) return
+  store.loadSaveFile(fileObject)
   myProps.changeTab("#overview");
   unload()
 }
@@ -123,35 +166,6 @@ function download(filename: string, text: string) {
   document.body.removeChild(element);
 }
 
-let isDragging = ref(false)
-let fileSelected = ref(false)
-
-let fileContents = ""
-
-function dragover(e: DragEvent) {
-  e.stopImmediatePropagation()
-  e.preventDefault()
-  isDragging.value = true
-}
-
-function dragleave(e: DragEvent) {
-  e.stopImmediatePropagation()
-  e.preventDefault()
-  isDragging.value = false
-}
-
-function drop(e: DragEvent) {
-  e.stopImmediatePropagation()
-  e.preventDefault()
-  isDragging.value = false
-
-  const dt = e.dataTransfer;
-  const files = dt?.files;
-  if (files) {
-    loadFromFiles(files);
-  }
-}
-
 function closeSelectedFile() {
   unload()
 }
@@ -159,71 +173,76 @@ function closeSelectedFile() {
 
 <template>
   <div
-    id="drag-container1"
     style="position:relative;"
-    @dragover="dragover"
-    @dragleave="dragleave"
-    @drop="drop"
   >
     <div
-    id="drag-container2"
       class="container"
+      style="display: flex; flex-direction: column; gap: 0.5rem"
     >
       <h3>Load</h3>
       <div>
-        <button @click="loadTemplate('ipa')">
-          Load IPA template
-        </button>
-        &nbsp;
-        <button @click="loadTemplate('blank')">
-          Load blank template
-        </button>
+        <h4>Templates</h4>
+        <div style="display: flex;">
+          <button @click="loadTemplate('ipa')">
+            IPA
+          </button>
+          &nbsp;
+          <button @click="loadTemplate('blank')">
+            blank
+          </button>
+        </div>
       </div>
-      <br />
+      <hr />
       <div>
         <input 
           type="file"
           id="fileToLoad"
-          accept=".json"
+          accept=".json,.scajgantts"
           @change="newFileSelected"
         />
       </div>
-    </div>
-    <div
-    id="selectedFileOverlay"
-    class="overlay selectedFileOverlay"
-    :class="{ makeVisible: fileSelected, makeClickable: fileSelected }"
-    >
-      <div id="selectedFileOverlayTitleBar">
-        <div id="selectedFileOverlayTitle" />
-        <button id="selectedFileOverlayClose" @click="closeSelectedFile" />
-      </div>
-      <div id="selectedFileOverlayBodyContainer">
-        <div id="selectedFileOverlayBackground" />
-        <div id="selectedFileOverlayBody" />
+      <div v-if="fileParseState!='noFile'">
+        <hr />
+        <div v-if="store.languages!==null" class="unsaved-changes-warning">
+          Unsaved changes will be lost!
+        </div>
         <button
-          id="selectedFileOverlayOverlay"
+          style="
+            background: none;
+            border: none;
+            margin: 0.3rem;
+            display: flex;
+            flex-direction: column;
+            font-size: small;
+            color: var(--jg-c-text-highlight);
+          "
           @click="loadFromFile()"
+          :disabled="fileParseState!='validForLoad'"
         >
-          <div v-if="store.languages!==null" class="unsaved-changes-warning">
-            Unsaved changes will be lost!
-          </div>
-          Load this file
-          <div v-if="store.languages!==null" class="unsaved-changes-warning">
-            Unsaved changes will be lost!
+          <img v-bind:src="jsonIcon" style="width: 2.5rem;" class="jsonIcon"/>
+          <div v-if="fileParseState=='validForLoad'">
+            Load {{ selectedFileMetadata?.projectName }}
           </div>
         </button>
+        <div v-if="store.languages!==null" class="unsaved-changes-warning">
+          Unsaved changes will be lost!
+        </div>
+        <div v-if="fileParseState=='dataParseError'">
+            Unable to parse {{ selectedFileMetadata?.projectName }}
+            {{ fileParseError }}
+          </div>
+        <div v-if="fileParseState=='metadataParseError'">
+          {{ fileParseError }}
+        </div>
       </div>
     </div>
   </div>
-  <br />
-  {{ fileSelected }}
   <br />
   <div class="container">
     <h3>Save</h3>
     <div>
       <button @click="saveToFile()">
-        Save to .json file
+        Download to disk
       </button>
     </div>
   </div>
@@ -244,10 +263,6 @@ function closeSelectedFile() {
   border-radius: 1rem;
 }
 
-.container > h3 {
-  padding-bottom: 0.75rem;
-}
-
 .overlay {
   position: absolute;
   display: flex;
@@ -257,20 +272,9 @@ function closeSelectedFile() {
   transition: opacity 0.3s;
 }
 
-.draggingOverlay {
-  justify-content: center;
-  align-items: center;
-  height: 100%;
-  width: 100%;
-  background: radial-gradient(rgba(0,0,0,0.75), rgba(0,0,0,0.25));
-  border-radius: 1rem;
-  color: var(--jg-c-text-highlight);
-  pointer-events: none;
-}
 
 .selectedFileOverlay {
   user-select: none;
-  pointer-events: none;
   justify-content: center;
   align-items: center;
   position: absolute;
@@ -325,7 +329,6 @@ function closeSelectedFile() {
     flex-direction: column;
     justify-content: center;
     background-color: var(--jg-c-critical-app-background);
-    cursor: pointer;
 }
 
 #selectedFileOverlayClose::before,
@@ -389,7 +392,6 @@ function closeSelectedFile() {
   display: block;
 
   font-size:large;
-  cursor: pointer;
 
   transition: opacity 0.5s;
 }
@@ -422,5 +424,9 @@ function closeSelectedFile() {
 
 .makeClickable {
   pointer-events: auto;
+}
+
+.jsonIcon {
+  filter:var(--jg-c-solid-background-filter);
 }
 </style>

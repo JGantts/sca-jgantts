@@ -86,20 +86,4 @@ function drop(e: DragEvent) {
   visibility: visible;
   opacity: 100;
 }
-
-.overlay {
-  position: absolute;
-  display: flex;
-  top:0;
-  left:0;
-  opacity: 0;
-  transition: opacity 0.3s;
-}
-
-.draggingOverlay {
-  height: 100%;
-  width: 100%;
-  border-radius: 1rem;
-  pointer-events: none;
-}
 </style>
