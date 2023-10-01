@@ -36,7 +36,7 @@ const myProps = defineProps<{
 let selectedFileMetadata: Ref<Metadata|null> = ref(null)
 let jsonIcon = ref(fileIcon)
 
-let fileObject: SaveFile|null = null
+let fileObject: WorkingFile|null = null
 
 myProps.loadFromFiles.loadFromFiles = loadFromFiles
 
@@ -203,9 +203,6 @@ function closeSelectedFile() {
       </div>
       <div v-if="fileParseState!='noFile'">
         <hr />
-        <div v-if="store.languages!==null" class="unsaved-changes-warning">
-          Unsaved changes will be lost!
-        </div>
         <button
           style="
             background: none;
@@ -224,7 +221,10 @@ function closeSelectedFile() {
             Load {{ selectedFileMetadata?.projectName }}
           </div>
         </button>
-        <div v-if="store.languages!==null" class="unsaved-changes-warning">
+        <div 
+          v-if="store.languages!==null && fileParseState=='validForLoad'"
+          class="unsaved-changes-warning"
+        >
           Unsaved changes will be lost!
         </div>
         <div v-if="fileParseState=='dataParseError'">
