@@ -1,5 +1,6 @@
 import type { JSONSchemaType } from "ajv";
 import Ajv, {type JTDDataType} from "ajv/dist/jtd"
+import type { Simplify } from "type-fest"
 
 const ajv = new Ajv()
 
@@ -186,7 +187,7 @@ const scheme_LexemeForm = {
     },
   }
 }
-export type SF_LexemeForm = JTDDataType<typeof scheme_LexemeForm>
+export type SF_LexemeForm = Simplify<JTDDataType<typeof scheme_LexemeForm>>
 
 const schema_Lexeme = {
   properties: {
