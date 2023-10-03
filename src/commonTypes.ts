@@ -43,7 +43,7 @@ export type FeatureCategory = {
 export type PhoneType = {
   id: UUID_PhoneType
   desc: Description
-  type: "Consonant"|"Vowel"
+  articulation: "Consonant"|"Vowel"
   features: FeatureCategory[]
 }
 
@@ -141,12 +141,10 @@ export type WorkingFileData = {
   phoneTypes: { [id: UUID_PhoneType] : PhoneType; }
   languages: { [id: UUID_Language] : Language; }
   phonemes: { [id: UUID_Phoneme] : Phoneme; }
-  lexicon: {
-    words: WordPhrase[],
-    rules: RuleGroup[],
-    treeTrunks: UUID_TreeLimb[],
-    treeLimbs: TreeLimb[],
-  }
+  words: WordPhrase[],
+  rules: RuleGroup[],
+  treeTrunks: UUID_TreeLimb[],
+  treeLimbs: TreeLimb[],
 }
 
 export type WorkingFileMetaData = {

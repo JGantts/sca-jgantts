@@ -8,8 +8,8 @@ import ipa from "./templates/ipa.json"
 import { 
   schemaValidate_SaveFile,
   type SaveFile,
-  type SaveFileMetaData,
 type Metadata,
+validateDumb,
 } from './file/FileTypes';
 import { getSaveFile, loadSaveFile } from './phones';
 
@@ -115,9 +115,12 @@ function parse(savefileString: string) {
   
   try {
     fileObject = loadSaveFile(savefile)
-  } catch (err) {
+  } catch (err: any) {
     fileParseState.value = "dataParseError"
-    fileParseError.value = JSON.stringify(err) ?? ""
+    fileParseError.value = "Error parsing file. Check console for messages."
+    console.log(err)
+    console.log(savefileString.substring(0, 100))
+    console.log(savefileObj)
     jsonIcon.value = fileExclamationIcon
     return
   }
@@ -229,8 +232,9 @@ function closeSelectedFile() {
         </div>
         <div v-if="fileParseState=='dataParseError'">
             Unable to parse {{ selectedFileMetadata?.projectName }}
-            {{ fileParseError }}
-          </div>
+            <br />
+            Error: "{{ fileParseError }}"
+        </div>
         <div v-if="fileParseState=='metadataParseError'">
           {{ fileParseError }}
         </div>
