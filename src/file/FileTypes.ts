@@ -186,6 +186,7 @@ const scheme_LexemeForm = {
     },
   }
 }
+export type SF_LexemeForm = JTDDataType<typeof scheme_LexemeForm>
 
 const schema_Lexeme = {
   properties: {
