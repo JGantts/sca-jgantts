@@ -40,7 +40,8 @@ import {
   type SF_Phone,
   type SF_Data_v0_1_beta_1__Phone,
   type SF_Syllable,
-  type SF_Data_v0_1_beta_1__Syllable
+  type SF_Data_v0_1_beta_1__Syllable,
+  type SF_LexemeForm
 } from "./file/FileTypes";
 
 function assemblePhonemes(data: SF_DataLatest) {
