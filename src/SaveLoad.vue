@@ -131,7 +131,7 @@ function parse(savefileString: string) {
 
 function saveToFile() {
   if (!store.languages) return
-  let toSave = save(store.languages)
+  let toSave = getSaveFile(store.languages)
   download("mylang.json", toSave)
 }
 
@@ -149,11 +149,6 @@ function loadFromFile() {
   store.loadSaveFile(fileObject)
   myProps.changeTab("#overview");
   unload()
-}
-
-function save(workingFile: WorkingFile): string {
-  let toSave = getSaveFile(workingFile)
-  return JSON.stringify(toSave)
 }
 
 function download(filename: string, text: string) {

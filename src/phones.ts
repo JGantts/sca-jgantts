@@ -31,7 +31,6 @@ import {
   type SF_Data_v0_1_beta_2,
   type SF_Data_vLatest,
   type SF_Data_v0_1_beta_1,
-  type SF_SaveFileLatest,
   type SF_PhoneType,
   type SF_Language,
   type SF_Lexeme,
@@ -49,7 +48,12 @@ import {
   type SF_Data_v0_1_beta_1__Syllable,
   type SF_LexemeForm,
   type SF_LimbDate,
-  validateSF_Data_v0_1_beta_2
+  validateSF_Data_v0_1_beta_2,
+  type SF_FeatureValue,
+  serializeSF_Data_v0_1_beta_2,
+  type SaveFile_Latest,
+  schemaValidate_SaveFile_Latest,
+  serialzierSF_latest
 } from "./file/FileTypes";
 
 function assemblePhonemes(data: SF_DataLatest) {
@@ -167,7 +171,7 @@ function assembleLexemes(data: SF_DataLatest): WordPhrase[] {
       id: wordphrase.lexemeId,
       entryForm,
       entryDate: 0,
-      entryTreeLimb: data.treeLimbs[0].id,
+      entryTreeLimb: data.treeLimbs[0]?.id ?? "",
     })
   }
   return toReturn
@@ -222,12 +226,86 @@ export function loadSaveFile(saveFile: SaveFile): WorkingFile {
   }
 }
 
-export function getSaveFile(workingFile: WorkingFile): SF_SaveFileLatest {
+function getPhoneFromPhone(phoneIn: Phone): SF_Phone {
+  let featureStops: SF_FeatureStop[] = []
+  for (let stop in phoneIn.features) {
+    featureStops.push({
+      categoryID: stop,
+      stopId: phoneIn.features[stop]
+    })
+  }
+  return {
+    phoneTypeId: phoneIn.type,
+    featureStops,
+  }
+}
+
+function getSyllableFromSyllable(syllableIn: Syllable): SF_Syllable {
+  return {
+    onset: (syllableIn.onset.map(getPhoneFromPhone)),
+    rhyme: {
+      nucleus: (syllableIn.rhyme.nucleus.map(getPhoneFromPhone)),
+      coda: (syllableIn.rhyme.coda.map(getPhoneFromPhone)),
+    }
+  }
+}
+
+export function getSaveFile(workingFile: WorkingFile): string {
   let version: SF_DataVersion = "SaveFileData_v0_1_beta_2"
   let projectName: string = workingFile.metadata.projectName
-  let phoneTypes: SF_PhoneType[]  = []
+  let phoneTypes: SF_PhoneType[] = []
+  for (let phoneTypeIn of Object.values(workingFile.data.phoneTypes)) {
+    let features: SF_Feature[] = []
+    for (let featureIn of phoneTypeIn.features) {
+      let values: SF_FeatureValue[] = []
+      for (let valueIn of featureIn.types) {
+        values.push({
+          id: valueIn.id,
+          desc: valueIn.desc,
+        })
+      }
+      features.push({
+        id: featureIn.id,
+        values,
+      })
+    }
+    phoneTypes.push({
+      id: phoneTypeIn.id,
+      desc: phoneTypeIn.desc ?? "",
+      articulation: phoneTypeIn.articulation,
+      features,
+    })
+  }
   let languages: SF_Language[] = []
+  for (let langIn of Object.values(workingFile.data.languages)) {
+    languages.push({
+      id: langIn.id,
+      phonemes: langIn.phonemesAll
+    })
+  }
   let lexemes: SF_Lexeme[] = []
+  for (let lexemeIn of workingFile.data.words) {
+    switch (lexemeIn.entryForm.kind) {
+      case "syllables": 
+        lexemes.push({
+          lexemeId: lexemeIn.id,
+          entryForm: {
+            kind: lexemeIn.entryForm.kind,
+            syllables: lexemeIn.entryForm.syllables.map(getSyllableFromSyllable),
+          },
+        })
+        break
+      case "phones":
+        lexemes.push({
+          lexemeId: lexemeIn.id,
+          entryForm: {
+            kind: lexemeIn.entryForm.kind,
+            phones: lexemeIn.entryForm.phones.map(getPhoneFromPhone),
+          },
+        })
+        break
+    }
+  }
   let rules: SF_RuleGroup[] = []
   let treeTrunks: SF_TreeTrunk[] = []
   let treeLimbs: SF_TreeLimb[] = []
@@ -240,15 +318,14 @@ export function getSaveFile(workingFile: WorkingFile): SF_SaveFileLatest {
     treeLimbs,
   }
 
-  let toSave: SF_SaveFileLatest = {
+  let toSave: SaveFile_Latest = {
     metadata: {
       version,
       projectName,
     },
     data,
   }
-
-  return toSave
+  return serialzierSF_latest(toSave)
 }
 
 function saveFileLatest_TO_workingFile(dataIn: SF_DataLatest): WorkingFileData {

@@ -116,6 +116,7 @@ const schema_FeatureValue = {
     "desc": schema_Description,
   }
 }
+export type SF_FeatureValue = JTDDataType<typeof schema_FeatureValue>
 
 const schema_Feature = {
   properties: {
@@ -286,6 +287,7 @@ const schema_SaveFileData_v0_1_beta_2 = {
 }
 export type SF_Data_v0_1_beta_2 = JTDDataType<typeof schema_SaveFileData_v0_1_beta_2>
 export const validateSF_Data_v0_1_beta_2 = ajv.compile(schema_SaveFileData_v0_1_beta_2)
+export const serializeSF_Data_v0_1_beta_2 = ajv.compileSerializer(schema_SaveFileData_v0_1_beta_2)
 //#endregion
 
 
@@ -322,14 +324,16 @@ const schema_SaveFile = {
 export type SaveFile = JTDDataType<typeof schema_SaveFile>
 export const schemaValidate_SaveFile = ajv.compile<SaveFile>(schema_SaveFile)
 
-
-const schema_SaveFileLatest = {
+const schema_SaveFile_Latest = {
   properties: {
     "metadata": schema_Metadata,
     "data": schema_SaveFileData_v0_1_beta_2
   }
 }
-export type SF_SaveFileLatest = Simplify<JTDDataType<typeof schema_SaveFileLatest>>
+export type SaveFile_Latest = JTDDataType<typeof schema_SaveFile>
+export const schemaValidate_SaveFile_Latest = ajv.compile<SaveFile>(schema_SaveFile_Latest)
+export const serialzierSF_latest = ajv.compileSerializer(schema_SaveFile_Latest)
+
 
 
 export type SF_DataLatest = SF_Data_v0_1_beta_2
