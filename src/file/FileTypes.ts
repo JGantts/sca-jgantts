@@ -88,7 +88,9 @@ export type SF_Uuid = JTDDataType<typeof schema_Uuid>
 
 const schema_Description = {
   type: "string" as const
+  ,nullable: true as const,
 }
+export type SF_Description = Simplify<JTDDataType<typeof schema_Description>>
 
 const schema_LangDate = {
   type: "int32" as const
