@@ -59,7 +59,7 @@ function phonemeFeatureStopFitsPhone(phone: Phone, phonemeStop: FeatureStop): bo
 }
 
 const newWordInRef = ref("")
-const newWordObjectRef: Ref<Syllables_Cluster|{}> = ref({})
+const newWordObjectRef: Ref<Syllables_Cluster|null> = ref(null)
 const newWordText = ref({})
 
 watch(newWordInRef, () => {
@@ -75,7 +75,7 @@ watch(newWordInRef, () => {
     console.log("here3")
     console.log(newWordText)
   } catch (err) {
-    
+
   }
 })
 
@@ -100,14 +100,14 @@ function addWord() {
     placeholder="type new word here"
   ><br/>
   <p>Interpretation: {{ newWordText }}</p>
-  <div v-if="(newWordObjectRef as Syllables_Cluster)?.kind == 'syllables'">
+  <div v-if="newWordObjectRef?.kind == 'syllables'">
   <table>
     <tr>
       <th>O</th>
       <th>N</th>
       <th>C</th>
     </tr>
-    <tr v-for="sylable in ((newWordObjectRef as Syllables_Cluster)).syllables">
+    <tr v-for="sylable in newWordObjectRef.syllables">
       <td>
         <span v-for="phone in sylable.onset">
           {{ phoneToString(phone) }}
@@ -127,14 +127,14 @@ function addWord() {
 
     </table>
   </div>
-  <div v-if="(newWordObjectRef as Syllables_Cluster)?.kind == 'phones'">
+  <div v-if="newWordObjectRef?.kind == 'phones'">
     <table>
       <tr>
         <th>Nonsyllabic</th>
       </tr>
       <tr>
         <td class="ipa">
-          <span v-for="phone in ((newWordObjectRef as Syllables_Cluster)).phones">
+          <span v-for="phone in newWordObjectRef.phones">
             {{ phoneToString(phone) }}
           </span> 
         </td>
