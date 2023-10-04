@@ -63,13 +63,19 @@ const newWordObjectRef: Ref<Syllables_Cluster|{}> = ref({})
 const newWordText = ref({})
 
 watch(newWordInRef, () => {
+  console.log(store.languages)
   if (!store.languages) return
   try {
+    console.log("here")
     newWord = stringToWordPhrase(newWordInRef.value, store.languages)
+    console.log("here1")
     newWordObjectRef.value = newWord
+    console.log("here2")
     newWordText.value = syllables_clusterToString(newWord)
+    console.log("here3")
+    console.log(newWordText)
   } catch (err) {
-
+    
   }
 })
 
@@ -101,7 +107,7 @@ function addWord() {
       <th>N</th>
       <th>C</th>
     </tr>
-      <tr v-for="sylable in ((newWordObjectRef as Syllables_Cluster)).syllables">
+    <tr v-for="sylable in ((newWordObjectRef as Syllables_Cluster)).syllables">
       <td>
         <span v-for="phone in sylable.onset">
           {{ phoneToString(phone) }}

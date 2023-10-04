@@ -1,6 +1,4 @@
-import type { FeatureStop, LanguageData, Phone, Phoneme, Syllable, Syllables_Cluster, UUID_FeatureCategory, UUID_FeatureStop } from "./commonTypes";
-import type { WorkingFile } from "./file/FileTypes";
-
+import type { FeatureStop, LanguageData, Phone, Phoneme, Syllable, Syllables_Cluster, UUID_FeatureCategory, UUID_FeatureStop, WorkingFile } from "./commonTypes";
 
 export function stringToWordPhrase(input: string, languages: WorkingFile): Syllables_Cluster {
   let toReturnValueSyllables: Syllable[] = []
@@ -25,7 +23,7 @@ export function stringToWordPhrase(input: string, languages: WorkingFile): Sylla
 
         case "Nonsyllabic":
           toReturnValuePhones.push(phonemeToPhone(phoneme))
-          switch (languages.data.phoneTypes[phoneme.typeID].type) {
+          switch (languages.data.phoneTypes[phoneme.typeID].articulation) {
             case "Vowel":
               nucleus.push(phonemeToPhone(phoneme))
               break
@@ -51,17 +49,13 @@ export function stringToWordPhrase(input: string, languages: WorkingFile): Sylla
   }
   if (!foundAnySyllabic) {
     return {
-      value: {
-        kind: "Cluster",
-        sounds: toReturnValuePhones
-      }
+      kind: "phones",
+      phones: toReturnValuePhones
     }
   }
   return {
-    value: {
-      kind: "Syllables",
-      sounds: toReturnValueSyllables
-    }
+    kind: "syllables",
+    syllables: toReturnValueSyllables
   }
 }
 
@@ -71,7 +65,7 @@ function stringToPhonemes(input: string, languages: WorkingFile): Phoneme[] {
   let currCharIndex = 0
   let currPhonemeIndex = 0
   while(!done) {
-    let currPhoneme = Object.values(languages.data.languages)[0].grid[currPhonemeIndex]
+    let currPhoneme = Object.values(languages.data.languages)[0].phonemesAll[currPhonemeIndex]
     if (!currPhoneme) {
       done = true
       break
@@ -85,7 +79,7 @@ function stringToPhonemes(input: string, languages: WorkingFile): Phoneme[] {
       currPhonemeIndex = 0
     } else {
       currPhonemeIndex += 1
-      if (currPhonemeIndex >= Object.values(languages.data.languages)[0].grid.length) {
+      if (currPhonemeIndex >= Object.values(languages.data.languages)[0].phonemesAll.length) {
         currPhonemeIndex = 0
         currCharIndex += 1
         if (currCharIndex >= input.length) {
@@ -106,11 +100,7 @@ function phonemeToPhone(phoneme: Phoneme|null): Phone {
   }
   let features: { [id: UUID_FeatureCategory] : UUID_FeatureStop; } = {}
   for (let feature of phoneme.featureStops) {
-      switch(feature.kind) {
-        case "FeatureStop":
-          features[feature.categoryID] = feature.id
-          break
-      }
+    features[feature.categoryId] = feature.stopId
   }
   return {
     type: phoneme.typeID,

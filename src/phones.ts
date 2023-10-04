@@ -90,9 +90,10 @@ function assemblePhoneTypes(data: SF_DataLatest): { [id: UUID_PhoneType] : Phone
 function assembleLanguagues(data: SF_DataLatest) {
   let langs: { [id: UUID_Language] : Language; } = {}
   for (let lang of data.languages) {
-    let phonemes: { [id: string] : Phoneme[] } = {}
+    let phonemesByCategory: { [id: string] : Phoneme[] } = {}
+    let phonemesAll: Phoneme[] = []
     for (let phoneme of lang.phonemes) {
-      if (!phonemes[phoneme.typeID]) phonemes[phoneme.typeID] = []
+      if (!phonemesByCategory[phoneme.typeID]) phonemesByCategory[phoneme.typeID] = []
       let featureStops: FeatureStop[] = []
       for (let stop of phoneme.featureStops) {
         featureStops.push({
@@ -100,19 +101,22 @@ function assembleLanguagues(data: SF_DataLatest) {
           stopId: stop.stopId,
         })
       }
-      phonemes[phoneme.typeID].push({
+      let phonemeOut = {
         id: phoneme.id,
         typeID: phoneme.typeID,
         desc: phoneme.desc,
         syllabic: phoneme.syllabic,
         IPA: phoneme.IPA,
         featureStops,
-      })
+      }
+      phonemesByCategory[phoneme.typeID].push(phonemeOut)
+      phonemesAll.push(phonemeOut)
     }
     langs[lang.id as string] = {
       id: lang.id,
       desc: "",
-      phonemes,
+      phonemesByCategory,
+      phonemesAll,
     }
   }
   return langs

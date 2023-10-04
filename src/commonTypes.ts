@@ -60,7 +60,8 @@ export type Phoneme = {
 export type Language = {
   id: UUID_Language
   desc: Description
-  phonemes: { [id: string] : Phoneme[] }
+  phonemesByCategory: { [id: string] : Phoneme[] }
+  phonemesAll: Phoneme[]
 }
 
 export type LanguageData = {
