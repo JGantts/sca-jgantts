@@ -10,10 +10,20 @@ function capitalizeFirstLetter(string: string|null): string {
 }
 
 function featureStopValueDesc(phoneme: Phoneme, featureCategory: FeatureCategory): Description {
+  console.log(phoneme)
+  console.log(featureCategory)
+  console.log(phoneme.featureStops.filter(
+    y => y.categoryId === featureCategory.id
+  ))
+  console.log(featureCategory.types.filter(
+    x => x.id === phoneme.featureStops.filter(
+      y => y.categoryId === featureCategory.id
+    )[0]?.categoryId
+  ))
   return featureCategory.types.filter(
     x => x.id === phoneme.featureStops.filter(
-      y => y.categoryID === featureCategory.id
-    )[0]?.id
+      y => y.categoryId === featureCategory.id
+    )[0]?.stopId
   )[0]?.desc
 }
 </script>
@@ -27,8 +37,8 @@ function featureStopValueDesc(phoneme: Phoneme, featureCategory: FeatureCategory
         <th>
           IPA
         </th>
-        <th v-for="feature in phoneType.features">
-          {{ feature.desc }}
+        <th v-for="featureCat in phoneType.features">
+          {{ featureCat.desc }}
         </th>
       </tr>
       <!-- @vue-expect-error -->
@@ -59,4 +69,14 @@ th {
   padding-right: 0.2rem;
 }
 th:last-child { border-right: none; }
+td {
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+}
+td:first-child {
+  padding-left: 0;
+}
+td:last-child {
+  padding-right: 0;
+}
 </style>

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref, watch, type Ref, reactive } from 'vue';
-import type { Cluster, FeatureStop, Phone, Syllable, Syllables, Syllables_Cluster, UUID_FeatureStop, WordPhrase } from './commonTypes';
+import type { FeatureStop, Phone, Syllable, Syllables_Cluster, UUID_FeatureStop, WordPhrase } from './commonTypes';
 import { stringToWordPhrase } from './stringToWordPhrase'
 import { useLangueageStore } from './store'
 
@@ -56,7 +56,7 @@ function phoneToString(phone: Phone|null) {
 }
 
 function phonemeFeatureStopFitsPhone(phone: Phone, phonemeStop: FeatureStop): boolean {
-    return (phone.features[phonemeStop.categoryID] as UUID_FeatureStop) == phonemeStop.id
+    return (phone.features[phonemeStop.categoryId] as UUID_FeatureStop) == phonemeStop.id
 }
 
 const newWordInRef = ref("")

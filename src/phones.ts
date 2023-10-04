@@ -96,8 +96,8 @@ function assembleLanguagues(data: SF_DataLatest) {
       let featureStops: FeatureStop[] = []
       for (let stop of phoneme.featureStops) {
         featureStops.push({
-          categoryID: stop.categoryId,
-          id: stop.stopId,
+          categoryId: stop.categoryId,
+          stopId: stop.stopId,
         })
       }
       phonemes[phoneme.typeID].push({
@@ -290,6 +290,12 @@ function v0_0_beta_1_TO_v0_0_beta_2(dataIn: SF_Data_v0_1_beta_1): SF_Data_v0_1_b
     let phonemes: SF_Phoneme[] = []
     for (let phoneme of language.grid) {
       let featureStops: { categoryId: string, stopId: string, }[] = []
+      for (let stop of phoneme.featureStops) {
+        featureStops.push({
+          categoryId: stop.categoryID,
+          stopId: stop.id,
+        })
+      }
       phonemes.push({
         id: phoneme.id,
         typeID: phoneme.typeID,
@@ -313,7 +319,7 @@ function v0_0_beta_1_TO_v0_0_beta_2(dataIn: SF_Data_v0_1_beta_1): SF_Data_v0_1_b
         let featureStops: SF_FeatureStop[] = []
         for (let stop in phone.features) {
           featureStops.push({
-            categoryId: stop,
+            categoryID: stop,
             stopId: phone.features[stop]
           })
         }

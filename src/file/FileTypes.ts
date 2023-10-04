@@ -137,7 +137,7 @@ export type SF_PhoneType = JTDDataType<typeof schema_PhoneType>
 
 const schema_FeatureStop = {
   properties: {
-    "categoryId": schema_Uuid,
+    "categoryID": schema_Uuid,
     "stopId": schema_Uuid,
   }
 }

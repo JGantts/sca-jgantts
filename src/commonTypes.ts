@@ -44,8 +44,8 @@ export type PhoneType = {
 }
 
 export type FeatureStop = {
-  categoryID: UUID_FeatureCategory
-  id: UUID_FeatureStop
+  categoryId: UUID_FeatureCategory
+  stopId: UUID_FeatureStop
 }
 
 export type Phoneme = {
