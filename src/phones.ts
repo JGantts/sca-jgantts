@@ -123,8 +123,8 @@ function assembleLexemes(data: SF_DataLatest): WordPhrase[] {
     let toReturn: Phone[] = []
     for (let phone of phones) {
       let features: { [id: UUID_FeatureCategory] : UUID_FeatureStop; } = {}
-      for (let featureCat in phone.featureStops) {
-        features[featureCat] = phone.featureStops[featureCat].stopId;
+      for (let featureCat of phone.featureStops) {
+        features[featureCat.categoryID] = phone.featureStops.filter(x => x.categoryID == featureCat.categoryID)[0]?.stopId;
       }
       toReturn.push({
         type: phone.phoneTypeId,

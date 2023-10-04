@@ -10,18 +10,17 @@ const store = useLangueageStore()
 
 function syllables_clusterToString(syllables_cluster: Syllables_Cluster) {
   let toReturn = ""
-  switch (syllables_cluster.value.kind) {
-    case "Syllables":
-      for (let syllable of syllables_cluster.value.sounds) {
-        let syllableString = syllableToString(syllable)
+  switch (syllables_cluster.kind) {
+    case "syllables":
+      for (let syllable of syllables_cluster.syllables) {
         if (toReturn != "") {
           toReturn += "."
         }
         toReturn += syllableToString(syllable)
       }
       break
-    case "Cluster":
-      toReturn += phonesToString(syllables_cluster.value.sounds)
+    case "phones":
+      toReturn += phonesToString(syllables_cluster.phones)
       break
   }
   return toReturn
@@ -56,7 +55,7 @@ function phoneToString(phone: Phone|null) {
 }
 
 function phonemeFeatureStopFitsPhone(phone: Phone, phonemeStop: FeatureStop): boolean {
-    return (phone.features[phonemeStop.categoryId] as UUID_FeatureStop) == phonemeStop.id
+  return (phone.features[phonemeStop.categoryId] as UUID_FeatureStop) == phonemeStop.stopId
 }
 
 const newWordInRef = ref("")
@@ -78,8 +77,8 @@ let newWord: Syllables_Cluster|null = null
 
 function addWord() {
   if (!newWord) return
-  if (!store.languages?.data.lexicon) return
-  store.languages.data.lexicon.words.push({
+  if (!store.languages?.data.words) return
+  store.languages.data.words.push({
     id: crypto.randomUUID(),
     entryForm: newWord,
     entryTreeLimb: "",
@@ -95,14 +94,14 @@ function addWord() {
     placeholder="type new word here"
   ><br/>
   <p>Interpretation: {{ newWordText }}</p>
-  <div v-if="(newWordObjectRef as Syllables_Cluster)?.value?.kind == 'Syllables'">
+  <div v-if="(newWordObjectRef as Syllables_Cluster)?.kind == 'syllables'">
   <table>
     <tr>
       <th>O</th>
       <th>N</th>
       <th>C</th>
     </tr>
-      <tr v-for="sylable in ((newWordObjectRef as Syllables_Cluster).value as Syllables).sounds">
+      <tr v-for="sylable in ((newWordObjectRef as Syllables_Cluster)).syllables">
       <td>
         <span v-for="phone in sylable.onset">
           {{ phoneToString(phone) }}
@@ -122,14 +121,14 @@ function addWord() {
 
     </table>
   </div>
-  <div v-if="(newWordObjectRef as Syllables_Cluster)?.value?.kind == 'Cluster'">
+  <div v-if="(newWordObjectRef as Syllables_Cluster)?.kind == 'phones'">
     <table>
       <tr>
         <th>Nonsyllabic</th>
       </tr>
       <tr>
         <td class="ipa">
-          <span v-for="phone in ((newWordObjectRef as Syllables_Cluster).value as Cluster).sounds">
+          <span v-for="phone in ((newWordObjectRef as Syllables_Cluster)).phones">
             {{ phoneToString(phone) }}
           </span> 
         </td>
@@ -145,7 +144,7 @@ function addWord() {
   <br/>
   <br/>
   <h2>List of words:</h2>
-  <li v-for="lexeme in store.languages?.data.lexicon?.words" class="roman-medium">{{ syllables_clusterToString(lexeme.entryForm) }}</li>
+  <li v-for="lexeme in store.languages?.data.words" class="roman-medium">{{ syllables_clusterToString(lexeme.entryForm) }}</li>
 
 
 </template>
