@@ -81,7 +81,6 @@ function newFileSelected(e: Event) {
 function loadFromFiles(files: FileList) {
   const selectedFile = files[0]
   if (!selectedFile) return
-  if (selectedFile.type !== "application/json") return
   const reader = new FileReader()
   reader.onload = (e) => {
     let result = e.target?.result
@@ -132,7 +131,7 @@ function parse(savefileString: string) {
 function saveToFile() {
   if (!store.languages) return
   let toSave = getSaveFile(store.languages)
-  download("mylang.json", toSave)
+  download("mylang.scajgantts", toSave)
 }
 
 function unload() {
@@ -195,7 +194,7 @@ function closeSelectedFile() {
         <input 
           type="file"
           id="fileToLoad"
-          accept=".json,.scajgantts"
+          accept=".scajgantts"
           @change="newFileSelected"
         />
       </div>
