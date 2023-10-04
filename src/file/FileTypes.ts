@@ -67,11 +67,13 @@ export type SF_Data_v0_1_beta_1 = {
       treeLimbs: {}[]
       rules: {}[]
     }[],
-    treeTrunks: {}[],
+    treeTrunks: string[],
     treeLimbs: {
       id: string,
-      deathDate: number
-      children: string[]
+      branch: {
+        deathDate: number
+        children: string[]
+      }
     }[],
   }
 }
@@ -102,7 +104,7 @@ const schema_LimbDate = {
     date: schema_LangDate,
   }
 }
-type SF_LimbDate = JTDDataType<typeof schema_LimbDate>
+export type SF_LimbDate = JTDDataType<typeof schema_LimbDate>
 //#endregion
 
 //#region Phones
@@ -173,19 +175,19 @@ const schema_Syllable = {
 export type SF_Syllable = JTDDataType<typeof schema_Syllable>
 
 const scheme_LexemeForm = {
-  discriminator: "kind",
+  discriminator: "kind" as const,
   mapping: {
     syllables: {
       properties: {
         syllables: { elements: schema_Syllable }
       }
-    },
-    phonemes: {
+    } as const,
+    phones: {
       properties: {
-        phonemes: { elements: schema_Phone }
+        phones: { elements: schema_Phone }
       }
     },
-  }
+  } as const
 }
 export type SF_LexemeForm = Simplify<JTDDataType<typeof scheme_LexemeForm>>
 
@@ -259,7 +261,9 @@ const schema_TreeLimb = {
     branch: {
       properties: {
         diversionDate: schema_LangDate,
-        children: schema_Uuid,
+        children: {
+          elements: schema_Uuid
+        },
       }
     }
   }
@@ -279,7 +283,7 @@ const schema_SaveFileData_v0_1_beta_2 = {
   }
 }
 export type SF_Data_v0_1_beta_2 = JTDDataType<typeof schema_SaveFileData_v0_1_beta_2>
-export const validateSF_Data_v0_0_beta_2 = ajv.compile(schema_SaveFileData_v0_1_beta_2)
+export const validateSF_Data_v0_1_beta_2 = ajv.compile(schema_SaveFileData_v0_1_beta_2)
 //#endregion
 
 
@@ -323,7 +327,7 @@ const schema_SaveFileLatest = {
     "data": schema_SaveFileData_v0_1_beta_2
   }
 }
-export type SF_SaveFileLatest = JTDDataType<typeof schema_SaveFileLatest>
+export type SF_SaveFileLatest = Simplify<JTDDataType<typeof schema_SaveFileLatest>>
 
 
 export type SF_DataLatest = SF_Data_v0_1_beta_2

@@ -11,7 +11,7 @@ function capitalizeFirstLetter(string: string|null): string {
 
 
 <template>
-  <h1>Phoneme Types</h1>
+  <h1>Phone Types</h1>
   <div class="phoneTypeConainer">
     <div v-for="phoneType in store.languages?.data.phoneTypes">
       <h2>{{ phoneType.desc }}</h2>
@@ -22,8 +22,8 @@ function capitalizeFirstLetter(string: string|null): string {
         <tr v-for="featureType in phoneType.features">
           <td>{{ featureType.desc }}</td>
           <td>
-            <li v-for="thig in featureType.type.values">
-              {{ thig.desc }}
+            <li v-for="type in featureType.types">
+              {{ type.desc }}
             </li>
           </td>
         </tr>

@@ -14,6 +14,13 @@ import type {
   RuleGroup,
   TreeLimb,
   UUID_TreeLimb,
+  Syllables_Cluster,
+  Syllable,
+  UUID_FeatureCategory,
+  UUID_FeatureStop,
+  FeatureCategory,
+  FeatureEnumValue,
+  FeatureStop,
 } from "./commonTypes"
 
 import {
@@ -32,7 +39,6 @@ import {
   type SF_Uuid,
   type SF_TreeLimb,
   type SF_TreeTrunk,
-  validateSF_Data_v0_0_beta_2,
   type SF_Data_v0_1_beta_1__Feature,
   type SF_FeatureStop,
   type SF_Feature,
@@ -41,7 +47,9 @@ import {
   type SF_Data_v0_1_beta_1__Phone,
   type SF_Syllable,
   type SF_Data_v0_1_beta_1__Syllable,
-  type SF_LexemeForm
+  type SF_LexemeForm,
+  type SF_LimbDate,
+  validateSF_Data_v0_1_beta_2
 } from "./file/FileTypes";
 
 function assemblePhonemes(data: SF_DataLatest) {
@@ -57,7 +65,24 @@ function assemblePhonemes(data: SF_DataLatest) {
 function assemblePhoneTypes(data: SF_DataLatest): { [id: UUID_PhoneType] : PhoneType; } {
   let phoneTypes: { [id: UUID_PhoneType] : PhoneType; } = {}
   for (let phoneType of data.phoneTypes) {
-    phoneTypes[phoneType.id as string] = phoneType as unknown as PhoneType
+    let features: FeatureCategory[] = []
+    for (let feature of phoneType.features) {
+      let types: FeatureEnumValue[] = []
+      for (let enumValue of feature.values) {
+        types.push(enumValue)
+      }
+      features.push({
+        id: feature.id,
+        types,
+        desc: "",
+      })
+    }
+    phoneTypes[phoneType.id] = {
+      id: phoneType.id,
+      desc: phoneType.desc ?? "", 
+      articulation: phoneType.articulation,
+      features,
+    }
   }
   return phoneTypes
 }
@@ -65,29 +90,104 @@ function assemblePhoneTypes(data: SF_DataLatest): { [id: UUID_PhoneType] : Phone
 function assembleLanguagues(data: SF_DataLatest) {
   let langs: { [id: UUID_Language] : Language; } = {}
   for (let lang of data.languages) {
-    langs[lang.id as string] = lang as unknown as Language
+    let phonemes: { [id: string] : Phoneme[] } = {}
+    for (let phoneme of lang.phonemes) {
+      if (!phonemes[phoneme.typeID]) phonemes[phoneme.typeID] = []
+      let featureStops: FeatureStop[] = []
+      for (let stop of phoneme.featureStops) {
+        featureStops.push({
+          categoryID: stop.categoryId,
+          id: stop.stopId,
+        })
+      }
+      phonemes[phoneme.typeID].push({
+        id: phoneme.id,
+        typeID: phoneme.typeID,
+        desc: phoneme.desc,
+        syllabic: phoneme.syllabic,
+        IPA: phoneme.IPA,
+        featureStops,
+      })
+    }
+    langs[lang.id as string] = {
+      id: lang.id,
+      desc: "",
+      phonemes,
+    }
   }
   return langs
 }
 
 function assembleLexemes(data: SF_DataLatest): WordPhrase[] {
-  
+  let assemblePhones = (phones: SF_Phone[]): Phone[] => {
+    let toReturn: Phone[] = []
+    for (let phone of phones) {
+      let features: { [id: UUID_FeatureCategory] : UUID_FeatureStop; } = {}
+      for (let featureCat in phone.featureStops) {
+        features[featureCat] = phone.featureStops[featureCat].stopId;
+      }
+      toReturn.push({
+        type: phone.phoneTypeId,
+        features,
+      })
+    }
+    return toReturn
+  }
+
+  let toReturn: WordPhrase[] = []
+  for (let wordphrase of data.lexemes) {
+    let entryForm: Syllables_Cluster
+    if (wordphrase.entryForm.kind == "syllables") {
+      let syllables: Syllable[] = []
+      for (let syllable of wordphrase.entryForm.syllables) {
+        syllables.push({
+          onset: assemblePhones(syllable.onset),
+          rhyme: {
+            nucleus: assemblePhones(syllable.rhyme.nucleus),
+            coda: assemblePhones(syllable.rhyme.coda),
+          }
+        })
+      }
+      entryForm = {
+        kind: "syllables",
+        syllables,
+      }
+    } else {
+      let phones: Phone[] = []
+      entryForm = {
+        kind: "phones",
+        phones: assemblePhones(wordphrase.entryForm.phones),
+      }
+    }
+    toReturn.push({
+      id: wordphrase.lexemeId,
+      entryForm,
+      entryDate: 0,
+      entryTreeLimb: data.treeLimbs[0].id,
+    })
+  }
+  return toReturn
 }
 
 function assembleRules(data: SF_DataLatest): RuleGroup[] {
+  let toReturn: RuleGroup[] = []
   
+  return toReturn
 }
 
 function assembleTreeTrunks(data: SF_DataLatest): UUID_TreeLimb[] {
+  let toReturn: UUID_TreeLimb[] = []
   
+  return toReturn
 }
 
 function assembleTreeLimbs(data: SF_DataLatest): TreeLimb[] {
+  let toReturn: TreeLimb[] = []
   
+  return toReturn
 }
 
 export function loadSaveFile(saveFile: SaveFile): WorkingFile {
-  console.log(saveFile)
   let projectName = saveFile.metadata?.projectName as string ?? "[Failed to read name]"
   let metadata: WorkingFileMetaData = {
     projectName,
@@ -100,8 +200,8 @@ export function loadSaveFile(saveFile: SaveFile): WorkingFile {
       //fallthrough
 
     case "SaveFileData_v0_1_beta_2":
-      if (!validateSF_Data_v0_0_beta_2(data))
-        throw JSON.stringify(validateSF_Data_v0_0_beta_2.errors)
+      if (!validateSF_Data_v0_1_beta_2(data))
+        throw JSON.stringify(validateSF_Data_v0_1_beta_2.errors)
       data = data
       //fallthrough
 
@@ -169,7 +269,7 @@ function v0_0_beta_1_TO_v0_0_beta_2(dataIn: SF_Data_v0_1_beta_1): SF_Data_v0_1_b
       for (let value of feature.type.values) {
         values.push({
           id: value.id,
-          desc: value.desc,
+          desc: value.desc ?? "",
         })
       }
       features.push({
@@ -193,7 +293,7 @@ function v0_0_beta_1_TO_v0_0_beta_2(dataIn: SF_Data_v0_1_beta_1): SF_Data_v0_1_b
       phonemes.push({
         id: phoneme.id,
         typeID: phoneme.typeID,
-        desc: phoneme.desc,
+        desc: phoneme.desc ?? "",
         syllabic: phoneme.syllabic == "Syllabic" ? "Syllabic" : "Nonsyllabic",
         IPA: phoneme.IPA,
         featureStops,
@@ -207,20 +307,30 @@ function v0_0_beta_1_TO_v0_0_beta_2(dataIn: SF_Data_v0_1_beta_1): SF_Data_v0_1_b
 
   let lexemes: SF_Lexeme[] = []
   for (let lexeme of dataIn.lexicon.words) {
-    let phonesToPhones = (syllableIn: SF_Data_v0_1_beta_1__Phone[]): SF_Phone[] => {
-
-    }
-    let syllableToSyllable = (syllableIn: SF_Data_v0_1_beta_1__Syllable): SF_Syllable => {
-      let featureStops: SF_FeatureStop[] = []
-      for (let stop in syllableIn.features) {
-        featureStops.push({
-          categoryId: syllableIn.features[stop],
-          stopId: stop,
+    let phonesToPhones = (phonesIn: SF_Data_v0_1_beta_1__Phone[]): SF_Phone[] => {
+      let toReturn: SF_Phone[] = []
+      for (let phone of phonesIn) {
+        let featureStops: SF_FeatureStop[] = []
+        for (let stop in phone.features) {
+          featureStops.push({
+            categoryId: stop,
+            stopId: phone.features[stop]
+          })
+        }
+        toReturn.push({
+          phoneTypeId: phone.type,
+          featureStops,
         })
       }
+      return toReturn
+    }
+    let syllableToSyllable = (syllableIn: SF_Data_v0_1_beta_1__Syllable): SF_Syllable => {
       return {
-        phoneTypeId: syllableIn.type,
-        featureStops
+        onset: phonesToPhones(syllableIn.onset),
+        rhyme: {
+          nucleus: phonesToPhones(syllableIn.rhyme.nucleus),
+          coda: phonesToPhones(syllableIn.rhyme.coda),
+        },
       }
     }
 
@@ -237,17 +347,34 @@ function v0_0_beta_1_TO_v0_0_beta_2(dataIn: SF_Data_v0_1_beta_1): SF_Data_v0_1_b
       entryForm,
     })
   }
+  let rules: SF_RuleGroup[] = []
+  let treeTrunks: SF_LimbDate[] = []
+  for (let treeTrunk of dataIn.lexicon.treeTrunks){
+    treeTrunks.push({limb: treeTrunk, date: 0})
+  }
+  let treeLimbs: SF_TreeLimb[] = []
+  for (let limb of dataIn.lexicon.treeLimbs) {
+    let children = limb.branch.children
+    treeLimbs.push({
+      id: limb.id,
+      branch: {
+        diversionDate: limb.branch.deathDate,
+        children
+      }
+    })
+  }
   let dataOut: SF_Data_v0_1_beta_2 = {
     phoneTypes,
     languages,
     lexemes,
-    rules: dataIn.lexicon.rules,
-    treeTrunks: dataIn.lexicon.treeTrunks,
-    treeLimbs: dataIn.lexicon.treeLimbs,
+    rules,
+    treeTrunks,
+    treeLimbs,
   }
-  if (!validateSF_Data_v0_0_beta_2(dataOut)) {
-    console.log(validateSF_Data_v0_0_beta_2.errors)
-    throw JSON.stringify(validateSF_Data_v0_0_beta_2.errors)
+  if (!validateSF_Data_v0_1_beta_2(dataOut)) {
+    console.log(dataOut)
+    console.log(validateSF_Data_v0_1_beta_2.errors)
+    throw JSON.stringify(validateSF_Data_v0_1_beta_2.errors)
   }
   return dataOut
 }

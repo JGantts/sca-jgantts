@@ -30,13 +30,9 @@ export type FeatureEnumValue = {
   desc: Description
 }
 
-export type FeatureEnum = {
-  values: FeatureEnumValue[]
-}
-
 export type FeatureCategory = {
   id: UUID_FeatureCategory
-  type: FeatureEnum
+  types: FeatureEnumValue[]
   desc: Description
 }
 
@@ -48,7 +44,6 @@ export type PhoneType = {
 }
 
 export type FeatureStop = {
-  kind: "FeatureStop"
   categoryID: UUID_FeatureCategory
   id: UUID_FeatureStop
 }
@@ -65,7 +60,7 @@ export type Phoneme = {
 export type Language = {
   id: UUID_Language
   desc: Description
-  grid: Phoneme[]
+  phonemes: { [id: string] : Phoneme[] }
 }
 
 export type LanguageData = {
@@ -87,18 +82,12 @@ export type Syllable = {
   }
 }
 
-export type Syllables = {
-  kind: "Syllables"
-  sounds: Syllable[]
-}
-
-export type Cluster = {
-  kind: "Cluster"
-  sounds: Phone[]
-}
-
 export type Syllables_Cluster = {
-  value: Syllables|Cluster
+  kind: "syllables"
+  syllables: Syllable[]
+}|{
+  kind: "phones"
+  phones: Phone[]
 }
 
 export type WordPhrase = {

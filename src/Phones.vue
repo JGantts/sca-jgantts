@@ -10,7 +10,7 @@ function capitalizeFirstLetter(string: string|null): string {
 }
 
 function featureStopValueDesc(phoneme: Phoneme, featureCategory: FeatureCategory): Description {
-  return featureCategory.type.values.filter(
+  return featureCategory.types.filter(
     x => x.id === phoneme.featureStops.filter(
       y => y.categoryID === featureCategory.id
     )[0]?.id
