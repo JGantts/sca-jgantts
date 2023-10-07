@@ -97,7 +97,7 @@ button {
     --jg-c-critical-low-contrast-text-highlight: var(--dark-red-12);
     --jg-c-critical-text-highlight: var(--dark-red-11);
   }
-}
+}/*
 
 *,
 *::before,
@@ -133,3 +133,4 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+*/

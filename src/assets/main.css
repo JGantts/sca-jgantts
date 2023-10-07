@@ -1,5 +1,5 @@
 @import './base.css';
-
+/*
 #app {
   max-width: 1280px;
   margin: 0 auto;
@@ -7,7 +7,7 @@
 
   font-weight: normal;
 }
-
+*/
 a {
   text-decoration: none;
   transition: 0.4s;
@@ -45,7 +45,7 @@ a {
   font-family: 'Junicode';
   font-size: larger;
 }
-
+/*
 button,
 input[type=file]::file-selector-button {
   border-style: solid;
@@ -61,4 +61,4 @@ input[type=file]::file-selector-button {
 button:disabled,
 button[disabled]{
   cursor: default;
-}
+}*/

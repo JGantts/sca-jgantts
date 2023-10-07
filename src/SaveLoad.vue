@@ -38,7 +38,7 @@ let jsonIcon = ref(fileIcon)
 
 let fileObject: WorkingFile|null = null
 
-myProps.loadFromFiles.loadFromFiles = loadFromFiles
+//myProps.loadFromFiles.loadFromFiles = loadFromFiles
 
 type templateName = "ipa"|"blank"
 
