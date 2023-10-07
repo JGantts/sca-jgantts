@@ -75,36 +75,10 @@ function KeyPress(event: KeyboardEvent) {
 }
 
 document.onkeydown = KeyPress;
-
-let drawer: Ref<boolean|null> = ref(null)
 </script>
 
 <template>
-  <v-app>
-    <v-app-bar>
-      <v-app-bar-nav-icon variant="text" @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
-      <v-toolbar-title>My files</v-toolbar-title>
-    </v-app-bar>
-
-    <v-navigation-drawer
-    >
-      <v-list-item title="My Application" subtitle="Vuetify">
-        <router-link to="/load-save">Go to Save/Load</router-link>
-      </v-list-item>
-      <v-list-item title="My Application" subtitle="Vuetify">
-        <router-link to="/">Go to Home</router-link>
-      </v-list-item>
-    </v-navigation-drawer>
-
-    <v-main class="d-flex align-center justify-center" style="min-height: 300px;">
-      <router-view></router-view>
-    </v-main>
-  </v-app>
-
-
-
-
-<!--<div id="app-container">
+<div id="app-container">
   <AppOverlay
     v-bind:changeTab="changeTab"
     v-bind:load-from-files="loadFromFiles"
@@ -135,7 +109,7 @@ let drawer: Ref<boolean|null> = ref(null)
       </tab>
     </tabs>
   </div>
-</div>-->
+</div>
 </template>
 
 <style>
