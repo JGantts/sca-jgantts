@@ -3,7 +3,7 @@ import { ref, type Ref } from 'vue';
 import { useLangueageStore } from '../store'
 
 import ipa from "../templates/ipa.json"
-import type { SaveFile, WorkingFile } from '../file/FileTypes';
+import type { SaveFile } from '../file/FileTypes';
 import { getSaveFile } from '../phones';
 
 // access the `store` variable anywhere in the component ✨
