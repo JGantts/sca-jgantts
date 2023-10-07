@@ -1,6 +1,9 @@
 import { defineStore } from 'pinia'
-import type { SaveFile, } from './file/FileTypes';
 import type { TabHash, WorkingFile } from './commonTypes';
+import type { Command } from './commandTypes';
+
+let undoStack: Command[] = []
+let redoStack: Command[] = []
 
 export const useLangueageStore = defineStore('languages', {
   state: () => {
@@ -22,6 +25,22 @@ export const useLangueageStore = defineStore('languages', {
         this.languages = saveFile
       else
         this.languages = null
+    },
+    excuteUndo() {
+      let command = undoStack.pop()
+      if (!command) return
+      command.undo()
+      redoStack.push(command)
+    },
+    excuteRedo() {
+      let command = redoStack.pop()
+      if (!command) return
+      command.do()
+      undoStack.push(command)
+    },
+    executeDo(newCommand: Command) {
+      newCommand.do()
+      undoStack.push(newCommand)
     },
   },
 })

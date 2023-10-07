@@ -20,6 +20,7 @@ import FamilyGraph from './graph/FamilyGraph.vue'
 import {Tabs, Tab} from 'vue3-tabs-component';
 import type { TabHash } from './commonTypes';
 import { useLangueageStore } from './store'
+import { AddLexemeCommand } from './commandTypes';
 
 const tabsHolder: Ref<Tabs|null> = ref(null)
 
@@ -52,6 +53,28 @@ function tabChanged(param: any) {
 }
 
 const store = useLangueageStore()
+
+function KeyPress(event: KeyboardEvent) {
+  if (event.defaultPrevented) return
+  const mod = /Mac|iPod|iPhone|iPad/.test(navigator.platform) ? event.metaKey : event.ctrlKey;
+  if (mod) {
+    if (event.code == 'KeyZ') {
+      if (event.shiftKey) {
+        event.preventDefault()
+        store.excuteRedo()
+      } else {
+        event.preventDefault()
+        store.excuteUndo()
+      }
+    }
+    if (event.code == 'KeyY') {
+      event.preventDefault()
+      store.excuteRedo()
+    }
+  }
+}
+
+document.onkeydown = KeyPress;
 </script>
 
 <template>

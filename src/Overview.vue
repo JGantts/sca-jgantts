@@ -3,6 +3,8 @@ import { ref, watch, type Ref, reactive } from 'vue';
 import type { FeatureStop, Phone, Syllable, Syllables_Cluster, UUID_FeatureStop, WordPhrase } from './commonTypes';
 import { stringToWordPhrase } from './stringToWordPhrase'
 import { useLangueageStore } from './store'
+import { AddLexemeCommand } from './commandTypes';
+import { BuildLexeme } from './Lexemes/lexemeFactory';
 
 const store = useLangueageStore()
 
@@ -66,14 +68,9 @@ watch(newWordInRef, () => {
   console.log(store.languages)
   if (!store.languages) return
   try {
-    console.log("here")
     newWord = stringToWordPhrase(newWordInRef.value, store.languages)
-    console.log("here1")
     newWordObjectRef.value = newWord
-    console.log("here2")
     newWordText.value = syllables_clusterToString(newWord)
-    console.log("here3")
-    console.log(newWordText)
   } catch (err) {
 
   }
@@ -83,13 +80,7 @@ let newWord: Syllables_Cluster|null = null
 
 function addWord() {
   if (!newWord) return
-  if (!store.languages?.data.words) return
-  store.languages.data.words.push({
-    id: crypto.randomUUID(),
-    entryForm: newWord,
-    entryTreeLimb: "",
-    entryDate: 0,
-  })
+  store.executeDo(new AddLexemeCommand(BuildLexeme({ word: newWord })))
 }
 
 </script>
