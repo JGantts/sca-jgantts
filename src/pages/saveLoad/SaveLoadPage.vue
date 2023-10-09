@@ -166,7 +166,11 @@ function closeSelectedFile () {
 
 <template>
   <div
-    style='position:relative;'
+    style='
+      position:relative;
+
+      display: grid;
+    '
   >
     <div
       class='container'
