@@ -73,10 +73,11 @@ const newWordObjectRef: Ref<PhoneString|null> = ref(null)
 const newWordText = ref({})
 
 function newNewWord () {
-  newWordObjectRef.value = null
   newWord = null
+  newWordObjectRef.value = null
+  newWordText.value = ''
   if (!store.languages) return
-  if (!userSanity.dashboard.newWord) return
+  if (userSanity.dashboard.newWord === '') return
   try {
     newWord = stringToWordPhrase(userSanity.dashboard.newWord, store.languages)
     newWordObjectRef.value = newWord
