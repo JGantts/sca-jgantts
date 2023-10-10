@@ -1,5 +1,9 @@
 <template>
-  <q-input rounded outlined v-model="newWordInRef" label="New Word" />
+  <q-input rounded outlined
+    v-model="newWordInRef"
+    label="New Word"
+    @keydown.enter.prevent="addWord"
+  />
   <br />
   <p>Interpretation: {{ newWordText }}</p>
   <div v-if="newWordObjectRef?.kind == 'syllables'">
@@ -121,7 +125,6 @@ const newWordObjectRef: Ref<PhoneString|null> = ref(null)
 const newWordText = ref({})
 
 watch(newWordInRef, () => {
-  console.log(store.languages)
   if (!store.languages) return
   try {
     newWord = stringToWordPhrase(newWordInRef.value, store.languages)
@@ -137,5 +140,6 @@ let newWord: PhoneString|null = null
 function addWord () {
   if (!newWord) return
   store.executeDo(new AddLexemeCommand(BuildLexeme({ word: newWord })))
+  newWordInRef.value = ''
 }
 </script>
