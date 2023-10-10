@@ -1,5 +1,5 @@
 import type { FeatureStop, Phone, Syllable, PhoneString, UUID_FeatureStop } from './commonTypes'
-import { useLangueageStore } from '../stores/example-store'
+import { useLangueageStore } from '../stores/languages-store'
 
 const store = useLangueageStore()
 

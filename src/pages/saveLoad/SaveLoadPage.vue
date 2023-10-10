@@ -1,6 +1,6 @@
 <script setup lang='ts'>
 import { ref, type Ref } from 'vue'
-import { useLangueageStore } from '../../stores/example-store'
+import { useLangueageStore } from '../../stores/languages-store'
 
 import ipa from '../../templates/ipa.json'
 import {
@@ -188,7 +188,6 @@ function closeSelectedFile () {
           </button>
         </div>
       </div>
-      <hr />
       <div>
         <input
           type='file'
@@ -421,6 +420,7 @@ function closeSelectedFile () {
 }
 
 .jsonIcon {
-  filter:var(--jg-c-solid-background-filter);
+  filter: var(--jg-c-text-filter);
 }
 </style>
+../../stores/languages-store

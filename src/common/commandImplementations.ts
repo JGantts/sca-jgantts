@@ -1,5 +1,5 @@
 import type { WordPhrase } from './commonTypes'
-import { useLangueageStore } from '../stores/example-store'
+import { useLangueageStore } from '../stores/languages-store'
 
 export function AddLexeme (lexeme: WordPhrase) {
   const store = useLangueageStore()

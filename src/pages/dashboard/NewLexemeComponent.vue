@@ -1,8 +1,9 @@
 <template>
   <q-input rounded outlined
-    v-model="newWordInRef"
+    v-model="userSanity.dashboard.newWord"
     label="New Word"
     @keydown.enter.prevent="addWord"
+    @update:model-value="newNewWord"
   />
   <br />
   <p>Interpretation: {{ newWordText }}</p>
@@ -56,36 +57,41 @@
 </template>
 
 <script setup lang="ts">
-import { ref, watch, type Ref } from 'vue'
+import { ref, type Ref } from 'vue'
 import type { PhoneString } from '../../common/commonTypes'
 import { stringToWordPhrase } from '../../common/stringToWordPhrase'
-import { useLangueageStore } from '../../stores/example-store'
+import { useLangueageStore } from '../../stores/languages-store'
 import { AddLexemeCommand } from '../../common/commandTypes'
 import { BuildLexeme } from '../../common/Lexemes/lexemeFactory'
 import { lexemeToString, phoneToString } from '../../common/lexemeToString'
+import { useUserSanityStore } from 'src/stores/userSanity-store'
 
 const store = useLangueageStore()
+const userSanity = useUserSanityStore()
 
-const newWordInRef = ref('')
 const newWordObjectRef: Ref<PhoneString|null> = ref(null)
 const newWordText = ref({})
 
-watch(newWordInRef, () => {
+function newNewWord () {
+  newWordObjectRef.value = null
+  newWord = null
   if (!store.languages) return
+  if (!userSanity.dashboard.newWord) return
   try {
-    newWord = stringToWordPhrase(newWordInRef.value, store.languages)
+    newWord = stringToWordPhrase(userSanity.dashboard.newWord, store.languages)
     newWordObjectRef.value = newWord
     newWordText.value = lexemeToString(newWord)
   } catch (err) {
-
+    console.log(err)
   }
-})
+}
 
 let newWord: PhoneString|null = null
 
 function addWord () {
   if (!newWord) return
   store.executeDo(new AddLexemeCommand(BuildLexeme({ word: newWord })))
-  newWordInRef.value = ''
+  userSanity.dashboard.newWord = ''
+  newNewWord()
 }
 </script>

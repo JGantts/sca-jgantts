@@ -22,7 +22,7 @@ const buildVersion: string = '5'
         />
 
         <q-toolbar-title>
-          SCA JGantts
+          {{ store?.languages?.metadata?.projectName ?? 'SCA JGantts' }}
         </q-toolbar-title>
 
         <div>{{ softwareTitle }}</div>
@@ -33,7 +33,6 @@ const buildVersion: string = '5'
       v-model="leftDrawerOpen"
       show-if-above
       bordered
-      behavior="desktop"
     >
       <q-list>
         <q-item-label
@@ -59,6 +58,8 @@ const buildVersion: string = '5'
 <script setup lang="ts">
 import { ref } from 'vue'
 import EssentialLink, { EssentialLinkProps } from '../components/EssentialLink.vue'
+import { useLangueageStore } from '../stores/languages-store'
+const store = useLangueageStore()
 
 let versionNumber = majorVersion
 if (minorVersion !== '0') {

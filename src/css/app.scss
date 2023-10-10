@@ -1,1 +1,8 @@
 // app global css in SCSS form
+.body--light {
+  --jg-c-text-filter: brightness(0) invert(1) brightness(10%);
+}
+
+.body--dark {
+  --jg-c-text-filter: brightness(0) invert(1) brightness(90%);
+}

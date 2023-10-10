@@ -4,7 +4,7 @@
 </template>
 
 <script setup lang="ts">
-import { useLangueageStore } from '../../stores/example-store'
+import { useLangueageStore } from '../../stores/languages-store'
 import { lexemeToString } from '../../common/lexemeToString'
 
 const store = useLangueageStore()
