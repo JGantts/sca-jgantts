@@ -4,9 +4,14 @@
     :label="title"
   >
     <q-item
-      clickable
-      tag="a"
-      :href="link"
+      :active="$route.matched.some(({ path }) => {
+        console.log(path)
+        console.log(link)
+        return (
+          path === '/'+link
+          || path === '/' && link == './'
+        )
+      })"
     >
       <q-item-section
         v-if="icon"
@@ -17,7 +22,6 @@
 
       <q-item-section>
         <q-item-label>{{ title }}</q-item-label>
-        <q-item-label caption>{{ caption }}</q-item-label>
       </q-item-section>
     </q-item>
   </router-link>
