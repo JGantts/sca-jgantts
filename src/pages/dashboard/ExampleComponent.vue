@@ -1,8 +1,6 @@
 <template>
-  <input
-    v-model="newWordInRef"
-    placeholder="type new word here"
-  ><br/>
+  <q-input rounded outlined v-model="newWordInRef" label="New Word" />
+  <br />
   <p>Interpretation: {{ newWordText }}</p>
   <div v-if="newWordObjectRef?.kind == 'syllables'">
   <table>
@@ -60,7 +58,7 @@
 
 <script setup lang="ts">
 import { ref, watch, type Ref } from 'vue'
-import type { FeatureStop, Phone, Syllable, PhoneString, uuidFeatureStop } from '../../common/commonTypes'
+import type { FeatureStop, Phone, Syllable, PhoneString, UUID_FeatureStop } from '../../common/commonTypes'
 import { stringToWordPhrase } from '../../common/stringToWordPhrase'
 import { useLangueageStore } from '../../stores/example-store'
 import { AddLexemeCommand } from '../../common/commandTypes'
@@ -115,7 +113,7 @@ function phoneToString (phone: Phone|null) {
 }
 
 function phonemeFeatureStopFitsPhone (phone: Phone, phonemeStop: FeatureStop): boolean {
-  return (phone.features[phonemeStop.categoryId] as uuidFeatureStop) === phonemeStop.stopId
+  return (phone.features[phonemeStop.categoryId] as UUID_FeatureStop) === phonemeStop.stopId
 }
 
 const newWordInRef = ref('')
