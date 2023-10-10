@@ -77,15 +77,23 @@ const softwareTitle = `SCA JGantts - v${versionNumber}`
 const essentialLinks: EssentialLinkProps[] = [
   {
     title: 'Save/Load',
-    caption: 'Start Here',
     icon: 'description',
     link: 'save-load',
   },
   {
     title: 'Overview',
-    caption: 'overview',
     icon: 'draft',
     link: './',
+  },
+  {
+    title: 'Phone Types',
+    icon: 'draft',
+    link: 'phone-types',
+  },
+  {
+    title: 'Phones',
+    icon: 'draft',
+    link: 'phones',
   },
 ]
 

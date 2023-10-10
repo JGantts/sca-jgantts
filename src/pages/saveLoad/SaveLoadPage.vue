@@ -175,17 +175,17 @@ function closeSelectedFile () {
       class='container'
       style='display: flex; flex-direction: column; gap: 0.5rem'
     >
-      <h3>Load</h3>
+      <div class="text-h3 text-weight-thin">Load</div>
       <div>
         <h4>Templates</h4>
         <div style='display: flex;'>
-          <button @click='loadTemplate("ipa")'>
+          <q-btn rounded color="secondary" @click='loadTemplate("ipa")'>
             IPA
-          </button>
+          </q-btn>
           &nbsp;
-          <button @click='loadTemplate("blank")'>
+          <q-btn rounded color="secondary" click='loadTemplate("blank")'>
             blank
-          </button>
+          </q-btn>
         </div>
       </div>
       <div>
@@ -198,7 +198,9 @@ function closeSelectedFile () {
       </div>
       <div v-if='fileParseState!="noFile"'>
         <hr />
-        <button
+        <q-btn
+          rounded
+          color="primary"
           style='
             background: none;
             border: none;
@@ -212,10 +214,11 @@ function closeSelectedFile () {
           :disabled='fileParseState!="validForLoad"'
         >
           <img v-bind:src='jsonIcon' style='width: 2.5rem;' class='jsonIcon'/>
+          &nbsp;
           <div v-if='fileParseState=="validForLoad"'>
             Load {{ selectedFileMetadata?.projectName }}
           </div>
-        </button>
+        </q-btn>
         <div
           v-if='store.languages!==null && fileParseState=="validForLoad"'
           class='unsaved-changes-warning'
@@ -235,11 +238,9 @@ function closeSelectedFile () {
   </div>
   <br />
   <div class='container'>
-    <h3>Save</h3>
+      <div class="text-h3 text-weight-thin">Save</div>
     <div>
-      <button @click='saveToFile()'>
-        Download to disk
-      </button>
+      <q-btn color="primary" rounded label="Download to disk" @click='saveToFile()' />
     </div>
   </div>
   <br />

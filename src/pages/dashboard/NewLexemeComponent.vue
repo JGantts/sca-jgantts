@@ -49,11 +49,7 @@
     </table>
   </div>
   <br/>
-  <button
-    @click="addWord"
-  >
-    Add to list
-  </button>
+  <q-btn color="primary" label="Add to list" elevated rounded @click="addWord"/>
 </template>
 
 <script setup lang="ts">
