@@ -168,7 +168,6 @@ function closeSelectedFile () {
   <div
     style='
       position:relative;
-
       display: grid;
     '
   >
