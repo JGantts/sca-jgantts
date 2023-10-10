@@ -95,6 +95,11 @@ const essentialLinks: EssentialLinkProps[] = [
     icon: 'draft',
     link: 'phones',
   },
+  {
+    title: 'Graph',
+    icon: 'draft',
+    link: 'graph',
+  },
 ]
 
 const leftDrawerOpen = ref(false)
