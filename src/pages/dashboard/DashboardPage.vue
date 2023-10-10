@@ -7,11 +7,14 @@
       display: grid;
     '
   >
-    <example-component></example-component>
+    <NewLexemeComponent />
+    <br />
+    <LexemeListComponent />
     </div>
   </q-page>
 </template>
 
 <script setup lang="ts">
-import ExampleComponent from './ExampleComponent.vue'
+import LexemeListComponent from './LexemeListComponent.vue'
+import NewLexemeComponent from './NewLexemeComponent.vue'
 </script>

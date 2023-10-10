@@ -5,12 +5,8 @@
   >
     <q-item
       :active="$route.matched.some(({ path }) => {
-        console.log(path)
-        console.log(link)
-        return (
-          path === '/'+link
-          || path === '/' && link == './'
-        )
+        path === '/'+link
+        || (path === '/' && link == './')
       })"
     >
       <q-item-section

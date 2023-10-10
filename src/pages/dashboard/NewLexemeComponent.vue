@@ -53,72 +53,18 @@
   >
     Add to list
   </button>
-  <br/>
-  <br/>
-  <h2>List of words:</h2>
-  <li v-for="lexeme in store.languages?.data.words" :key="lexeme.id" class="roman-medium">{{ syllablesClusterToString(lexeme.entryForm) }}</li>
-
 </template>
 
 <script setup lang="ts">
 import { ref, watch, type Ref } from 'vue'
-import type { FeatureStop, Phone, Syllable, PhoneString, UUID_FeatureStop } from '../../common/commonTypes'
+import type { PhoneString } from '../../common/commonTypes'
 import { stringToWordPhrase } from '../../common/stringToWordPhrase'
 import { useLangueageStore } from '../../stores/example-store'
 import { AddLexemeCommand } from '../../common/commandTypes'
 import { BuildLexeme } from '../../common/Lexemes/lexemeFactory'
+import { lexemeToString, phoneToString } from '../../common/lexemeToString'
 
 const store = useLangueageStore()
-
-function syllablesClusterToString (syllablesCluster: PhoneString) {
-  let toReturn = ''
-  switch (syllablesCluster.kind) {
-    case 'syllables':
-      for (const syllable of syllablesCluster.syllables) {
-        if (toReturn !== '') {
-          toReturn += '.'
-        }
-        toReturn += syllableToString(syllable)
-      }
-      break
-    case 'phones':
-      toReturn += phonesToString(syllablesCluster.phones)
-      break
-  }
-  return toReturn
-}
-
-function syllableToString (syllable: Syllable) {
-  let toReturn = phonesToString(syllable.onset)
-  toReturn += phonesToString(syllable.rhyme.nucleus)
-  toReturn += phonesToString(syllable.rhyme.coda)
-  return toReturn
-}
-
-function phonesToString (phones: Phone[]) {
-  let toReturn = ''
-  for (const phone of phones) {
-    toReturn += phoneToString(phone)
-  }
-  return toReturn
-}
-
-function phoneToString (phone: Phone|null) {
-  if (phone == null || store.languages == null) {
-    return ''
-  } else {
-    return Object.values(store.languages.data.phonemes).filter(
-      phoneme =>
-        phoneme.featureStops.every(phonemeFeatureStop =>
-          phonemeFeatureStopFitsPhone(phone, phonemeFeatureStop),
-        ),
-    )[0]?.IPA ?? 'Error]'
-  }
-}
-
-function phonemeFeatureStopFitsPhone (phone: Phone, phonemeStop: FeatureStop): boolean {
-  return (phone.features[phonemeStop.categoryId] as UUID_FeatureStop) === phonemeStop.stopId
-}
 
 const newWordInRef = ref('')
 const newWordObjectRef: Ref<PhoneString|null> = ref(null)
@@ -129,7 +75,7 @@ watch(newWordInRef, () => {
   try {
     newWord = stringToWordPhrase(newWordInRef.value, store.languages)
     newWordObjectRef.value = newWord
-    newWordText.value = syllablesClusterToString(newWord)
+    newWordText.value = lexemeToString(newWord)
   } catch (err) {
 
   }
