@@ -21,27 +21,29 @@ function featureCategoryToColumns (cats: FeatureCategory[]): {
   name: string,
   required?: boolean,
   field: (row: FeatureCategory) => string,
-  sortable: true,
+  sortable: boolean,
+  align: "left",
 }[] {
   const toReturn: {
     name: string,
-    required?: boolean,
     field: (row: FeatureCategory) => string,
-    sortable: true,
+    sortable: boolean,
+    align: "left",
   } [] = []
 
   toReturn.push({
     name: 'IPA',
-    required: true,
     field: (row: FeatureCategory) => row.IPA ?? '[Error]',
     sortable: true,
+    align: "left",
   })
+
   for (const cat of cats) {
     toReturn.push({
       name: cat.desc ?? '[Error]',
-      required: true,
       field: (row: FeatureCategory) => featureStopValueDesc(row, cat) ?? '[Error]',
       sortable: true,
+      align: "left",
     })
   }
   return toReturn
@@ -59,34 +61,77 @@ function featureCategoryToColumns (cats: FeatureCategory[]): {
         :title="capitalizeFirstLetter(phoneType.desc)"
         :rows="Object.values(store.languages?.data.phonemes).filter(x => x.typeID === phoneType.id)"
         :columns="featureCategoryToColumns(phoneType.features)"
-        row-key="name"
-      />
+        row-key="id"
+        separator="none"
+      >
+
+      <template v-slot:body="props">
+        <q-tr :props="props">
+          <q-td auto-width style="padding: 0.5rem">
+            <q-btn
+              size="sm" color="accent" round dense
+              @click="props.expand = !props.expand"
+              icon="chevron_right"
+              :class="{ rotate: props.expand }"
+              class="can-rotate"
+            />
+          </q-td>
+          <q-td
+            v-for="col in props.cols"
+            :key="col.name"
+            :props="props"
+          >
+            {{ col.value }}
+          </q-td>
+        </q-tr>
+        <transition name="fade-expand">
+          <q-tr v-if="props.expand" :props="props" style="height: 2.5rem">
+            <q-td colspan="100%">
+              <div class="text-left">This is expand slot for row above: {{ props.row.name }}.</div>
+            </q-td>
+          </q-tr>
+        </transition>
+      </template>
+
+      <template v-slot:top-row>
+        <q-tr :props="props">
+          <q-td auto-width style="padding: 0.5rem">
+            <q-btn size="sm" color="primary" round dense @click="props.expand = !props.expand" icon="add" />
+          </q-td>
+          <q-td>
+            IPA
+          </q-td>
+          <q-td v-for="feature in phoneType.features" :key="feature.id">
+            IPA
+          </q-td>
+        </q-tr>
+      </template>
+      </q-table>
     </div>
   </div>
 </template>
 
 <style scoped>
-table { border-collapse: collapse; }
-tr { border-bottom: solid thin; }
-tr:last-child { border-bottom: none; }
-.phoneTypeConainer {
-  display: flex;
-  gap: 2rem;
+.can-rotate {
+  transition: transform 0.3s ease-in-out;
 }
-th {
-  border-right: solid thin;
-  padding-left: 0.2rem;
-  padding-right: 0.2rem;
+.rotate {
+  transform: rotate(90deg);
 }
-th:last-child { border-right: none; }
-td {
-  padding-left: 0.5rem;
-  padding-right: 0.5rem;
+
+.fade-expand-enter-active, .fade-expand-leave-active {
+  transition: opacity 0.3s, max-height 0.3s, transform 0.3s;
 }
-td:first-child {
-  padding-left: 0;
+.fade-expand-enter {
+  opacity: 0;
+  transform: translateX(-100%);
 }
-td:last-child {
-  padding-right: 0;
+.fade-expand-enter-from {
+  opacity: 0;
+  transform: translateX(-100%);
+}
+.fade-expand-leave-to {
+  opacity: 0;
+  transform: translateX(-100%);
 }
 </style>

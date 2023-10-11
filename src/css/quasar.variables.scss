@@ -12,18 +12,6 @@
 // to match your app's branding.
 // Tip: Use the "Theme Builder" on Quasar's documentation website.
 
-$primary   : #00a2c7;
-$secondary : #e93d82;
-$accent    : #e54d2e;
-
-$dark      : #1D1D1D;
-$dark-page : #121212;
-
-$positive  : #21BA45;
-$negative  : #C10015;
-$info      : #31CCEC;
-$warning   : #F2C037;
-
 $sky-1: #f9feff;
 $sky-2: #f1fafd;
 $sky-3: #e1f6fd;
@@ -88,3 +76,15 @@ $crimson-9: #e93d82;
 $crimson-10: #df3478;
 $crimson-11: #cb1d63;
 $crimson-12: #621639;
+
+$primary   : #00a2c7;
+$secondary : $cyan-11;
+$accent    : #46a758;
+
+$dark      : #1D1D1D;
+$dark-page : #121212;
+
+$positive  : #21BA45;
+$negative  : #C10015;
+$info      : #31CCEC;
+$warning   : #F2C037;
