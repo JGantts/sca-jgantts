@@ -16,6 +16,7 @@ const props = defineProps({
   },
   isRowExpanded: Function,
   toggleRowExpansion: Function,
+  isRowLast: Function,
 })
 
 const isChildExpanded = ref(isRowExpandedInternal())
@@ -32,6 +33,11 @@ function toggleRowExpansionInternal () {
     isChildExpanded.value = false
   }
   props.toggleRowExpansion(props.row.id)
+}
+
+function isRowLastInternal (row: unknown) {
+  if (!props.isRowLast) return false
+  return props.isRowLast(props.row)
 }
 
 let isDeleting = false
@@ -58,7 +64,12 @@ onBeforeUpdate(() => {
 
 <template>
   <q-tr>
-    <q-td auto-width style="padding: 0.5rem">
+    <q-td
+      style="
+        height: 2.5rem;
+        width:2.5rem;
+      "
+    >
       <q-btn
         size="sm" color="accent" round dense
         @click="toggleRowExpansionInternal"
@@ -71,29 +82,35 @@ onBeforeUpdate(() => {
       :key="col.name"
     >
       {{ col.value }}
-      <q-popup-edit v-model="col.name" title="Update calories" buttons v-slot="scope">
-        <q-input type="number" v-model="scope.value" dense autofocus />
-      </q-popup-edit>
     </q-td>
   </q-tr>
   <transition
-    :name="isDeleting || recycling ? undefined : 'fade'"
+    :name="'fade'"
     @after-enter="isChildExpanded = true"
   >
-    <q-tr v-if="isRowExpandedInternal()" :props="props" style="height: 2.5rem">
-      <q-td auto-width style="padding: 0.5rem">
+    <q-tr v-if="isRowExpandedInternal()" :props="props" style="height: 1rem;">
+      <q-td
+        style="
+          width:2.5rem;
+          height: 1rem;
+        "
+        class="text-center"
+      >
         <transition
           :name="recycling ? '' : 'slide'"
         >
           <q-btn
             v-if="isChildExpanded"
-            size="sm" color="negative" round dense
+            size="xs" color="negative" round dense
             icon="remove"
             @click="deleteSelf"
           />
         </transition>
       </q-td>
       <q-td
+        style="
+          height: 1rem;
+        "
         v-for="col in props.cols"
         :key="col.name"
       >
@@ -101,6 +118,21 @@ onBeforeUpdate(() => {
       </q-td>
     </q-tr>
   </transition>
+  <q-tr >
+    <q-td colspan="100%"
+      :style="{
+        height: '1px',
+        padding: '0',
+        'padding-left': '10px',
+        'padding-right': '10px',
+        opacity: '25%',
+      }"
+    >
+      <div v-if="!isRowLastInternal(row)">
+        <hr style="width: 100%;"/>
+      </div>
+    </q-td>
+  </q-tr>
 </template>
 
 <style scoped>
@@ -116,12 +148,15 @@ onBeforeUpdate(() => {
 }
 .fade-enter {
   opacity: 0;
+  transform: translateY(-100%);
 }
 .fade-enter-from {
   opacity: 0;
+  transform: translateY(-100%);
 }
 .fade-leave-to {
   opacity: 0;
+  transform: translateY(-100%);
 }
 
 .slide-enter-active, .slide-leave-active {

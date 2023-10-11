@@ -65,6 +65,13 @@ function isRowExpanded (rowId: string) {
   return expandedRows.value.includes(rowId)
 }
 
+function isRowLast (row: unknown) {
+  const lastRowIndex = (paginations[row.typeID].page - 1) * paginations[row.typeID].rowsPerPage + paginations[row.typeID].rowsPerPage - 1
+  const unsortedData = Object.values(store.languages.data.phonemes).filter(x => x.typeID === row.typeID)
+  console.log(unsortedData.length)
+  return unsortedData.indexOf(row) === lastRowIndex || unsortedData.indexOf(row) === unsortedData.length - 1
+}
+
 function toggleRowExpansion (rowId: string) {
   if (isRowExpanded(rowId)) {
     const index = expandedRows.value.indexOf(rowId)
@@ -75,7 +82,15 @@ function toggleRowExpansion (rowId: string) {
     expandedRows.value.push(rowId)
   }
 }
-
+const paginations: {
+  [id: string] : {
+  sortBy: string,
+  descending: boolean,
+  page: number,
+  rowsPerPage: number,
+  rowsNumber: number
+} }
+= {}
 </script>
 
 <template>
@@ -90,6 +105,7 @@ function toggleRowExpansion (rowId: string) {
         :columns="featureCategoryToColumns(phoneType.features)"
         row-key="id"
         separator="none"
+        v-model:pagination="paginations[phoneType.id]"
       >
 
       <template v-slot:header>
@@ -129,6 +145,7 @@ function toggleRowExpansion (rowId: string) {
           :row="props.row"
           :is-row-expanded="isRowExpanded"
           :toggle-row-expansion="toggleRowExpansion"
+          :is-row-last="isRowLast"
         />
       </template>
 
