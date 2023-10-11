@@ -19,7 +19,17 @@ function featureStop () {
 }
 
 function options () {
-  return store.languages?.data.phoneTypes[phoneme().typeID].features[0].types.map(x => x.id)
+  return store.languages?.data.phoneTypes[phoneme().typeID].features
+    .filter(x => x.id === featureStop().categoryId)[0].types
+    .map(x => x.id)
+}
+
+function featureStopName (opt: unknown) {
+  return store.languages?.data.phoneTypes[phoneme().typeID].features
+    .filter(x => x.id === featureStop().categoryId)[0]
+    .types
+    .filter(x => x.id === opt)
+    .map(x => x.desc)[0] ?? ''
 }
 
 </script>
@@ -30,6 +40,8 @@ function options () {
       v-model="featureStop().stopId"
       :label="props.featureCategory"
       :options="options()"
+      :option-value="opt => opt"
+      :option-label="featureStopName"
     />
   </div>
 </template>
