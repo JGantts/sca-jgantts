@@ -42,7 +42,7 @@ function featureCategoryName () {
   <div v-if="phoneme()">
     <q-select filled dense outlined
       v-model="featureStop().stopId"
-      :label="featureCategoryName"
+      :label="featureCategoryName()"
       :options="options()"
       :option-value="opt => opt"
       :option-label="featureStopName"
