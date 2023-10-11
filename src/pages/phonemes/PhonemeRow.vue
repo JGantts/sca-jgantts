@@ -2,6 +2,7 @@
 import { PropType, defineProps, ref, onBeforeUpdate } from 'vue'
 import { useLangueageStore } from '../../stores/languages-store'
 import { Phoneme } from 'src/common/commonTypes'
+import PhonemeFeature from './PhonemeFeature.vue'
 const store = useLangueageStore()
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -33,6 +34,7 @@ function toggleRowExpansionInternal () {
     isChildExpanded.value = false
   }
   props.toggleRowExpansion(props.row.id)
+  isChildExpanded.value = false
 }
 
 function isRowLastInternal (row: unknown) {
@@ -77,9 +79,14 @@ onBeforeUpdate(() => {
         :class="{ rotate: isRowExpandedInternal(), 'can-rotate': !isDeleting && !recycling }"
       />
     </q-td>
+    <q-td>
+      {{ row.IPA }}
+    </q-td>
     <q-td
       v-for="col in props.cols"
       :key="col.name"
+      :class="{ highlight: isChildExpanded }"
+      style="transition: font 0.3s;"
     >
       {{ col.value }}
     </q-td>
@@ -107,6 +114,9 @@ onBeforeUpdate(() => {
           />
         </transition>
       </q-td>
+      <q-td>
+        <q-input filled v-model="value" label="" dense outlined style="width: 3.5rem;"/>
+      </q-td>
       <q-td
         style="
           height: 1rem;
@@ -114,7 +124,11 @@ onBeforeUpdate(() => {
         v-for="col in props.cols"
         :key="col.name"
       >
-        {{ col.value }}
+        <transition
+          :name="'slide'"
+        >
+          <PhonemeFeature />
+        </transition>
       </q-td>
     </q-tr>
   </transition>
@@ -136,6 +150,9 @@ onBeforeUpdate(() => {
 </template>
 
 <style scoped>
+.highlight {
+  font-weight: 900;
+}
 .can-rotate {
   transition: transform 0.3s ease-in-out;
 }
