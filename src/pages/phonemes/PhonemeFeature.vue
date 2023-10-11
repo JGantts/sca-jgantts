@@ -32,13 +32,17 @@ function featureStopName (opt: unknown) {
     .map(x => x.desc)[0] ?? ''
 }
 
+function featureCategoryName () {
+  return store.languages?.data.phoneTypes[phoneme().typeID].features
+    .filter(x => x.id === featureStop().categoryId)[0].desc ?? ''
+}
 </script>
 
 <template>
   <div v-if="phoneme()">
     <q-select filled dense outlined
       v-model="featureStop().stopId"
-      :label="props.featureCategory"
+      :label="featureCategoryName"
       :options="options()"
       :option-value="opt => opt"
       :option-label="featureStopName"
