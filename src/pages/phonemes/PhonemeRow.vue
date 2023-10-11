@@ -115,7 +115,7 @@ onBeforeUpdate(() => {
         </transition>
       </q-td>
       <q-td>
-        <q-input filled v-model="value" label="" dense outlined style="width: 3.5rem;"/>
+        <q-input filled v-model="Object.values(store.languages.data.phonemes).filter(x => x.id === props.row.id)[0].IPA" label="" dense outlined style="width: 3.5rem;"/>
       </q-td>
       <q-td
         style="
