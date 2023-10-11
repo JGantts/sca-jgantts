@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { PropType, defineProps, ref } from 'vue'
+import { PropType, defineProps, ref, onBeforeUpdate } from 'vue'
 import { useLangueageStore } from '../../stores/languages-store'
 import { Phoneme } from 'src/common/commonTypes'
 const store = useLangueageStore()
@@ -26,6 +26,7 @@ function isRowExpandedInternal () {
 }
 
 function toggleRowExpansionInternal () {
+  recycling = false
   if (!props.toggleRowExpansion) return
   if (!isRowExpandedInternal()) {
     isChildExpanded.value = false
@@ -47,6 +48,12 @@ function deleteSelf () {
   }, 0)
 }
 
+let recycling = false
+
+onBeforeUpdate(() => {
+  recycling = true
+})
+
 </script>
 
 <template>
@@ -56,7 +63,7 @@ function deleteSelf () {
         size="sm" color="accent" round dense
         @click="toggleRowExpansionInternal"
         icon="chevron_right"
-        :class="{ rotate: isRowExpandedInternal(), 'can-rotate': !isDeleting }"
+        :class="{ rotate: isRowExpandedInternal(), 'can-rotate': !isDeleting && !recycling }"
       />
     </q-td>
     <q-td
@@ -70,13 +77,13 @@ function deleteSelf () {
     </q-td>
   </q-tr>
   <transition
-    :name="isDeleting ? undefined : 'fade'"
+    :name="isDeleting || recycling ? undefined : 'fade'"
     @after-enter="isChildExpanded = true"
   >
     <q-tr v-if="isRowExpandedInternal()" :props="props" style="height: 2.5rem">
       <q-td auto-width style="padding: 0.5rem">
         <transition
-          name="slide"
+          :name="recycling ? '' : 'slide'"
         >
           <q-btn
             v-if="isChildExpanded"
