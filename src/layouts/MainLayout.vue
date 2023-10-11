@@ -5,7 +5,7 @@
 const majorVersion: string = '0'
 const minorVersion: string = '1'
 const betaVersion: string = '1'
-const buildVersion: string = '7'
+const buildVersion: string = '8'
 </script>
 
 <template>
