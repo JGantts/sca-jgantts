@@ -21,7 +21,7 @@ function featureStopValueDesc (phoneme: Phoneme, featureCategory: FeatureCategor
 function featureCategoryToColumns (cats: FeatureCategory[]): {
   name: string,
   label: string,
-  required?: boolean,
+  id: string,
   field: (row: FeatureCategory) => string,
   sortable: boolean,
   align: 'left',
@@ -29,6 +29,7 @@ function featureCategoryToColumns (cats: FeatureCategory[]): {
   const toReturn: {
     name: string,
     label: string,
+  id: string,
     field: (row: FeatureCategory) => string,
     sortable: boolean,
     align: 'left',
@@ -37,6 +38,7 @@ function featureCategoryToColumns (cats: FeatureCategory[]): {
   toReturn.push({
     name: 'IPA',
     label: 'IPA Label',
+    id: 'IPA',
     field: (row: FeatureCategory) => row.IPA ?? '[Error]',
     sortable: true,
     align: 'left',
@@ -46,6 +48,7 @@ function featureCategoryToColumns (cats: FeatureCategory[]): {
     toReturn.push({
       name: (cat.desc ?? '[Error]'),
       label: cat.desc ?? '[Error]',
+      id: cat.id,
       field: (row: FeatureCategory) => featureStopValueDesc(row, cat) ?? '[Error]',
       sortable: true,
       align: 'left',
@@ -66,14 +69,14 @@ function featureCategoryToColumns (cats: FeatureCategory[]): {
         :title="capitalizeFirstLetter(phoneType.desc)"
         :rows="Object.values(store.languages?.data.phonemes).filter(x => x.typeID === phoneType.id)"
         :columns="featureCategoryToColumns(phoneType.features)"
-        row-key="x => x.id"
+        row-key="id"
         separator="none"
       >
 
       <template v-slot:body="props">
         <PhonemeRow
           :cols="props.cols"
-          :id="props.row.id"
+          :id="props.row"
         />
       </template>
 
