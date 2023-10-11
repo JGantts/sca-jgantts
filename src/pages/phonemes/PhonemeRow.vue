@@ -127,7 +127,10 @@ onBeforeUpdate(() => {
         <transition
           :name="'slide'"
         >
-          <PhonemeFeature />
+          <PhonemeFeature
+            :phoneme-id="row.id"
+            :feature-category="col.id"
+          />
         </transition>
       </q-td>
     </q-tr>
