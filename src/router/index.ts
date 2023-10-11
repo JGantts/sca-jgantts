@@ -1,9 +1,8 @@
 import { route } from 'quasar/wrappers'
 import {
+  Router,
   createMemoryHistory,
   createRouter,
-  createWebHashHistory,
-  createWebHistory,
 } from 'vue-router'
 
 import routes from './routes'
@@ -17,16 +16,20 @@ import routes from './routes'
  * with the Router instance.
  */
 
-export default route(function (/* { store, ssrContext } */) {
-  const Router = createRouter({
-    scrollBehavior: () => ({ left: 0, top: 0 }),
-    routes,
+let router: Router | null = null
 
-    // Leave this as is and make changes in quasar.conf.js instead!
-    // quasar.conf.js -> build -> vueRouterMode
-    // quasar.conf.js -> build -> publicPath
-    history: createMemoryHistory(process.env.VUE_ROUTER_BASE),
-  })
+export default function (/* { store, ssrContext } */) {
+  if (!router) {
+    router = createRouter({
+      scrollBehavior: () => ({ left: 0, top: 0 }),
+      routes,
 
-  return Router
-})
+      // Leave this as is and make changes in quasar.conf.js instead!
+      // quasar.conf.js -> build -> vueRouterMode
+      // quasar.conf.js -> build -> publicPath
+      history: createMemoryHistory(process.env.VUE_ROUTER_BASE),
+    })
+  }
+
+  return router
+}

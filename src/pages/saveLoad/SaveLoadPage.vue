@@ -16,19 +16,14 @@ import fileCheckIcon from '../../assets/icons/file-circle-check-solid.svg'
 import fileExclamationIcon from '../../assets/icons/file-circle-exclamation-solid.svg'
 import type { WorkingFile } from '../../common/commonTypes'
 
+import route from '../../router/index'
+
 // import Ajv from 'ajv'
 
 // access the `store` variable anywhere in the component ✨
 const store = useLangueageStore()
 
 // assemblePhones()
-
-const myProps = defineProps<{
-  changeTab:(tab: string) => void,
-  loadFromFiles: {
-    loadFromFiles: ((file: FileList) => void)|null
-  }
-}>()
 
 const selectedFileMetadata: Ref<Metadata|null> = ref(null)
 const jsonIcon = ref(fileIcon)
@@ -110,7 +105,7 @@ function parse (savefileString: string) {
 
   try {
     fileObject = loadSaveFile(savefile)
-  } catch (err: any) {
+  } catch (err: unknown) {
     fileParseState.value = 'dataParseError'
     fileParseError.value = 'Error parsing file. Check console for messages.'
     console.log(err)
@@ -142,7 +137,8 @@ function unload () {
 function loadFromFile () {
   if (!fileObject) return
   store.loadSaveFile(fileObject)
-  myProps.changeTab('#overview')
+  const router = route()
+  router.push({ path: '/' })
   unload()
 }
 
