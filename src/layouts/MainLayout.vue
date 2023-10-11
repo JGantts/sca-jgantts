@@ -50,7 +50,9 @@ const buildVersion: string = '8'
     </q-drawer>
 
     <q-page-container>
-      <router-view />
+      <div style="padding: 2.5rem;">
+        <router-view />
+      </div>
     </q-page-container>
   </q-layout>
 </template>

@@ -16,6 +16,37 @@ function featureStopValueDesc (phoneme: Phoneme, featureCategory: FeatureCategor
     )[0]?.stopId,
   )[0]?.desc
 }
+
+function featureCategoryToColumns (cats: FeatureCategory[]): {
+  name: string,
+  required?: boolean,
+  field: (row: FeatureCategory) => string,
+  sortable: true,
+}[] {
+  const toReturn: {
+    name: string,
+    required?: boolean,
+    field: (row: FeatureCategory) => string,
+    sortable: true,
+  } [] = []
+
+  toReturn.push({
+    name: 'IPA',
+    required: true,
+    field: (row: FeatureCategory) => row.IPA ?? '[Error]',
+    sortable: true,
+  })
+  for (const cat of cats) {
+    toReturn.push({
+      name: cat.desc ?? '[Error]',
+      required: true,
+      field: (row: FeatureCategory) => featureStopValueDesc(row, cat) ?? '[Error]',
+      sortable: true,
+    })
+  }
+  return toReturn
+}
+
 </script>
 
 <template>
@@ -23,35 +54,14 @@ function featureStopValueDesc (phoneme: Phoneme, featureCategory: FeatureCategor
     v-for="phoneType in store.languages?.data.phoneTypes"
     :key="phoneType.id"
   >
-    <h1>{{ capitalizeFirstLetter(phoneType.desc) }}</h1>
-    <table>
-      <tr>
-        <th>
-          IPA
-        </th>
-        <th
-          v-for="featureCat in phoneType.features"
-          :key="featureCat.id"
-        >
-          {{ featureCat.desc }}
-        </th>
-      </tr>
-      <!-- @vue-expect-error -->
-      <tr
-        v-for="phoneme in Object.values(store.languages?.data.phonemes).filter(x => x.typeID === phoneType.id)"
-        :key="phoneme.id"
-      >
-        <td>
-        {{ phoneme.IPA }}
-        </td>
-        <td
-          v-for="feature in phoneType.features"
-          :key="feature.id"
-        >
-          {{ featureStopValueDesc(phoneme, feature) }}
-        </td>
-      </tr>
-    </table>
+    <div class="q-pa-md">
+      <q-table
+        :title="capitalizeFirstLetter(phoneType.desc)"
+        :rows="Object.values(store.languages?.data.phonemes).filter(x => x.typeID === phoneType.id)"
+        :columns="featureCategoryToColumns(phoneType.features)"
+        row-key="name"
+      />
+    </div>
   </div>
 </template>
 
