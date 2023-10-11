@@ -33,8 +33,10 @@ function toggleRowExpansionInternal () {
   props.toggleRowExpansion(props.row.id)
 }
 
+let isDeleting = false
+
 function deleteSelf () {
-  // isDeleting = true
+  isDeleting = true
   setTimeout(() => {
     if (!store.languages) return
     const newPhonemes: { [id: string]: Phoneme; } = { }
@@ -54,8 +56,7 @@ function deleteSelf () {
         size="sm" color="accent" round dense
         @click="toggleRowExpansionInternal"
         icon="chevron_right"
-        :class="{ rotate: isRowExpandedInternal() }"
-        class="can-rotate"
+        :class="{ rotate: isRowExpandedInternal(), 'can-rotate': !isDeleting }"
       />
     </q-td>
     <q-td
@@ -69,7 +70,7 @@ function deleteSelf () {
     </q-td>
   </q-tr>
   <transition
-    name="fade"
+    :name="isDeleting ? undefined : 'fade'"
     @after-enter="isChildExpanded = true"
   >
     <q-tr v-if="isRowExpandedInternal()" :props="props" style="height: 2.5rem">
