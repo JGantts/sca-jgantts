@@ -329,6 +329,7 @@ function saveFileLatestTOworkingFile (dataIn: SF_DataLatest): WorkingFileData {
     phoneTypes: assemblePhoneTypes(dataIn),
     languages: assembleLanguagues(dataIn),
     phonemes: assemblePhonemes(dataIn),
+    phonemesList: Object.values(assemblePhonemes(dataIn)),
     words: assembleLexemes(dataIn),
     rules: assembleRules(dataIn),
     treeTrunks: assembleTreeTrunks(dataIn),

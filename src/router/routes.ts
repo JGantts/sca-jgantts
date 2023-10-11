@@ -19,7 +19,7 @@ const routes: RouteRecordRaw[] = [
   {
     path: '/phones',
     component: () => import('layouts/MainLayout.vue'),
-    children: [{ path: '', component: () => import('../pages/PhonesPage.vue') }],
+    children: [{ path: '', component: () => import('../pages/phonemes/PhonesPage.vue') }],
   },
   {
     path: '/graph',

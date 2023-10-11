@@ -1,6 +1,7 @@
 <script setup lang="ts">
-import type { Description, FeatureCategory, Phoneme } from '../common/commonTypes'
-import { useLangueageStore } from '../stores/languages-store'
+import type { Description, FeatureCategory, Phoneme } from '../../common/commonTypes'
+import { useLangueageStore } from '../../stores/languages-store'
+import PhonemeRow from './PhonemeRow.vue'
 
 const store = useLangueageStore()
 
@@ -19,31 +20,35 @@ function featureStopValueDesc (phoneme: Phoneme, featureCategory: FeatureCategor
 
 function featureCategoryToColumns (cats: FeatureCategory[]): {
   name: string,
+  label: string,
   required?: boolean,
   field: (row: FeatureCategory) => string,
   sortable: boolean,
-  align: "left",
+  align: 'left',
 }[] {
   const toReturn: {
     name: string,
+    label: string,
     field: (row: FeatureCategory) => string,
     sortable: boolean,
-    align: "left",
+    align: 'left',
   } [] = []
 
   toReturn.push({
     name: 'IPA',
+    label: 'IPA Label',
     field: (row: FeatureCategory) => row.IPA ?? '[Error]',
     sortable: true,
-    align: "left",
+    align: 'left',
   })
 
   for (const cat of cats) {
     toReturn.push({
-      name: cat.desc ?? '[Error]',
+      name: (cat.desc ?? '[Error]'),
+      label: cat.desc ?? '[Error]',
       field: (row: FeatureCategory) => featureStopValueDesc(row, cat) ?? '[Error]',
       sortable: true,
-      align: "left",
+      align: 'left',
     })
   }
   return toReturn
@@ -61,42 +66,21 @@ function featureCategoryToColumns (cats: FeatureCategory[]): {
         :title="capitalizeFirstLetter(phoneType.desc)"
         :rows="Object.values(store.languages?.data.phonemes).filter(x => x.typeID === phoneType.id)"
         :columns="featureCategoryToColumns(phoneType.features)"
-        row-key="id"
+        row-key="x => x.id"
         separator="none"
       >
 
       <template v-slot:body="props">
-        <q-tr :props="props">
-          <q-td auto-width style="padding: 0.5rem">
-            <q-btn
-              size="sm" color="accent" round dense
-              @click="props.expand = !props.expand"
-              icon="chevron_right"
-              :class="{ rotate: props.expand }"
-              class="can-rotate"
-            />
-          </q-td>
-          <q-td
-            v-for="col in props.cols"
-            :key="col.name"
-            :props="props"
-          >
-            {{ col.value }}
-          </q-td>
-        </q-tr>
-        <transition name="fade-expand">
-          <q-tr v-if="props.expand" :props="props" style="height: 2.5rem">
-            <q-td colspan="100%">
-              <div class="text-left">This is expand slot for row above: {{ props.row.name }}.</div>
-            </q-td>
-          </q-tr>
-        </transition>
+        <PhonemeRow
+          :cols="props.cols"
+          :id="props.row.id"
+        />
       </template>
 
       <template v-slot:top-row>
-        <q-tr :props="props">
+        <q-tr>
           <q-td auto-width style="padding: 0.5rem">
-            <q-btn size="sm" color="primary" round dense @click="props.expand = !props.expand" icon="add" />
+            <q-btn size="sm" color="primary" round dense icon="add" />
           </q-td>
           <q-td>
             IPA
@@ -119,19 +103,29 @@ function featureCategoryToColumns (cats: FeatureCategory[]): {
   transform: rotate(90deg);
 }
 
-.fade-expand-enter-active, .fade-expand-leave-active {
+.fade-enter-active, .fade-leave-active {
   transition: opacity 0.3s, max-height 0.3s, transform 0.3s;
 }
-.fade-expand-enter {
+.fade-enter {
   opacity: 0;
+}
+.fade-enter-from {
+  opacity: 0;
+}
+.fade-leave-to {
+  opacity: 0;
+}
+
+.slide-enter-active, .slide-leave-active {
+  transition: opacity 0.3s, max-height 0.3s, transform 0.3s;
+}
+.slide-enter {
   transform: translateX(-100%);
 }
-.fade-expand-enter-from {
-  opacity: 0;
+.slide-enter-from {
   transform: translateX(-100%);
 }
-.fade-expand-leave-to {
-  opacity: 0;
+.slide-leave-to {
   transform: translateX(-100%);
 }
 </style>
