@@ -10,27 +10,41 @@ const props = defineProps({
     type: Array as PropType<{ name: string }[]>,
     required: true,
   },
-  id: String,
+  row: {
+    type: Object as PropType<Phoneme>,
+    required: true,
+  },
+  isRowExpanded: Function,
+  toggleRowExpansion: Function,
 })
 
-const isExpanded = ref(false)
-const isChildExpanded = ref(false)
+const isChildExpanded = ref(isRowExpandedInternal())
 
-function toggle () {
-  isExpanded.value = !isExpanded.value
+function isRowExpandedInternal () {
+  if (!props.isRowExpanded) return false
+  return props.isRowExpanded(props.row.id)
+}
+
+function toggleRowExpansionInternal () {
+  if (!props.toggleRowExpansion) return
+  if (!isRowExpandedInternal()) {
+    isChildExpanded.value = false
+  }
+  props.toggleRowExpansion(props.row.id)
 }
 
 function deleteSelf () {
-  if (!store.languages) return
-  isExpanded.value = false
+  // isDeleting = true
   setTimeout(() => {
+    if (!store.languages) return
     const newPhonemes: { [id: string]: Phoneme; } = { }
-    for (const phoneme of Object.values(store.languages.data.phonemes).filter(x => x.id !== props.id)) {
+    for (const phoneme of Object.values(store.languages.data.phonemes).filter(x => x.id !== props.row.id)) {
       newPhonemes[phoneme.id] = phoneme
     }
     store.languages.data.phonemes = newPhonemes
-  }, 300)
+  }, 0)
 }
+
 </script>
 
 <template>
@@ -38,9 +52,9 @@ function deleteSelf () {
     <q-td auto-width style="padding: 0.5rem">
       <q-btn
         size="sm" color="accent" round dense
-        @click="toggle"
+        @click="toggleRowExpansionInternal"
         icon="chevron_right"
-        :class="{ rotate: isExpanded }"
+        :class="{ rotate: isRowExpandedInternal() }"
         class="can-rotate"
       />
     </q-td>
@@ -49,14 +63,16 @@ function deleteSelf () {
       :key="col.name"
     >
       {{ col.value }}
+      <q-popup-edit v-model="col.name" title="Update calories" buttons v-slot="scope">
+        <q-input type="number" v-model="scope.value" dense autofocus />
+      </q-popup-edit>
     </q-td>
   </q-tr>
   <transition
     name="fade"
     @after-enter="isChildExpanded = true"
-    @after-leave="isChildExpanded = false"
   >
-    <q-tr v-if="isExpanded" :props="props" style="height: 2.5rem">
+    <q-tr v-if="isRowExpandedInternal()" :props="props" style="height: 2.5rem">
       <q-td auto-width style="padding: 0.5rem">
         <transition
           name="slide"
