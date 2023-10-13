@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import PhonemeRow from './PhonemeRow.vue'
+import NewPhonemeRow from './NewPhonemeRow.vue'
 import { PropType, Ref, ref } from 'vue'
 import type { Description, FeatureCategory, PhoneType, Phoneme } from '../../common/commonTypes'
 
@@ -103,17 +104,10 @@ function featureStopValueDesc (phoneme: Phoneme, featureCategory: FeatureCategor
       >
 
       <template v-slot:header>
-        <q-tr>
-          <q-td auto-width style="padding: 0.5rem">
-            <q-btn size="sm" color="primary" round dense icon="add" />
-          </q-td>
-          <q-td>
-            New IPA
-          </q-td>
-          <q-td v-for="feature in phoneType.features" :key="feature.id">
-            New Value
-          </q-td>
-        </q-tr>
+
+        <NewPhonemeRow
+          :phone-type-id="phoneType.id"
+        />
       </template>
 
       <template v-slot:top-row>

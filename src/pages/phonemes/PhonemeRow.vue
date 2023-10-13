@@ -73,7 +73,7 @@ onBeforeUpdate(() => {
       "
     >
       <q-btn
-        size="sm" color="accent" round dense
+        size="sm" color="info" text-color="black" round dense
         @click="toggleRowExpansionInternal"
         icon="chevron_right"
         :class="{ rotate: isRowExpandedInternal(), 'can-rotate': !isDeleting && !recycling }"
