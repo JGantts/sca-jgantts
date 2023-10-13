@@ -161,7 +161,7 @@ function newPhoneme () {
 }
 
 .third {
-  top: 96px;
+  top: 0;
   background-color: var(--q-primary);
 }
 

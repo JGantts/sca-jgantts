@@ -12,20 +12,15 @@ const props = defineProps({
 </script>
 
 <template>
-<q-tr class="myclass">
-  <q-td />
-  <q-td style="border-style: dotted;">
-    IPA
-  </q-td>
-  <q-td v-for="feature in phoneType.features" :key="feature.id">
-    {{ feature.desc }}
-  </q-td>
-</q-tr>
-<q-tr>
-  <q-td colspan="100%" :style="{ height: '1px', padding: '0', 'padding-left': '10px', 'padding-right': '10px', }">
-    <hr style="width: 100%;"/>
-  </q-td>
-</q-tr>
+  <q-tr class="myclass">
+    <q-td />
+    <q-td style="border-style: dotted;">
+      IPA
+    </q-td>
+    <q-td v-for="feature in phoneType?.features" :key="feature.id">
+      {{ feature.desc }}
+    </q-td>
+  </q-tr>
 </template>
 
 <style>
