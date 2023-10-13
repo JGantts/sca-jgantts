@@ -3,6 +3,7 @@ import PhonemeRow from './PhonemeRow.vue'
 import NewPhonemeRow from './NewPhonemeRow.vue'
 import { PropType, Ref, ref } from 'vue'
 import type { Description, FeatureCategory, PhoneType, Phoneme } from '../../common/commonTypes'
+import TopAndBottomRow from './TopAndBottomRows.vue'
 
 import { useLangueageStore } from '../../stores/languages-store'
 
@@ -14,11 +15,6 @@ const props = defineProps({
     required: true,
   },
 })
-
-function capitalizeFirstLetter (string: string|null): string {
-  if (!string) return ''
-  return string.charAt(0).toUpperCase() + string.slice(1)
-}
 
 function featureCategoryToColumns (cats: FeatureCategory[]): {
   name: string,
@@ -54,12 +50,6 @@ function isRowExpanded (rowId: string) {
   return expandedRows.value.includes(rowId)
 }
 
-function isRowLast (row: unknown) {
-  const lastRowIndex = (paginations[row.typeID].page - 1) * paginations[row.typeID].rowsPerPage + paginations[row.typeID].rowsPerPage - 1
-  const unsortedData = Object.values(store.languages.data.phonemes).filter(x => x.typeID === row.typeID)
-  return unsortedData.indexOf(row) === lastRowIndex || unsortedData.indexOf(row) === unsortedData.length - 1
-}
-
 function toggleRowExpansion (rowId: string) {
   if (isRowExpanded(rowId)) {
     const index = expandedRows.value.indexOf(rowId)
@@ -71,15 +61,10 @@ function toggleRowExpansion (rowId: string) {
   }
 }
 
-const paginations: {
-  [id: string] : {
-  sortBy: string,
-  descending: boolean,
-  page: number,
-  rowsPerPage: number,
-  rowsNumber: number
-} }
-= {}
+const pagation
+= {
+  rowsPerPage: 0,
+}
 
 const expandedRows: Ref<string[]> = ref([])
 
@@ -90,41 +75,38 @@ function featureStopValueDesc (phoneme: Phoneme, featureCategory: FeatureCategor
     )[0]?.stopId,
   )[0]?.desc
 }
+
+const rows: Ref<Phoneme[]> = ref([])
+
+function updateRows () {
+  rows.value = store.languages ? Object.values(store.languages.data.phonemes).filter(x => x.typeID === props.phoneType.id) : []
+}
+
+updateRows()
+
+function newPhoneme () {
+  updateRows()
+}
 </script>
 
 <template>
-      <div class="q-pa-md">
-      <q-table
-        :title="capitalizeFirstLetter(phoneType.desc)"
-        :rows="store.languages ? Object.values(store.languages.data.phonemes).filter(x => x.typeID === phoneType.id) : []"
-        :columns="featureCategoryToColumns(phoneType.features)"
-        row-key="id"
-        separator="none"
-        v-model:pagination="paginations[phoneType.id]"
-      >
-
-      <template v-slot:header>
-
-        <NewPhonemeRow
-          :phone-type-id="phoneType.id"
-        />
-      </template>
+  <div style="padding: 0;">
+    <q-table
+      class="my-sticky-header-table"
+      :rows="rows"
+      :columns="featureCategoryToColumns(phoneType.features)"
+      row-key="id"
+      separator="none"
+      hide-header
+      hide-bottom
+      v-model:pagination="pagation"
+    >
 
       <template v-slot:top-row>
-        <q-tr>
-          <q-td />
-          <q-td style="border-style: dotted;">
-            IPA
-          </q-td>
-          <q-td v-for="feature in phoneType.features" :key="feature.id">
-            {{ feature.desc }}
-          </q-td>
-        </q-tr>
-        <q-tr>
-          <q-td colspan="100%" :style="{ height: '1px', padding: '0', 'padding-left': '10px', 'padding-right': '10px', }">
-            <hr style="width: 100%;"/>
-          </q-td>
-        </q-tr>
+        <TopAndBottomRow
+          class="myclass third"
+          :phone-type="phoneType"
+        />
       </template>
 
       <template v-slot:body="props">
@@ -133,10 +115,59 @@ function featureStopValueDesc (phoneme: Phoneme, featureCategory: FeatureCategor
           :row="props.row"
           :is-row-expanded="isRowExpanded"
           :toggle-row-expansion="toggleRowExpansion"
-          :is-row-last="isRowLast"
         />
       </template>
 
-      </q-table>
-    </div>
+      <template v-slot:bottom-row>
+        <NewPhonemeRow
+          class="myclass bottom"
+          :phone-type-id="phoneType.id"
+          @new-phoneme="newPhoneme"
+        />
+      </template>
+
+    </q-table>
+  </div>
 </template>
+
+<style>
+.my-sticky-header-table {
+  /* height or max-height is important */
+  height: calc(100vh - 2.5rem - 3rem - 2*0.3rem);
+  /* this is when the loading indicator appears */
+  /* prevent scrolling behind sticky top row on focus */ }
+  .my-sticky-header-table .q-table__top,
+  .my-sticky-header-table .q-table__bottom,
+  .my-sticky-header-table thead tr:first-child th {
+    /* bg color is important for th; just specify one */
+    background-color: var(--q-primary);
+  }
+  .my-sticky-header-table thead tr th {
+    position: sticky;
+    z-index: 1; }
+  .my-sticky-header-table thead tr:first-child th {
+    top: 0; }
+  .my-sticky-header-table.q-table--loading thead tr:last-child th {
+    /* height of all previous header rows */
+    top: 48px; }
+  .my-sticky-header-table tbody {
+    /* height of all previous header rows */
+    scroll-margin-top: 48px; }
+
+.myclass {
+  position: sticky;
+  z-index: 1;
+  background-color: var(--q-primary);
+}
+
+.third {
+  top: 96px;
+  background-color: var(--q-primary);
+}
+
+.bottom {
+  bottom: 0;
+  background-color: var(--q-primary);
+}
+
+</style>

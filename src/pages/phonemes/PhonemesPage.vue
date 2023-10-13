@@ -1,19 +1,50 @@
 <script setup lang="ts">
 
+import { ref } from 'vue'
 import { useLangueageStore } from '../../stores/languages-store'
 
 import PhonesCategory from './PhonemesCategory.vue'
 
 const store = useLangueageStore()
+
+const tab = ref(Object.values(store.languages?.data.phoneTypes ?? {})[0]?.id ?? '')
 </script>
 
 <template>
-  <div
+  <q-tabs
+    v-model="tab"
+    class="text-teal"
+    animated
+    style="height: 2.5rem;"
+  >
+    <q-tab
+      v-for="phoneType in store.languages?.data.phoneTypes"
+      :key="phoneType.id"
+      :name="phoneType.id ?? ''"
+      :label="phoneType.desc ?? ''"
+    />
+  </q-tabs>
+  <q-tab-panels
+    v-model="tab"
+    animated
     v-for="phoneType in store.languages?.data.phoneTypes"
     :key="phoneType.id"
+    :name="phoneType.id"
+    style="
+      padding: 0;
+      height: calc(100%-2.5rem);
+    "
   >
-    <PhonesCategory :phone-type="phoneType" />
-  </div>
+    <q-tab-panel
+      :name="phoneType.id"
+      style="
+        padding: 0.3rem;
+        height: 100%
+      "
+    >
+      <PhonesCategory :phone-type="phoneType" />
+    </q-tab-panel>
+  </q-tab-panels>
 </template>
 
 <style scoped>

@@ -38,10 +38,6 @@ function featureStop () {
     }
   }
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-  console.log(phoneme())
-  console.log(phoneme()!.featureStops)
-  console.log(phoneme()!.featureStops.filter(x => x.categoryId === props.featureCategory))
-  console.log(phoneme()!.featureStops.filter(x => x.categoryId === props.featureCategory)[0])
   return phoneme()!.featureStops.filter(x => x.categoryId === props.featureCategory)[0]
 }
 

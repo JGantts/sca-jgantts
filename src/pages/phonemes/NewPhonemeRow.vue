@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { defineProps, ref } from 'vue'
 import { useLangueageStore } from '../../stores/languages-store'
-import { FeatureStop, Phoneme } from 'src/common/commonTypes'
+import { FeatureStop } from 'src/common/commonTypes'
 import PhonemeFeature from './PhonemeFeature.vue'
 const store = useLangueageStore()
 
@@ -9,15 +9,13 @@ const props = defineProps({
   phoneTypeId: String,
 })
 
-const featuresComponents = ref(null)
+const emit = defineEmits([
+  'new-phoneme',
+])
 
 const allIsSet = ref(false)
 
 function allSet () {
-  console.log(featureStops)
-  console.log(Object.values(featureStops))
-  console.log(Object.values(featureStops).filter(x => x === null))
-  console.log(Object.values(featureStops).filter(x => x === null).length === 0)
   return Object.values(featureStops).filter(x => x === null).length === 0
 }
 
@@ -27,8 +25,6 @@ function addSelf () {
   if (!allSet()) return
   const featureStopsAsStops = featureStopsTemp as FeatureStop[]
   const newId = crypto.randomUUID()
-  console.log(featureStopsAsStops)
-  console.log(featuresComponents.value)
   store.languages.data.phonemes[newId] = {
     id: newId,
     typeID: props.phoneTypeId ?? '',
@@ -37,6 +33,7 @@ function addSelf () {
     IPA: ipa.value,
     featureStops: featureStopsAsStops,
   }
+  emit('new-phoneme')
 }
 
 function phoneType () {
@@ -46,15 +43,12 @@ function phoneType () {
 const ipa = ref('')
 
 function newStop (newStop: FeatureStop) {
-  console.log(featureStops)
-  console.log(newStop.categoryId)
   featureStops[newStop.categoryId] = newStop
   allIsSet.value = allSet()
 }
 
 const featureStops: { [id: string] : FeatureStop | null } = {}
 
-console.log(props.phoneTypeId)
 for (
   const feature
   of
@@ -62,7 +56,6 @@ for (
     ?.data.phoneTypes[props.phoneTypeId ?? '']
     .features ?? []
 ) {
-  console.log(feature)
   featureStops[feature.id] = null
 }
 

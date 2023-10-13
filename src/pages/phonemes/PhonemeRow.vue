@@ -17,7 +17,6 @@ const props = defineProps({
   },
   isRowExpanded: Function,
   toggleRowExpansion: Function,
-  isRowLast: Function,
 })
 
 const isChildExpanded = ref(isRowExpandedInternal())
@@ -35,11 +34,6 @@ function toggleRowExpansionInternal () {
   }
   props.toggleRowExpansion(props.row.id)
   isChildExpanded.value = false
-}
-
-function isRowLastInternal (row: unknown) {
-  if (!props.isRowLast) return false
-  return props.isRowLast(props.row)
 }
 
 let isDeleting = false
@@ -135,21 +129,6 @@ onBeforeUpdate(() => {
       </q-td>
     </q-tr>
   </transition>
-  <q-tr >
-    <q-td colspan="100%"
-      :style="{
-        height: '1px',
-        padding: '0',
-        'padding-left': '10px',
-        'padding-right': '10px',
-        opacity: '25%',
-      }"
-    >
-      <div v-if="!isRowLastInternal(row)">
-        <hr style="width: 100%;"/>
-      </div>
-    </q-td>
-  </q-tr>
 </template>
 
 <style scoped>

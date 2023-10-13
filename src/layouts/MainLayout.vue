@@ -10,7 +10,9 @@ const buildVersion: string = '2'
 
 <template>
   <q-layout view="hHh lpR fFf">
-    <q-header elevated>
+    <q-header
+      style="height: 3rem;"
+    >
       <q-toolbar>
         <q-btn
           flat
@@ -50,7 +52,7 @@ const buildVersion: string = '2'
     </q-drawer>
 
     <q-page-container>
-      <div style="padding: 2.5rem;">
+      <div >
         <router-view />
       </div>
     </q-page-container>
@@ -93,9 +95,9 @@ const essentialLinks: EssentialLinkProps[] = [
     link: 'phone-types',
   },
   {
-    title: 'Phones',
+    title: 'Phonemes',
     icon: 'draft',
-    link: 'phones',
+    link: 'phonemes',
   },
   {
     title: 'Graph',
