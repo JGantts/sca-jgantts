@@ -1,11 +1,12 @@
 <script setup lang="ts">
-import { defineProps, ref } from 'vue'
+import { defineProps, ref, watch } from 'vue'
 import { useLangueageStore } from '../../stores/languages-store'
 import { FeatureStop } from 'src/common/commonTypes'
 const store = useLangueageStore()
 
 const emit = defineEmits([
   'new-stop',
+  'enter-up',
 ])
 
 const props = defineProps({
@@ -18,6 +19,15 @@ const props = defineProps({
     isRequired: false,
   },
   featureCategory: String,
+  clearSignal: Boolean,
+  index: Number,
+})
+
+watch(() => props.clearSignal, (newVal) => {
+  if (newVal) {
+    stopId.value = ''
+    newValue('')
+  }
 })
 
 function phoneme () {
@@ -81,17 +91,29 @@ function newValue (value: string) {
   }
   featureStop().stopId = value
 }
+
+function keyup (e: KeyboardEvent) {
+  if (
+    e.key === 'Enter'
+  ) {
+    emit('enter-up', {
+      featureCategory: props.featureCategory,
+      index: props.index,
+    })
+    e.preventDefault()
+  }
+}
 </script>
 
 <template>
-  <div>
-    <q-select filled dense outlined
-      v-model="stopId"
-      :label="featureCategoryName()"
-      :options="options()"
-      :option-value="opt => opt"
-      :option-label="featureStopName"
-      @update:model-value="newValue"
-    />
-  </div>
+  <q-select filled dense outlined
+    v-model="stopId"
+    :label="featureCategoryName()"
+    :options="options()"
+    :option-value="opt => opt"
+    :option-label="featureStopName"
+    @update:model-value="newValue"
+    @keyup="keyup"
+    bg-color="secondary"
+  />
 </template>

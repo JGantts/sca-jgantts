@@ -5,7 +5,7 @@ import type { PhoneType } from '../../common/commonTypes'
 const props = defineProps({
   phoneType: {
     type: Object as PropType<PhoneType>,
-    required: true,
+    required: false,
   },
 })
 

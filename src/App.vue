@@ -19,6 +19,10 @@ window.addEventListener('popstate', function (_event: PopStateEvent) {
   }
 }) */
 
+window.addEventListener('beforeunload', function (event) {
+  event.returnValue = 'You have unsaved changes. Are you sure you want to leave this page?'
+})
+
 import { useQuasar } from 'quasar'
 
 const $q = useQuasar()
