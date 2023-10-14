@@ -4,8 +4,8 @@
 /// ////////// ///
 const majorVersion: string = '0'
 const minorVersion: string = '1'
-const betaVersion: string = '2'
-const buildVersion: string = '4'
+const betaVersion: string = '3'
+const buildVersion: string = '0'
 </script>
 
 <template>
