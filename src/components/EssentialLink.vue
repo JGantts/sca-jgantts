@@ -4,10 +4,10 @@
     :label="title"
   >
     <q-item
-      :active="$route.matched.some(({ path }) => {
-        path === '/'+link
-        || (path === '/' && link == './')
-      })"
+      :active="
+        $route.path === '/'+link
+        || ($route.path === '/' && link == './')
+      "
     >
       <q-item-section
         v-if="icon"
