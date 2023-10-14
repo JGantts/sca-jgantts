@@ -19,7 +19,9 @@ const allIsSet = ref(false)
 function allSet () {
   return (
     Object.values(featureStops)
-      .filter(x => x === null)
+      .filter(x => {
+        return x === null || x.stopId === ''
+      })
       .length
       === 0
     && ipa.value !== '')

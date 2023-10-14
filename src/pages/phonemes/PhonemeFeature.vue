@@ -23,8 +23,8 @@ const props = defineProps({
   index: Number,
 })
 
-watch(() => props.clearSignal, (newVal) => {
-  if (newVal) {
+watch(() => props.clearSignal, (clear) => {
+  if (clear) {
     stopId.value = ''
     newValue('')
   }
