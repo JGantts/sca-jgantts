@@ -133,7 +133,7 @@ function newPhoneme () {
 <style>
 .my-sticky-header-table {
   /* height or max-height is important */
-  height: calc(100dvh - 2.5rem - 3rem - 2*0.3rem);
+  height: calc(100dvh - 2.5rem - 3rem);
   /* this is when the loading indicator appears */
   /* prevent scrolling behind sticky top row on focus */ }
   .my-sticky-header-table .q-table__top,

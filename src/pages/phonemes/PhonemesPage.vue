@@ -13,15 +13,13 @@ const tab = ref(Object.values(store.languages?.data.phoneTypes ?? {})[0]?.id ?? 
 <template>
   <q-tabs
     v-model="tab"
-    class="text-teal"
-    animated
-    style="height: 2.5rem;"
   >
     <q-tab
       v-for="phoneType in store.languages?.data.phoneTypes"
       :key="phoneType.id"
       :name="phoneType.id ?? ''"
       :label="phoneType.desc ?? ''"
+      style="height: 2.5rem"
     />
   </q-tabs>
   <q-tab-panels
@@ -38,7 +36,7 @@ const tab = ref(Object.values(store.languages?.data.phoneTypes ?? {})[0]?.id ?? 
     <q-tab-panel
       :name="phoneType.id"
       style="
-        padding: 0.3rem;
+        padding: 0;
         height: 100%
       "
     >
